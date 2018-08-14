@@ -228,6 +228,7 @@ div {
 #portfolio {
   display: flex;
   height: 100%;
+  width: 100%;
   max-width: 100%;
   justify-content: space-around;
   align-items: center;
@@ -242,21 +243,21 @@ div {
   height: 250px;
   min-width: 250px;
   max-width: 250px;
-  background-color: green;
-  transition: 0.2s ease-in-out;
+  transition: 1s ease-in-out;
+  background-color: #484a46;
   flex-direction: row;
   align-items: center;
   overflow: hidden;
 }
 
 .portfolioBox:hover {
-  background-color: white;
+  background-color: #575954;
 }
 
 .img1stHalf {
   width: 125px;
   height: 250px;
-  transition: 0.5s ease-in-out;
+  transition: 0.25s ease-in-out;
   transform: translateX(0);
 }
 
@@ -264,14 +265,37 @@ div {
   margin-left: 125px;
   width: 125px;
   height: 250px;
-  transition: 0.5s ease-in-out;
+  transition: 0.25s ease-in-out;
   transform: translateX(0);
 }
 
-.img1stHalf .reveal {
+.open-left {
   transform: translateX(-125px);
 }
 
-.img2ndHalf .reveal {
+.open-right {
   transform: translateX(125px);
+}
+
+.portfolioInfo {
+  visibility: hidden;
+
+}
+
+.portfolioBtn {
+  visibility: hidden;
+
+}
+
+.portfolioDesc {
+  visibility: hidden;
+
+}
+
+.portfolioTechContainer {
+
+}
+
+.portfolioTechItem {
+
 }
