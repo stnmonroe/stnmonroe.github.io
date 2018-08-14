@@ -1,6 +1,7 @@
 var menuBall = document.getElementById('menuBall');
 var menuDrawer = document.getElementById('menuDrawer');
 var menuItems = document.getElementsByClassName('menuItemConatiner');
+var socialContainer = document.getElementById('socialContainer');
 var lastScrollTop = 0;
 
 //Click anywhere except on menu to close menuDrawer
@@ -14,6 +15,7 @@ document.addEventListener('click', (event) => {
     for(var i=0; i < menuItems.length; i++) {
       menuItems[i].classList.remove("open");
     }
+    socialContainer.classList.remove("open");
   }
 })
 
@@ -41,6 +43,9 @@ menuBall.addEventListener("click", () => {
   for(var i=0; i < menuItems.length; i++) {
     menuItems[i].classList.toggle("open");
   }
+  setTimeout(() => {
+    socialContainer.classList.toggle("open");
+  }, 500)
 });
 
 

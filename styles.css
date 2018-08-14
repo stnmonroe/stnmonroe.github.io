@@ -1,11 +1,12 @@
-body {
+html, body {
   font-family: 'Open Sans', Helvetica, Arial,
     'Lucida Grande', sans-serif;
   font-weight: 300;
   font-size: 16px;
   margin: 0;
   padding: 0;
-  width: 100%
+  width: 100%;
+  overflow-x: hidden;
 }
 
 div {
@@ -17,12 +18,12 @@ p {
 }
 
 .mainContainer {
-  position: fixed;
+  position: relative;
 }
 
 #menuBall {
-  background-color: #3b92fd;
-  display: absolute;
+  background-color: olive;
+  position: fixed;
   border-radius: 50%;
   margin: 20px 20px;
   height: 40px;
@@ -150,8 +151,8 @@ p {
 #menuDrawer {
   visibility: hidden;
   border-radius: 5px;
-  position: absolute;
-  background-color: #3b92fd;
+  position: fixed;
+  background-color: olive;
   top: 10px;
   left: 10px;
   width: 1px;
@@ -172,8 +173,8 @@ p {
 
 #menuDrawer.open {
   visibility: visible;
-  height: 400px;
-  width: 200px;
+  height: 330px;
+  width: 170px;
   -webkit-transition: 0.25s ease-in-out;
   -moz-transition: 0.25s ease-in-out;
   -o-transition: 0.25s ease-in-out;
@@ -212,18 +213,35 @@ p {
   cursor: pointer;
 }
 
-.socialContainer {
-  flex: 1;
+#socialContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  transition: 0.5s ease-in-out;
+  transform: translateY(50px);
 }
 
-.background {
-  overflow: scroll;
+#socialContainer.open {
+  transform: translateY(0);
+}
+
+#socialContainer img {
+  height: 35px;
+  width: 35px;
+  transition: 0.2s ease-in-out;
+}
+
+#socialContainer img:hover {
+  transform: scale(1.2);
+  cursor: pointer;
 }
 
 .content {
   position: relative;
   display: flex;
   width: 100vw;
+  max-width: 100%;
   height: 100vh;
   justify-content: center;
   align-items: center;
@@ -238,8 +256,6 @@ p {
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 50px;
-  overflow: scroll;
 }
 
 .portfolioBox {
@@ -408,7 +424,13 @@ p {
 }
 
 @media (max-width: 524px) {
+  #portfolioContainer.content {
+    position: relative;
+    overflow: hidden;
+    height: 1100px;
+  }
+
   #portfolio {
-    max-height: 100%;
+    max-height: 1200px;
   }
 }
