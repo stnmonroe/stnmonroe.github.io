@@ -1,0 +1,277 @@
+body {
+  font-family: 'Open Sans', Helvetica, Arial,
+    'Lucida Grande', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  width: 100%
+}
+
+div {
+  position: absolute;
+}
+
+.mainContainer {
+  position: fixed;
+}
+
+#menuBall {
+  background-color: #3b92fd;
+  display: absolute;
+  border-radius: 50%;
+  margin: 20px 20px;
+  height: 40px;
+  width: 40px;
+  box-shadow: 1px 2px 3px #484a46;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  z-index: 2;
+}
+
+#menuBall:hover {
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  box-shadow: 4px 7px 10px #484a46;
+}
+
+#menuBall.offScreen {
+  transform: translateY(-100px);
+}
+
+#menuBall.open:hover {
+  transform: scale(0.9);
+  box-shadow: 0.5px 0.5px 1px #484a46;
+}
+
+#menuBall span {
+  background-color: white;
+  height: 4px;
+  width: 15px;
+  display: block;
+  margin-bottom: 4px;
+  position: absolute;
+  opacity: 1;
+  -webkit-transform: rotate(0deg) translate(0,0);
+  -moz-transform: rotate(0deg) translate(0,0);
+  -o-transform: rotate(0deg) translate(0,0);
+  transform: rotate(0deg) translate(0,0);
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
+}
+
+#menuBall span:nth-child(odd) {
+  border-radius: 3px 0 0 3px;
+  right: 49%;
+}
+
+#menuBall span:nth-child(1) {
+  top: 10px;
+}
+
+#menuBall span:nth-child(3) {
+  top: 18px;
+}
+
+#menuBall span:nth-child(5) {
+  top: 26px;
+}
+
+#menuBall span:nth-child(even) {
+  border-radius: 0 3px 3px 0;
+  left: 49%;
+}
+
+#menuBall span:nth-child(2) {
+  top: 10px;
+}
+
+#menuBall span:nth-child(4) {
+  top: 18px;
+}
+
+#menuBall span:nth-child(6) {
+  top: 26px;
+}
+
+#menuBall.open {
+  background-color: red;
+}
+
+#menuBall.open span:nth-child(1) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg) translate(3.5px, 0px);
+}
+
+#menuBall.open span:nth-child(6) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg) translate(-3.5px, 0px);
+}
+
+#menuBall.open span:nth-child(2) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg) translate(-3.5px, 0px);
+}
+
+#menuBall.open span:nth-child(5) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg) translate(3.5px, 0px);
+}
+
+#menuBall.open span:nth-child(3) {
+  opacity: 0;
+  right: 15%
+}
+
+#menuBall.open span:nth-child(4) {
+  opacity: 0;
+  left: 15%
+}
+
+#menuDrawer {
+  visibility: hidden;
+  border-radius: 5px;
+  position: absolute;
+  background-color: #3b92fd;
+  top: 10px;
+  left: 10px;
+  width: 1px;
+  height: 4px;
+  -webkit-transition: 0.15s ease-in-out;
+  -moz-transition: 0.15s ease-in-out;
+  -o-transition: 0.15s ease-in-out;
+  transition: 0.15s ease-in-out;
+  box-shadow: 2px 2px 12px #484a46;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 20px;
+  z-index: 1;
+  margin: 20px 20px
+}
+
+#menuDrawer.open {
+  visibility: visible;
+  height: 400px;
+  width: 200px;
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;
+}
+
+#menuDrawer div {
+  position: relative;
+  visibility: hidden;
+  flex: 1;
+  color: white;
+  opacity: 0;
+  transition-delay: 0s;
+  -webkit-transition: 0.1s ease-in-out;
+  -moz-transition: 0.1s ease-in-out;
+  -o-transition: 0.1s ease-in-out;
+  transition: 0.1s ease-in-out;
+}
+
+#menuDrawer div.open {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0.3s;
+  transition: opacity 1s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#menuDrawer p {
+  transform: scale(1) translateX(0);
+  transition: 0.2s;
+  font-size: 1.5em;
+}
+
+#menuDrawer p:hover {
+  transform: scale(1.2) translateX(-10px);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.socialContainer {
+  flex: 1;
+}
+
+.background {
+
+}
+
+.content {
+  position: relative;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#portfolio {
+  display: flex;
+  height: 100%;
+  max-width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.portfolioBox {
+  position: relative;
+  flex: 1;
+  border-radius: 30px;
+  height: 250px;
+  min-width: 250px;
+  max-width: 250px;
+  background-color: green;
+  transition: 0.2s ease-in-out;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+}
+
+.portfolioBox:hover {
+  background-color: white;
+}
+
+.img1stHalf {
+  width: 125px;
+  height: 250px;
+  transition: 0.5s ease-in-out;
+  transform: translateX(0);
+}
+
+.img2ndHalf {
+  margin-left: 125px;
+  width: 125px;
+  height: 250px;
+  transition: 0.5s ease-in-out;
+  transform: translateX(0);
+}
+
+.img1stHalf .reveal {
+  transform: translateX(-125px);
+}
+
+.img2ndHalf .reveal {
+  transform: translateX(125px);
+}
