@@ -1,8 +1,9 @@
-var menuBall = document.getElementById('menuBall');
-var menuDrawer = document.getElementById('menuDrawer');
-var menuItems = document.getElementsByClassName('menuItemConatiner');
-var socialContainer = document.getElementById('socialContainer');
-var lastScrollTop = 0;
+const menuBall = document.getElementById('menuBall');
+const menuDrawer = document.getElementById('menuDrawer');
+const menuItems = document.getElementsByClassName('menuItemConatiner');
+const socialContainer = document.getElementById('socialContainer');
+let lastScrollTop = 0;
+const contents = document.getElementsByClassName("content");
 
 //Click anywhere except on menu to close menuDrawer
 document.addEventListener('click', (event) => {
@@ -22,9 +23,17 @@ document.addEventListener('click', (event) => {
 window.onload = () => {
   setTimeout( () => {
     menuBall.classList.remove("offScreen");
-  }, 700)
+  }, 2500)
 
+  initialAnimation();
   createPortfolioBoxes();
+}
+
+initialAnimation = () => {
+  const kids = document.getElementById("initial").children;
+  for(let i = 0; i < kids.length; i++) {
+    kids[i].classList.add("in");
+  }
 }
 
 var createSpans = num => {
@@ -43,14 +52,42 @@ menuBall.addEventListener("click", () => {
   for(var i=0; i < menuItems.length; i++) {
     menuItems[i].classList.toggle("open");
   }
+
   if (socialContainer.classList.contains("open")) {
     socialContainer.classList.remove("open");
   } else {
     setTimeout(() => {
-      socialContainer.classList.add("open");
+      if (menuDrawer.classList.contains("open")) {
+        socialContainer.classList.add("open");
+      }
     }, 500)
   }
+  checkLocationForMenu();
+  //Scroll to location when menuItem is clicked
+  for (let i = 0; i < menuItems.length; i++) {
+    menuItems[i].addEventListener("click", (event) => {
+      let e = event.target || event.srcElement;
+      if (e.textContent === "portfolio") {
+        document.getElementById("portfolio").scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      } else if (e.textContent === "about me") {
+        //TODO
+      } else {
+        //TODO
+      }
+    })
+  }
 });
+
+checkLocationForMenu = () => {
+  for(let i = 0; i < contents.length; i++) {
+    console.log(contents[i].getBoundingClientRect());
+    let box = contents[i].getBoundingClientRect();
+    // if (box.height/2 )
+  }
+}
 
 
 //Create portfolio boxes
