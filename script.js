@@ -43,9 +43,13 @@ menuBall.addEventListener("click", () => {
   for(var i=0; i < menuItems.length; i++) {
     menuItems[i].classList.toggle("open");
   }
-  setTimeout(() => {
-    socialContainer.classList.toggle("open");
-  }, 500)
+  if (socialContainer.classList.contains("open")) {
+    socialContainer.classList.remove("open");
+  } else {
+    setTimeout(() => {
+      socialContainer.classList.add("open");
+    }, 500)
+  }
 });
 
 

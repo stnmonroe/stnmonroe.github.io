@@ -218,12 +218,13 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  transition: 0.5s ease-in-out;
+  transition: 0.15s ease-in-out;
   transform: translateY(50px);
 }
 
 #socialContainer.open {
   transform: translateY(0);
+  transition: 0.2s ease-in-out;
 }
 
 #socialContainer img {
@@ -421,6 +422,10 @@ p {
   transform: scale(1.1);
   color: #3b92fd;
   cursor: pointer;
+}
+
+#initial {
+  background-color: lightgreen;
 }
 
 @media (max-width: 524px) {
