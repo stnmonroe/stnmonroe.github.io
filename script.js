@@ -27,6 +27,10 @@ window.onload = () => {
 
   initialAnimation();
   createPortfolioBoxes();
+  createStars();
+  setTimeout(() => {
+    setInterval(() => createStars(), 8000);
+  }, 4000)
 }
 
 initialAnimation = () => {
@@ -245,3 +249,26 @@ setTimeout(() => {
     portfolioBoxes[i].addEventListener('mouseleave', closePortfolioBox);
   }
 }, 1000)
+
+createStars = () => {
+  const elem = document.getElementById("stars");
+  const box = elem.getBoundingClientRect();
+  elem.width = box.width;
+  elem.height = box.height;
+  let num = 1200;
+
+  var c = elem.getContext('2d');
+
+  for(let i = 0; i < num; i++) {
+    const a = Math.random() * 2 * Math.PI;
+    const R = box.width >= box.height ? box.height : box.width;
+    const r = R * Math.sqrt(Math.random());
+    const y = r * Math.sin(a);
+    const x = r * Math.cos(a);
+
+    c.beginPath();
+    c.arc(x, y, Math.random() * 2, 0, Math.PI * 2);
+    c.fillStyle = 'white';
+    c.fill();
+  }
+}
