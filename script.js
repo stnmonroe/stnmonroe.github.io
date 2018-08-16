@@ -28,9 +28,6 @@ window.onload = () => {
   initialAnimation();
   createPortfolioBoxes();
   createStars();
-  setTimeout(() => {
-    setInterval(() => createStars(), 8000);
-  }, 4000)
 }
 
 initialAnimation = () => {
@@ -64,7 +61,7 @@ menuBall.addEventListener("click", () => {
       if (menuDrawer.classList.contains("open")) {
         socialContainer.classList.add("open");
       }
-    }, 500)
+    }, 250)
   }
   checkLocationForMenu();
   //Scroll to location when menuItem is clicked
@@ -250,25 +247,228 @@ setTimeout(() => {
   }
 }, 1000)
 
+
+//CANVAS ANIMATIONS FOR STARS, SHOOTINGSTARS, & PLANETS
+const canvas = document.getElementById("stars");
+const box = canvas.getBoundingClientRect();
+canvas.width = box.width;
+canvas.height = box.height;
+let maxStarSize = 3;
+let numStars = 500;
+
+var c = canvas.getContext('2d');
+
+function Star(x, y, size, dx, dy) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.dx = dx;
+    this.dy = Math.random() > 0.49 ? dy : -dy;
+
+    this.draw = () => {
+        c.beginPath();
+        c.shadowBlur = this.size * 5;
+        c.shadowColor = "white";
+        c.arc(this.x, this.y, size, 0, Math.PI * 2);
+        c.fillStyle = 'white';
+        c.fill();
+        c.closePath();
+    }
+
+    this.update = () => {
+      this.x += this.dx;
+      this.y += this.dy;
+      this.draw();
+    }
+}
+
+let starArray = [];
+
+for (let i = 0; i < numStars; i++) {
+  let x = Math.random() * box.width - 50;
+  let y = Math.random() * box.height;
+  let size = Math.random() * maxStarSize + 0.2;
+  let dx = Math.random() * (size/3) + 1;
+  let dy = Math.random() * (size/10);
+  starArray.push(new Star(x, y, size, dx, dy));
+}
+
+function ShootingStar(x, y, size, dx, dy, fill) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.dx = dx;
+    this. dy = dy;
+    this.fill = fill;
+
+    this.draw = () => {
+        c.beginPath();
+        c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        c.fillStyle = fill;
+        c.fill();
+        c.closePath();
+    }
+
+    this.update = () => {
+        this.x += this.dx;
+        this.y += this.dy;
+        this.draw();
+    }
+}
+
+let shootingStarArray = [];
+
+function Planet(x, y, fill) {
+    this.x = x;
+    this.y = y;
+    this.size = 5;
+    this.dx = this.size;
+    this.fill = fill;
+
+    this.draw = () => {
+        c.beginPath();
+        c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        c.fillStyle = "red";
+        c.fill();
+        c.closePath();
+    }
+
+    this.grow = (growth) => {
+      this.size = growth;
+      this.dx = growth/5;
+      this.draw();
+    }
+
+    this.update = () => {
+        this.x += this.dx;
+        this.draw();
+    }
+}
+
+let planetArray = [];
+let planetGrow;
+let growing = false;
+let growth = 1;
+
+document.getElementById("portfolioContainer").addEventListener("mousedown", (e) => {
+    growing = true;
+    let fill = randomGradient();
+    planetArray.push(new Planet(e.x, e.y, fill));
+    planetGrow = setInterval(() => {
+        growth += (growth * 0.35);
+    }, 1)
+})
+
+document.addEventListener("mouseup", () => {
+    growing = false;
+    growth = 1;
+    clearInterval(planetGrow);
+});
+
+animate = () => {
+    if (Math.random() < 0.5) {
+        let x = -50;
+        let y = Math.random() * box.height;
+        let size = Math.random() * maxStarSize + 0.2;
+        let dx = Math.random() * (size/3) + 0.5;
+        let dy = Math.random() * (size/10);
+        starArray.push(new Star(x, y, size, dx, dy));
+    }
+    requestAnimationFrame(animate);
+    c.clearRect(0, 0, box.width, box.height);
+
+    if (shootingStarArray.length < 1) {
+        if (Math.random() < 0.1) {
+            let x = -50;
+            let y = Math.random() * box.height;
+            let size = Math.random() * maxStarSize + 2;
+            let tailLen = Math.floor(size) * 60;
+            let dx = Math.random() * (size) + 10;
+            let d = Math.random() < 0.5 ? -6 : 6;
+            let dy = Math.random() * (size * d);
+
+            for (let i = 0; i < tailLen; i++) {
+                let factor = (tailLen - i) / tailLen;
+                let fill = "rgba(255, 255, 255, " + (factor/2) + ")";
+                shootingStarArray.push(
+                  new ShootingStar(x-(i * dx/8), y-(i * dy/8), size * factor, dx, dy, fill)
+                );
+            }
+        }
+    } else {
+        for (let i = 0; i < shootingStarArray.length; i++) {
+            shootingStarArray[i].update();
+            if (i + 1 === shootingStarArray.length &&
+                shootingStarArray[i].x > box.width) {
+                  shootingStarArray = [];
+            }
+        }
+    }
+
+
+    for(let i = 0; i < starArray.length; i++) {
+        starArray[i].update();
+        starArray[i].x > box.width && starArray[i].pop;
+    }
+
+    if (planetArray.length > 0) {
+        for (let i = 0; i < planetArray.length; i++) {
+            if (i+1 === planetArray.length && growing) {
+                planetArray[i].grow(growth);
+            } else {
+                planetArray[i].update();
+                if (planetArray[i].x > box.width) {
+                    planetArray[i].pop;
+                }
+            }
+        }
+    }
+}
+
+animate();
+
 createStars = () => {
-  const elem = document.getElementById("stars");
-  const box = elem.getBoundingClientRect();
-  elem.width = box.width;
-  elem.height = box.height;
-  let num = 1200;
 
-  var c = elem.getContext('2d');
 
-  for(let i = 0; i < num; i++) {
-    const a = Math.random() * 2 * Math.PI;
-    const R = box.width >= box.height ? box.height : box.width;
-    const r = R * Math.sqrt(Math.random());
-    const y = r * Math.sin(a);
-    const x = r * Math.cos(a);
+  // for(let i = 0; i < num; i++) {
+  //   // const a = Math.random() * 2 * Math.PI;
+  //   // const R = box.width >= box.height ? box.height : box.width;
+  //   // const r = R * Math.sqrt(Math.random());
+  //   // const y = r * Math.sin(a);
+  //   // const x = r * Math.cos(a);
+  //
+  //   const x = canvas.width * Math.random();
+  //   const y = canvas.height * Math.random();
+  //
+  //   c.beginPath();
+  //   const size = Math.random() * 2;
+  //   c.shadowBlur = size * 10;
+  //   c.shadowColor = "white";
+  //   c.arc(x, y, Math.random() * 2, 0, Math.PI * 2);
+  //   c.fillStyle = 'white';
+  //   c.fill();
+  //
+  //
+  // }
+}
 
-    c.beginPath();
-    c.arc(x, y, Math.random() * 2, 0, Math.PI * 2);
-    c.fillStyle = 'white';
-    c.fill();
+randomGradient = () => {
+
+  var hexValues = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e"];
+
+  function populate(a) {
+    for ( var i = 0; i < 6; i++ ) {
+      var x = Math.round( Math.random() * 14 );
+      var y = hexValues[x];
+      a += y;
+    }
+    return a;
   }
+
+  var color1 = populate('#');
+  var color2 = populate('#');
+  var color3 = populate('#');
+  var angle = Math.round( Math.random() * 360 );
+  console.log("linear-gradient(" + angle + "deg, " + color1 + ", " + color2 + ", " + color3 + ")")
+  return "linear-gradient(" + angle + "deg, " + color1 + ", " + color2 + ", " + color3 + ")";
 }
