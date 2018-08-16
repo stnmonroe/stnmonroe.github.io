@@ -318,7 +318,7 @@ function ShootingStar(x, y, size, dx, dy, fill) {
 
 let shootingStarArray = [];
 
-function Planet(x, y, fill) {
+function Planet(x, y) {
     this.x = x;
     this.y = y;
     this.size = 5;
@@ -352,8 +352,7 @@ let growth = 1;
 
 document.getElementById("portfolioContainer").addEventListener("mousedown", (e) => {
     growing = true;
-    let fill = randomGradient();
-    planetArray.push(new Planet(e.x, e.y, fill));
+    planetArray.push(new Planet(e.x, e.y));
     planetGrow = setInterval(() => {
         growth += (growth * 0.35);
     }, 1)
@@ -452,7 +451,7 @@ createStars = () => {
   // }
 }
 
-randomGradient = () => {
+randomColor = () => {
 
   var hexValues = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e"];
 
@@ -465,10 +464,5 @@ randomGradient = () => {
     return a;
   }
 
-  var color1 = populate('#');
-  var color2 = populate('#');
-  var color3 = populate('#');
-  var angle = Math.round( Math.random() * 360 );
-  console.log("linear-gradient(" + angle + "deg, " + color1 + ", " + color2 + ", " + color3 + ")")
-  return "linear-gradient(" + angle + "deg, " + color1 + ", " + color2 + ", " + color3 + ")";
+  return populate("#");
 }
