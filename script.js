@@ -323,19 +323,27 @@ function Planet(x, y) {
     this.y = y;
     this.size = 5;
     this.dx = this.size;
-    this.fill = fill;
+    this.grd = c.createLinearGradient(this.x, this.y-this.size, this.x+this.size, y+this.size);
+
 
     this.draw = () => {
         c.beginPath();
         c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        c.fillStyle = "red";
+        c.fillStyle = this.grd;
         c.fill();
         c.closePath();
     }
 
     this.grow = (growth) => {
       this.size = growth;
-      this.dx = growth/5;
+      this.grd = c.createLinearGradient(0, 0, 0, box.height);
+      this.grd.addColorStop(0, randomColor());
+      this.grd.addColorStop(0.2, randomColor());
+      this.grd.addColorStop(0.5, randomColor());
+      this.grd.addColorStop(0.7, randomColor());
+      this.grd.addColorStop(0.85, randomColor());
+      this.grd.addColorStop(1, randomColor());
+      this.dx = growth > (box.height/5) ? 1000/growth : (growth/9) + 1;
       this.draw();
     }
 
@@ -352,9 +360,10 @@ let growth = 1;
 
 document.getElementById("portfolioContainer").addEventListener("mousedown", (e) => {
     growing = true;
+    growth > 1 ? growth = 0 : null;
     planetArray.push(new Planet(e.x, e.y));
     planetGrow = setInterval(() => {
-        growth += (growth * 0.35);
+        growth += (growth * 0.15);
     }, 1)
 })
 
