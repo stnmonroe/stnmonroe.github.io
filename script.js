@@ -21,13 +21,14 @@ document.addEventListener('click', (event) => {
 })
 
 window.onload = () => {
-  setTimeout( () => {
-    menuBall.classList.remove("offScreen");
-  }, 2500)
+    setTimeout( () => {
+      menuBall.classList.remove("offScreen");
+    }, 2500)
 
-  initialAnimation();
-  createPortfolioBoxes();
-  createStars();
+    initialAnimation();
+    createPortfolioBoxes();
+    createInitialStars();
+    animate();
 }
 
 initialAnimation = () => {
@@ -69,9 +70,9 @@ menuBall.addEventListener("click", () => {
     menuItems[i].addEventListener("click", (event) => {
       let e = event.target || event.srcElement;
       if (e.textContent === "portfolio") {
-        document.getElementById("portfolio").scrollIntoView({
+        document.getElementById("portfolioContainer").scrollIntoView({
           behavior: "smooth",
-          block: "center"
+          block: "start"
         });
       } else if (e.textContent === "about me") {
         //TODO
@@ -84,7 +85,6 @@ menuBall.addEventListener("click", () => {
 
 checkLocationForMenu = () => {
   for(let i = 0; i < contents.length; i++) {
-    console.log(contents[i].getBoundingClientRect());
     let box = contents[i].getBoundingClientRect();
     // if (box.height/2 )
   }
@@ -284,13 +284,15 @@ function Star(x, y, size, dx, dy) {
 
 let starArray = [];
 
-for (let i = 0; i < numStars; i++) {
-  let x = Math.random() * box.width - 50;
-  let y = Math.random() * box.height;
-  let size = Math.random() * maxStarSize + 0.2;
-  let dx = Math.random() * (size/3) + 1;
-  let dy = Math.random() * (size/10);
-  starArray.push(new Star(x, y, size, dx, dy));
+createInitialStars = () => {
+  for (let i = 0; i < numStars; i++) {
+    let x = Math.random() * box.width - 50;
+    let y = Math.random() * box.height;
+    let size = Math.random() * maxStarSize + 0.2;
+    let dx = Math.random() * (size/3) + 1;
+    let dy = Math.random() * (size/10);
+    starArray.push(new Star(x, y, size, dx, dy));
+  }
 }
 
 function ShootingStar(x, y, size, dx, dy, fill) {
@@ -304,6 +306,8 @@ function ShootingStar(x, y, size, dx, dy, fill) {
     this.draw = () => {
         c.beginPath();
         c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        c.shadowBlur = this.size/4;
+        c.shadowColor = "gold";
         c.fillStyle = fill;
         c.fill();
         c.closePath();
@@ -333,13 +337,15 @@ function Planet(x, y) {
         c.beginPath();
         c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         c.fillStyle = this.grd;
+        c.shadowBlur = this.size/4;
+        c.shadowColor = "gray";
         c.fill();
         c.closePath();
     }
 
     this.grow = (growth) => {
         this.size = growth;
-        this.dx = growth > (box.height/5) ? 750/growth : (growth/9) + 1.5;
+        this.dx = growth > (box.height/10) ? 750/growth : (growth/9) + 1.5;
         this.draw();
     }
 
@@ -351,7 +357,6 @@ function Planet(x, y) {
         let y1 = this.y - this.size * 1.05,
             y2 = this.y + this.size * 1.05;
         this.grd = c.createLinearGradient(0, y1, 0, y2);
-        console.log(this.size, box.height);
         let trns = Math.random() > 0.51 && this.size > box.height/15 ? 2 : 1;
         for (let i = 0; i <= trns; i++) {
             let location = (i/trns === 0.5) ?
@@ -367,6 +372,7 @@ function Planet(x, y) {
     }
 }
 
+const portContain = document.getElementById("portfolioContainer");
 let planetArray = [];
 let planetGrow;
 let growing = false;
@@ -374,14 +380,16 @@ let growth = 6;
 let onDown;
 let onUp;
 
-document.getElementById("portfolioContainer").addEventListener("mousedown", (e) => {
-    growing = true;
-    onDown = e;
-    growth > 6 ? growth = 6 : null;
-    planetArray.push(new Planet(e.x, e.y));
-    planetGrow = setInterval(() => {
-        growth += (growth * 0.15);
-    }, 1)
+portContain.addEventListener("mousedown", (e) => {
+    if (e.button === 0) {
+        growing = true;
+        onDown = e;
+        growth > 6 ? growth = 6 : null;
+        planetArray.push(new Planet(e.x, (e.pageY - portContain.clientHeight)));
+        planetGrow = setInterval(() => {
+            growth += (growth * 0.15);
+        }, 1)
+    }
 })
 
 document.addEventListener("mouseup", (e) => {
@@ -394,14 +402,14 @@ document.addEventListener("mouseup", (e) => {
 animate = () => {
     if (Math.random() < 0.5) {
         let x = -50;
-        let y = Math.random() * box.height;
+        let y = Math.random() * canvas.height;
         let size = Math.random() * maxStarSize + 0.2;
         let dx = Math.random() * (size/3) + 0.5;
         let dy = Math.random() * (size/10);
         starArray.push(new Star(x, y, size, dx, dy));
     }
     requestAnimationFrame(animate);
-    c.clearRect(0, 0, box.width, box.height);
+    c.clearRect(0, 0, canvas.width, canvas.height);
 
     if (shootingStarArray.length < 1) {
         if (Math.random() < 0.1) {
@@ -425,8 +433,9 @@ animate = () => {
         for (let i = 0; i < shootingStarArray.length; i++) {
             shootingStarArray[i].update();
             if (i + 1 === shootingStarArray.length &&
-                shootingStarArray[i].x > box.width) {
-                  shootingStarArray = [];
+                (shootingStarArray[i].x > canvas.width ||
+                 shootingStarArray[i].y > canvas.height)) {
+                      shootingStarArray = [];
             }
         }
     }
@@ -434,13 +443,13 @@ animate = () => {
 
     for(let i = 0; i < starArray.length; i++) {
         starArray[i].update();
-        starArray[i].x > box.width && starArray[i].pop;
+        starArray[i].x > canvas.width && starArray[i].pop;
     }
 
     if (planetArray.length > 0) {
         for (let i = 0; i < planetArray.length; i++) {
             if (i+1 === planetArray.length && growing) {
-                if (growth > box.height * 1.5 || growth > box.width * 1.5) {
+                if (growth > canvas.height * 1.5 || growth > canvas.width * 1.5) {
                     growing = false;
                     growth = 1;
                     clearInterval(planetGrow);
@@ -450,14 +459,13 @@ animate = () => {
             } else {
                 if (!planetArray[i].colorized) {
                     planetArray[i].colorize();
-                    if (onUp.x > onDown.x && (onUp.x - onDown.x) / box.width > 0.099) {
-                        let factor = ((onUp.x - onDown.x) / box.width) + 1.5;
-                        console.log(factor)
+                    if (onUp.x > onDown.x && (onUp.x - onDown.x) / canvas.width > 0.099) {
+                        let factor = ((onUp.x - onDown.x) / canvas.width) + 1.5;
                         planetArray[i].speedUp(factor);
                     }
                 }
                 planetArray[i].update();
-                if (planetArray[i].x > box.width) {
+                if (planetArray[i].x > canvas.width) {
                     planetArray[i].pop;
                 }
             }
@@ -465,7 +473,11 @@ animate = () => {
     }
 }
 
-animate();
+
+window.addEventListener("resize", () => {
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+})
 
 createStars = () => {
 

@@ -257,8 +257,9 @@ p {
 
 #portfolio {
   display: flex;
-  width: 100%;
-  max-width: 100%;
+  position: relative;
+  max-height: 600px;
+  max-width: 600px;
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
@@ -508,6 +509,12 @@ p {
   color: white;
   font-weight: 200;
   text-shadow: 3px 3px 10px #484a46;
+  z-index: 10;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  max-height: 1em;
 }
 
 #portfolioContainer.content {
@@ -528,7 +535,7 @@ p {
   100%  {transform: translate(0vw, 0vh)}
 }
 
-.startsContainer {
+.starsContainer {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -559,22 +566,44 @@ p {
   bottom: 0;
 }
 
-@media (max-width: 1129px) {
-  .portfolioBox {
-    /* transform: scale(0.9); */
-    margin: 0;
-  }
+@media (max-width: 1099px) {
+
 }
 
-@media (max-width: 524px) {
+@media (max-width: 579px) {
   #portfolioContainer.content {
     position: relative;
-    overflow: hidden;
-    height: 1100px;
+    overflow: auto;
+    height: 1200px;
+    min-height: 1200px;
+  }
+
+  .portfolioHeader {
+    /* margin-top: 120px; */
+  }
+
+  #stars, .starsContainer {
+    min-height: 1200px;
+    height: 1200px;
+  }
+
+  .starsContainer {
+    /* position: relative; */
   }
 
   #portfolio {
+    width: 350px;
+    height: 1200px;
+    max-height: 1200px;
+  }
 
+  .portfolioBox {
+    /* transform: scale(0.6); */
+    /* margin: 0; */
+  }
+
+  .portfolioBox:last-child {
+    margin-bottom: 25px;
   }
 
   #initial img {
