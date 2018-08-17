@@ -321,9 +321,12 @@ let shootingStarArray = [];
 function Planet(x, y) {
     this.x = x;
     this.y = y;
-    this.size = 5;
+    this.size = 10;
     this.dx = this.size;
-    this.grd = c.createLinearGradient(this.x, this.y-this.size, this.x+this.size, y+this.size);
+    this.colorized = false;
+    this.grd = c.createRadialGradient(this.x, this.y, 10, this.x, this.y, 100);
+    this.grd.addColorStop(0, "orange");
+    this.grd.addColorStop(1, "gold");
 
 
     this.draw = () => {
@@ -335,16 +338,27 @@ function Planet(x, y) {
     }
 
     this.grow = (growth) => {
-      this.size = growth;
-      this.grd = c.createLinearGradient(0, 0, 0, box.height);
-      this.grd.addColorStop(0, randomColor());
-      this.grd.addColorStop(0.2, randomColor());
-      this.grd.addColorStop(0.5, randomColor());
-      this.grd.addColorStop(0.7, randomColor());
-      this.grd.addColorStop(0.85, randomColor());
-      this.grd.addColorStop(1, randomColor());
-      this.dx = growth > (box.height/5) ? 1000/growth : (growth/9) + 1;
-      this.draw();
+        this.size = growth;
+        this.dx = growth > (box.height/5) ? 750/growth : (growth/9) + 1.5;
+        this.draw();
+    }
+
+    this.speedUp = (factor) => {
+        this.dx = this.dx * factor;
+    }
+
+    this.colorize = () => {
+        let y1 = this.y - this.size * 1.05,
+            y2 = this.y + this.size * 1.05;
+        this.grd = c.createLinearGradient(0, y1, 0, y2);
+        console.log(this.size, box.height);
+        let trns = Math.random() > 0.51 && this.size > box.height/15 ? 2 : 1;
+        for (let i = 0; i <= trns; i++) {
+            let location = (i/trns === 0.5) ?
+                    (Math.random() * 0.6 + 0.2) : (0 + i/trns);
+            this.grd.addColorStop(location, randomColor());
+        }
+        this.colorized = true;
     }
 
     this.update = () => {
@@ -356,21 +370,25 @@ function Planet(x, y) {
 let planetArray = [];
 let planetGrow;
 let growing = false;
-let growth = 1;
+let growth = 6;
+let onDown;
+let onUp;
 
 document.getElementById("portfolioContainer").addEventListener("mousedown", (e) => {
     growing = true;
-    growth > 1 ? growth = 0 : null;
+    onDown = e;
+    growth > 6 ? growth = 6 : null;
     planetArray.push(new Planet(e.x, e.y));
     planetGrow = setInterval(() => {
         growth += (growth * 0.15);
     }, 1)
 })
 
-document.addEventListener("mouseup", () => {
+document.addEventListener("mouseup", (e) => {
     growing = false;
-    growth = 1;
+    growth = 6;
     clearInterval(planetGrow);
+    onUp = e;
 });
 
 animate = () => {
@@ -422,8 +440,22 @@ animate = () => {
     if (planetArray.length > 0) {
         for (let i = 0; i < planetArray.length; i++) {
             if (i+1 === planetArray.length && growing) {
-                planetArray[i].grow(growth);
+                if (growth > box.height * 1.5 || growth > box.width * 1.5) {
+                    growing = false;
+                    growth = 1;
+                    clearInterval(planetGrow);
+                } else {
+                    planetArray[i].grow(growth);
+                }
             } else {
+                if (!planetArray[i].colorized) {
+                    planetArray[i].colorize();
+                    if (onUp.x > onDown.x && (onUp.x - onDown.x) / box.width > 0.099) {
+                        let factor = ((onUp.x - onDown.x) / box.width) + 1.5;
+                        console.log(factor)
+                        planetArray[i].speedUp(factor);
+                    }
+                }
                 planetArray[i].update();
                 if (planetArray[i].x > box.width) {
                     planetArray[i].pop;
