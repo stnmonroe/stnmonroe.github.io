@@ -20,6 +20,24 @@ document.addEventListener('click', (event) => {
   }
 })
 
+document.body.addEventListener("mousemove", (e) => {
+    if (e.clientX < 50 && e.clientY < 50) {
+        menuBall.classList.remove("offScreen");
+    }
+})
+
+// // TODO: Change this to a scroll event that checks the lastScrollTop
+// document.addEventListener("mousewheel", (e) => {
+//   console.log(e);
+//     if (!menuDrawer.classList.contains("open")) {
+//         if (e.wheelDelta >= 0) {
+//           menuBall.classList.remove("offScreen");
+//         } else {
+//           menuBall.classList.add("offScreen");
+//         }
+//     }
+// })
+
 window.onload = () => {
     setTimeout( () => {
       menuBall.classList.remove("offScreen");
@@ -75,7 +93,10 @@ menuBall.addEventListener("click", () => {
           block: "start"
         });
       } else if (e.textContent === "about me") {
-        //TODO
+        document.getElementById("aboutMe").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
       } else {
         //TODO
       }
@@ -373,6 +394,8 @@ function Planet(x, y) {
 }
 
 const portContain = document.getElementById("portfolioContainer");
+const planetInstructions = document.getElementById("planetInstructions");
+const originalPlanetInstructions = planetInstructions.textContent;
 let planetArray = [];
 let planetGrow;
 let growing = false;
@@ -380,24 +403,49 @@ let growth = 6;
 let onDown;
 let onUp;
 
+window.oncontextmenu = function(event) {
+     event.preventDefault();
+     event.stopPropagation();
+     return false;
+};
+
 portContain.addEventListener("mousedown", (e) => {
-    if (e.button === 0) {
+    growPlanet(e, false);
+})
+
+portContain.addEventListener("touchstart", (e) => {
+    growPlanet(e, true);
+})
+
+growPlanet = (e, touch) => {
+    planetInstructions.textContent = "Drag right to increase the planet's speed.";
+    if (e.button === 0 || touch) {
+        touch ? e = e.touches[0] : null;
         growing = true;
         onDown = e;
         growth > 6 ? growth = 6 : null;
-        planetArray.push(new Planet(e.x, (e.pageY - portContain.clientHeight)));
+        planetArray.push(new Planet(e.pageX, (e.pageY - portContain.clientHeight)));
         planetGrow = setInterval(() => {
             growth += (growth * 0.15);
         }, 1)
     }
-})
+}
 
 document.addEventListener("mouseup", (e) => {
+    releasePlanet(e, false);
+});
+
+document.addEventListener("touchend", (e) => {
+    releasePlanet(e, true);
+})
+
+releasePlanet = (e, touch) => {
+    planetInstructions.textContent = originalPlanetInstructions;
     growing = false;
     growth = 6;
     clearInterval(planetGrow);
-    onUp = e;
-});
+    onUp = touch ? e.touches[0] : e;
+}
 
 animate = () => {
     if (Math.random() < 0.5) {
@@ -449,7 +497,7 @@ animate = () => {
     if (planetArray.length > 0) {
         for (let i = 0; i < planetArray.length; i++) {
             if (i+1 === planetArray.length && growing) {
-                if (growth > canvas.height * 1.5 || growth > canvas.width * 1.5) {
+                if (growth > canvas.height || growth > canvas.width) {
                     growing = false;
                     growth = 1;
                     clearInterval(planetGrow);
@@ -459,8 +507,9 @@ animate = () => {
             } else {
                 if (!planetArray[i].colorized) {
                     planetArray[i].colorize();
-                    if (onUp.x > onDown.x && (onUp.x - onDown.x) / canvas.width > 0.099) {
-                        let factor = ((onUp.x - onDown.x) / canvas.width) + 1.5;
+                    console.log(onDown, onUp);
+                    if (onUp.pageX > onDown.pageX && (onUp.pageX - onDown.pageX) / canvas.width > 0.099) {
+                        let factor = ((onUp.pageX - onDown.pageX) / canvas.width) + 1.5;
                         planetArray[i].speedUp(factor);
                     }
                 }
