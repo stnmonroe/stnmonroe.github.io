@@ -20,23 +20,24 @@ document.addEventListener('click', (event) => {
   }
 })
 
-document.body.addEventListener("mousemove", (e) => {
-    if (e.clientX < 50 && e.clientY < 50) {
-        menuBall.classList.remove("offScreen");
-    }
-})
-
-// // TODO: Change this to a scroll event that checks the lastScrollTop
-// document.addEventListener("mousewheel", (e) => {
-//   console.log(e);
-//     if (!menuDrawer.classList.contains("open")) {
-//         if (e.wheelDelta >= 0) {
-//           menuBall.classList.remove("offScreen");
-//         } else {
-//           menuBall.classList.add("offScreen");
-//         }
+//Show menuBall on mouseover top left area of document
+// document.body.addEventListener("mousemove", (e) => {
+//     if (e.clientX < 50 && e.clientY < 50) {
+//         menuBall.classList.remove("offScreen");
 //     }
 // })
+//
+// //Show/hide menuBall on scroll up/down
+// document.addEventListener("scroll", () => {
+//    let curr = window.pageYOffset || document.documentElement.scrollTop;
+//    console.log(curr, lastScrollTop)
+//    if (curr > lastScrollTop){
+//       menuBall.classList.add("offScreen");
+//    } else {
+//       menuBall.classList.remove("offScreen");
+//    }
+//    lastScrollTop = curr <= 0 ? 0 : curr;
+// });
 
 window.onload = () => {
     setTimeout( () => {

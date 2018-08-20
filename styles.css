@@ -474,8 +474,7 @@ p {
 }
 
 #initial span {
-  width: 85%;
-  max-width: 650px;
+  width: 550px;
   height: 1px;
   background-color: white;
   transition: 0.5s ease-in-out 2.5s;
@@ -639,5 +638,9 @@ p {
 
   #initial p {
     font-size: 1.2em;
+  }
+
+  #initial span {
+    width: 85%;
   }
 }
