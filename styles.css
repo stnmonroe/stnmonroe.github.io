@@ -42,7 +42,8 @@ p {
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
   -o-transform: scale(1.1);
-  box-shadow: 4px 7px 10px #484a46;
+  box-shadow: 3px 5px 10px #484a46;
+  background-color: rgba(254, 246, 226, 0.9);
 }
 
 #menuBall.offScreen {
@@ -388,9 +389,9 @@ p {
 }
 
 .portfolioDesc {
-  flex: 1;
+  flex: 1.5;
   color: white;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
   font-style: italic;
   padding: 30px 10px 0;
@@ -434,7 +435,7 @@ p {
 }
 
 #initial {
-  background: url("https://picsum.photos/3000/1000");
+  background: url("https://picsum.photos/3001/1001");
   display: flex;
   flex-direction: column;
   position: relative;
@@ -584,6 +585,43 @@ p {
 #nature {
   right: 0;
   bottom: 0;
+}
+
+#aboutMe {
+  background-color: transparent;
+  overflow: hidden;
+}
+
+#aboutMeMenu {
+  position: absolute;
+  bottom: 30px;
+  left: 40px;
+  /* border: 1px solid black; */
+  width: 180px;
+  height: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+
+#aboutMeMenu div {
+  position: relative;
+  text-align: center;
+}
+
+/* #aboutMeMenu div:nth-child(odd) {
+  flex: 2;
+}
+
+#aboutMeMenu div:nth-child(even) {
+  flex: 1;
+} */
+
+#lightning, .lightingContainer {
+  width: 100vw;
+  height: 100vh;
 }
 
 @media (max-width: 1099px) {

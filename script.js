@@ -4,6 +4,7 @@ const menuItems = document.getElementsByClassName('menuItemConatiner');
 const socialContainer = document.getElementById('socialContainer');
 let lastScrollTop = 0;
 const contents = document.getElementsByClassName("content");
+const aboutMeMenu = document.getElementById("aboutMeMenu");
 
 //Click anywhere except on menu to close menuDrawer
 document.addEventListener('click', (event) => {
@@ -40,9 +41,7 @@ document.addEventListener('click', (event) => {
 // });
 
 window.onload = () => {
-    setTimeout( () => {
-      menuBall.classList.remove("offScreen");
-    }, 2500)
+    setTimeout( () => menuBall.classList.remove("offScreen"), 2500);
 
     initialAnimation();
     createPortfolioBoxes();
@@ -57,15 +56,24 @@ initialAnimation = () => {
   }
 }
 
-var createSpans = num => {
-  var spans = "";
+var createElem = (num, elem) => {
+  var elems = "";
   for(i=0; i<num; i++) {
-    spans += "<span></span>"
+    elems += "<" + elem + "></" + elem + ">"
   }
-  return spans;
+  return elems;
 }
 
-menuBall.innerHTML = createSpans(6);
+// Create the spans for the menuBall
+menuBall.innerHTML = createElem(6, "span");
+
+// Create the divs for the aboutMeMenu & fill in text
+aboutMeMenu.innerHTML = createElem(5, "div");
+for(let i=0; i < aboutMeMenu.children.length; i++) {
+    const text = ["DESC", "/", "HEAD", "/", "HEART"];
+    aboutMeMenu.children[i].textContent = text[i];
+}
+
 
 menuBall.addEventListener("click", () => {
   menuBall.classList.toggle("open");
@@ -121,7 +129,7 @@ var portfolioItems = [
       src: "img/witwars.png"
     },
     tech: ["React-Native", "Redux", "Router-Flux", "Node.js", "Express", "Pug", "CSS", "jQuery", "AdMob"],
-    desc: "Sole UI Engineer for mobile app, designer, digital content creator, and developer for web app.",
+    desc: "Co-founder, sole UI Engineer for iOS & Android app, sole designer, sole content creator, and co-developer of web app.",
     btn: {
       text: "More Info",
       name: "witwars"
@@ -145,7 +153,7 @@ var portfolioItems = [
       src: "img/witwars_admin.png"
     },
     tech: ["React", "Redux", "Router", "Node.js", "Express", "Postgres", "Sequelize", "Axios"],
-    desc: "Full stack development of console for Witwars app allowing admin accounts to manage premises.",
+    desc: "Full stack development of console for Witwars app allowing admin accounts to manage premises on a secure local server.",
     btn: {
       text: "More Info",
       name: "witwars_admin"
@@ -157,7 +165,7 @@ var portfolioItems = [
       src: "img/ottawa_rec.png"
     },
     tech: ["Wordpress", "HTML", "CSS"],
-    desc: "As a member of the Ottawa, IL Playgrounds & Recreation Board, I voluntarily built them a new website.",
+    desc: "As a member of the Ottawa, IL Playgrounds & Recreation Board, I voluntarily built them a new website, but do not maintain it regularly.",
     btn: {
       text: "Visit Site",
       link: "http://www.ottawarecreation.org"
@@ -200,9 +208,9 @@ createPortfolioBoxes = () => {
     const index = portfolioItems.findIndex( p => p.desc === desc );
     btns[j].addEventListener("click", () => {
       if (portfolioItems[index].btn.link) {
-        openInNewTab(portfolioItems[index].btn.link);
+          openInNewTab(portfolioItems[index].btn.link);
       } else {
-        console.log("no link found");
+          console.log("no link found");
       }
     })
   }
@@ -275,8 +283,8 @@ const canvas = document.getElementById("stars");
 const box = canvas.getBoundingClientRect();
 canvas.width = box.width;
 canvas.height = box.height;
-let maxStarSize = 3;
-let numStars = 500;
+let maxStarSize = 2.8;
+let numStars = 1000;
 
 var c = canvas.getContext('2d');
 
@@ -310,11 +318,19 @@ createInitialStars = () => {
   for (let i = 0; i < numStars; i++) {
     let x = Math.random() * box.width - 50;
     let y = Math.random() * box.height;
-    let size = Math.random() * maxStarSize + 0.2;
-    let dx = Math.random() * (size/3) + 1;
+    let size = createStarSize(i < numStars-100);
+    let dx = Math.random() * (size/6) + 0.05;
     let dy = Math.random() * (size/10);
     starArray.push(new Star(x, y, size, dx, dy));
   }
+}
+
+createStarSize = d => {
+    if (d) {
+      return Math.random() * 0.4 + 0.35;
+    } else {
+      return Math.random() * maxStarSize + 0.2;
+    }
 }
 
 function ShootingStar(x, y, size, dx, dy, fill) {
@@ -367,7 +383,7 @@ function Planet(x, y) {
 
     this.grow = (growth) => {
         this.size = growth;
-        this.dx = growth > (box.height/10) ? 750/growth : (growth/9) + 1.5;
+        this.dx = growth > (box.height/10) ? 750/growth : (growth/20) + 1;
         this.draw();
     }
 
@@ -404,11 +420,12 @@ let growth = 6;
 let onDown;
 let onUp;
 
-window.oncontextmenu = function(event) {
-     event.preventDefault();
-     event.stopPropagation();
-     return false;
-};
+// TODO: Disable right click conctext prevention
+// window.oncontextmenu = function(event) {
+//      event.preventDefault();
+//      event.stopPropagation();
+//      return false;
+// };
 
 portContain.addEventListener("mousedown", (e) => {
     growPlanet(e, false);
@@ -449,16 +466,18 @@ releasePlanet = (e, touch) => {
 }
 
 animate = () => {
-    if (Math.random() < 0.5) {
+    requestAnimationFrame(animate);
+    c.clearRect(0, 0, canvas.width, canvas.height);
+
+    let starChance = Math.random();
+    if (starChance < 0.25) {
         let x = -50;
         let y = Math.random() * canvas.height;
-        let size = Math.random() * maxStarSize + 0.2;
-        let dx = Math.random() * (size/3) + 0.5;
+        let size = createStarSize(starChance > 0.075);
+        let dx = Math.random() * (size/6) + 0.05;
         let dy = Math.random() * (size/10);
         starArray.push(new Star(x, y, size, dx, dy));
     }
-    requestAnimationFrame(animate);
-    c.clearRect(0, 0, canvas.width, canvas.height);
 
     if (shootingStarArray.length < 1) {
         if (Math.random() < 0.1) {
@@ -509,7 +528,8 @@ animate = () => {
                 if (!planetArray[i].colorized) {
                     planetArray[i].colorize();
                     console.log(onDown, onUp);
-                    if (onUp.pageX > onDown.pageX && (onUp.pageX - onDown.pageX) / canvas.width > 0.099) {
+                    if (onUp.pageX > onDown.pageX &&
+                       Math.abs(onUp.pageX - onDown.pageX) / canvas.width > 0.099) {
                         let factor = ((onUp.pageX - onDown.pageX) / canvas.width) + 1.5;
                         planetArray[i].speedUp(factor);
                     }
@@ -527,6 +547,8 @@ animate = () => {
 window.addEventListener("resize", () => {
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
+    canvas2.height = window.innerHeight;
+    canvas2.width = window.innerWidth;
 })
 
 createStars = () => {
@@ -556,7 +578,7 @@ createStars = () => {
 
 randomColor = () => {
 
-  var hexValues = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e"];
+  var hexValues = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
 
   function populate(a) {
     for ( var i = 0; i < 6; i++ ) {
@@ -569,3 +591,79 @@ randomColor = () => {
 
   return populate("#");
 }
+
+// CANVAS FOR NATURE & LIGHTNING
+const canvas2 = document.getElementById("lightning");
+const box2 = canvas2.getBoundingClientRect();
+canvas2.width = box2.width;
+canvas2.height = box2.height;
+c2W = canvas2.width;
+c2H = canvas2.height;
+
+var c2 = canvas2.getContext('2d');
+
+animate2 = () => {
+    c2.requestAnimationFrame(animate2);
+    c2.clearRect(0, 0, canvas2.width, canvas2.height);
+}
+
+// function Cloud(x, y, size, dx, dy) {
+//     this.x = x;
+//     this.y = y;
+//     this.size = size;
+//     this.dx = dx;
+//     this.dy = Math.random() > 0.49 ? dy : -dy;
+//
+//     this.draw = () => {
+//         c.beginPath();
+//         c.shadowBlur = this.size * 5;
+//         c.shadowColor = "white";
+//         c.arc(this.x, this.y, size, 0, Math.PI * 2);
+//         c.fillStyle = 'white';
+//         c.fill();
+//         c.closePath();
+//     }
+//
+//     this.update = () => {
+//       this.x += this.dx;
+//       this.y += this.dy;
+//       this.draw();
+//     }
+// }
+
+function Bolt(xStart, yStart, xDest, yDest) {
+    this.x = xStart;
+    this.y = yStart;
+
+    c2.moveTo(this.x, this.y);
+
+    do {
+        const R = Math.random() * 300 + 25;
+        const r = R * Math.sqrt(Math.random());
+        const a = angle([this.y, this.x], [yDest, xDest]);
+        const yDiff = (yDest - this.y) / yDest * Math.PI;
+        const yFactor = Math.random() < 0.5 ? yDiff : -yDiff;
+        const theta = Math.random() * a + yFactor;
+        const xDiff = Math.abs(r * Math.cos(theta));
+        const x = Math.random() < 0.5 ? this.x - xDiff : this.x + xDiff;
+        const y = this.y + Math.abs(r * Math.sin(theta));
+        this.x = x > c2W || x < 1 ? (Math.random() * c2W * 0.6) + (c2W * 0.2) : x;
+        this.y = y;
+        c2.lineTo(this.x, this.y);
+    }
+    while(this.y < yDest - 150);
+
+    c2.lineTo(xDest, yDest)
+    c2.lineWidth = 5;
+    c2.strokeStyle = "yellow";
+    this.draw = () => c2.stroke();
+}
+
+canvas2.addEventListener("click", (e) => {
+  console.log(e);
+    const xSt = canvas2.width * 0.6 * Math.random() + canvas2.width * 0.3;
+    let bolt = new Bolt(xSt, 0, e.x, e.y);
+    bolt.draw();
+})
+
+angle = (a, b) => Math.atan2(a[1]-b[1], a[0]-b[0]) / Math.PI;
