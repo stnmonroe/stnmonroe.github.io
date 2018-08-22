@@ -70,8 +70,9 @@ menuBall.innerHTML = createElem(6, "span");
 // Create the divs for the aboutMeMenu & fill in text
 aboutMeMenu.innerHTML = createElem(5, "div");
 for(let i=0; i < aboutMeMenu.children.length; i++) {
-    const text = ["DESC", "/", "HEAD", "/", "HEART"];
+    const text = ["DESK", "/", "HEAD", "/", "HEART"];
     aboutMeMenu.children[i].textContent = text[i];
+    aboutMeMenu.children[i].setAttribute("id", text[i].toLowerCase());
 }
 
 
@@ -306,9 +307,9 @@ function Star(x, y, size, dx, dy) {
     }
 
     this.update = () => {
-      this.x += this.dx;
-      this.y += this.dy;
-      this.draw();
+        this.x += this.dx;
+        this.y += this.dy;
+        this.draw();
     }
 }
 
@@ -511,7 +512,7 @@ animate = () => {
 
     for(let i = 0; i < starArray.length; i++) {
         starArray[i].update();
-        starArray[i].x > canvas.width && starArray[i].pop;
+        starArray[i].x > canvas.width && starArray.splice(i, 1);
     }
 
     if (planetArray.length > 0) {
@@ -535,11 +536,22 @@ animate = () => {
                     }
                 }
                 planetArray[i].update();
-                if (planetArray[i].x > canvas.width) {
-                    planetArray[i].pop;
+                if (planetArray[i].x > canvas.width * 2) {
+                    planetArray.splice(i, 1);
                 }
             }
         }
+    }
+
+    c3.clearRect(0, 0, c3W, c3H);
+    if (sparksArray.length > 0) {
+       for(let i = 0; i < sparksArray.length; i++) {
+           sparksArray[i].update();
+           console.log(sparksArray[i].y - c3H, c3H)
+           if (sparksArray[i].y - (c3H + 5) > c3H) {
+               sparksArray.splice(i, 1);
+           }
+       }
     }
 }
 
@@ -592,7 +604,21 @@ randomColor = () => {
   return populate("#");
 }
 
-// CANVAS FOR NATURE & LIGHTNING
+const aBKids = document.getElementById("aboutMeMenu").children;
+
+for (let i=0; i < aBKids.length; i++) {
+    if (true) {
+        aBKids[i].addEventListener("click", (e) => {
+            const xSt = canvas2.width * 0.6 * Math.random() + canvas2.width * 0.3;
+            boltArray.push(new Bolt(xSt, -10, e.x, e.y));
+            canvas2.classList.add("whiteBg");
+            createSparks(e);
+            animateLightning(e);
+        })
+    }
+}
+
+// CANVAS FOR LIGHTNING
 const canvas2 = document.getElementById("lightning");
 const box2 = canvas2.getBoundingClientRect();
 canvas2.width = box2.width;
@@ -600,11 +626,38 @@ canvas2.height = box2.height;
 c2W = canvas2.width;
 c2H = canvas2.height;
 
-var c2 = canvas2.getContext('2d');
+let c2 = canvas2.getContext('2d');
 
-animate2 = () => {
-    c2.requestAnimationFrame(animate2);
-    c2.clearRect(0, 0, canvas2.width, canvas2.height);
+animateLightning = (e) => {
+
+  if (boltArray.length > 0) {
+      setTimeout(() => {
+          canvas2.classList.remove("whiteBg");
+      }, 100)
+
+      setTimeout(() => {
+          let boltInterval = setInterval(() => {
+              c2.clearRect(0, 0, c2W, c2H);
+              boltArray[0].update( done => {
+                  if (done) {
+                      setTimeout(() => {
+                          c2.clearRect(0, 0, c2W, c2H);
+                          boltArray = [];
+                          clearInterval(boltInterval);
+                      }, 250)
+                      let div = e.target || e.srcElement;
+                      for (let i = 0; i < aBKids.length; i++) {
+                          aBKids[i].classList.remove("aBUp");
+                      }
+                      setTimeout(() => {
+                          div.classList.add("aBUp");
+                          animateSparks();
+                      }, 10);
+                  }
+              })
+          }, 10)
+      }, 35)
+    }
 }
 
 // function Cloud(x, y, size, dx, dy) {
@@ -631,39 +684,104 @@ animate2 = () => {
 //     }
 // }
 
+let boltArray = [];
+
 function Bolt(xStart, yStart, xDest, yDest) {
     this.x = xStart;
     this.y = yStart;
 
+    c2.beginPath();
     c2.moveTo(this.x, this.y);
 
-    do {
-        const R = Math.random() * 300 + 25;
-        const r = R * Math.sqrt(Math.random());
-        const a = angle([this.y, this.x], [yDest, xDest]);
-        const yDiff = (yDest - this.y) / yDest * Math.PI;
-        const yFactor = Math.random() < 0.5 ? yDiff : -yDiff;
-        const theta = Math.random() * a + yFactor;
-        const xDiff = Math.abs(r * Math.cos(theta));
-        const x = Math.random() < 0.5 ? this.x - xDiff : this.x + xDiff;
-        const y = this.y + Math.abs(r * Math.sin(theta));
-        this.x = x > c2W || x < 1 ? (Math.random() * c2W * 0.6) + (c2W * 0.2) : x;
-        this.y = y;
-        c2.lineTo(this.x, this.y);
-    }
-    while(this.y < yDest - 150);
+    const len = Math.random() * 150 + 25;
+    const xRange = ((yDest - this.y) / yDest) * (c2W * 0.7);
+    this.x = Math.random() * xRange  + (c2W * 0.05);
+    this.y += len;
+    c2.lineTo(this.x, this.y);
 
-    c2.lineTo(xDest, yDest)
-    c2.lineWidth = 5;
-    c2.strokeStyle = "yellow";
+
+    let grad = c2.createLinearGradient(0,0,0,c2H);
+    grad.addColorStop("0", "white");
+    c2.lineWidth = 6;
+    c2.strokeStyle = grad;
+
     this.draw = () => c2.stroke();
+
+    this.update = (next) => {
+        if (this.y < yDest - 165) {
+            next(false);
+            const len = Math.random() * 150 + 25;
+            const xRange = ((yDest - this.y) / yDest) * (c2W * 0.85);
+            this.x = Math.random() * xRange  + (c2W * 0.1);
+            this.y += len;
+            c2.lineWidth = 5 * ((yDest - this.y) / yDest);
+            c2.lineTo(this.x, this.y);
+        } else {
+            next(true);
+            grad.addColorStop("0.5", "white");
+            grad.addColorStop("0.95", "gray");
+            c2.lineWidth = 2;
+            c2.strokeStyle = grad;
+            c2.lineTo(xDest, yDest);
+        }
+        this.draw();
+    }
 }
 
-canvas2.addEventListener("click", (e) => {
-  console.log(e);
-    const xSt = canvas2.width * 0.6 * Math.random() + canvas2.width * 0.3;
-    let bolt = new Bolt(xSt, 0, e.x, e.y);
-    bolt.draw();
-})
+// CANVAS FOR SPARKS
+const canvas3 = document.getElementById("sparks");
+const box3 = canvas3.getBoundingClientRect();
+canvas3.width = box3.width;
+canvas3.height = box3.height;
+c3W = canvas3.width;
+c3H = canvas3.height;
 
-angle = (a, b) => Math.atan2(a[1]-b[1], a[0]-b[0]) / Math.PI;
+console.log(box3)
+
+let c3 = canvas3.getContext('2d');
+
+let sparksArray = [];
+
+function Spark(x, y, dx, dy) {
+    this.x = x;
+    this.y = y;
+    this.dx = dx;
+    this.dy = dy;
+    this.h = y - 100;
+    this.down = false;
+
+    this.draw = () => {
+        c3.beginPath();
+        c3.arc(this.x, this.y, 2, 0, Math.PI * 2);
+        c3.fillStyle = 'gold';
+        c3.fill();
+        c3.closePath();
+    }
+
+    this.update = () => {
+        this.dx = this.dy < 0 ? this.dx : this.dx * 0.98;
+        this.dy = this.changeDY(this.y ,this.dy);
+        this.x += this.dx;
+        this.y += this.dy;
+        this.draw();
+    }
+
+    this.changeDY = (y, dy) => {
+        if (y < this.h || this.down) {
+            this.down = true;
+            return -dy * 1.01;
+        } else {
+            return dy * 0.99 + 0.1;
+        }
+    }
+}
+
+createSparks = (e) => {
+    const numSparks = Math.random() * 50 + 25;
+    for(let i = 0; i < numSparks; i++) {
+        const rate = Math.random() * 3;
+        const dx = Math.random() < 0.5 ? rate : -rate;
+        const dy = Math.random() * -5 - 0.2;
+        sparksArray.push(new Spark(e.x, e.y - c3H, dx, dy))
+    }
+}

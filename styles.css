@@ -576,17 +576,6 @@ p {
   /* animation: starsPosition 20s ease-in-out infinite alternate; */
 }
 
-/* #stars span {
-  background: white;
-  position: absolute;
-
-} */
-
-#nature {
-  right: 0;
-  bottom: 0;
-}
-
 #aboutMe {
   background-color: transparent;
   overflow: hidden;
@@ -606,22 +595,45 @@ p {
   overflow: hidden;
 }
 
+#aboutMeMenu:hover {
+  cursor: pointer;
+}
+
 #aboutMeMenu div {
   position: relative;
   text-align: center;
+  transition:
+      color 0.1s linear,
+      font-weight 0.1s linear,
+      transform 0.15s ease-in-out;
 }
 
-/* #aboutMeMenu div:nth-child(odd) {
-  flex: 2;
+#aboutMeMenu div:nth-child(odd):hover {
+  color: gold;
+  font-weight: normal;
 }
 
-#aboutMeMenu div:nth-child(even) {
-  flex: 1;
-} */
-
-#lightning, .lightingContainer {
+#lightning, .lightningContainer {
   width: 100vw;
   height: 100vh;
+  background-color: gray;
+}
+
+#lightning.whiteBg {
+  background-color: white;
+}
+
+#aboutMe div.aBUp {
+    transform: translateY(-50px);
+}
+
+#sparks, .sparksContainer {
+  width: 100vw;
+  height: 50vh;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: transparent;
 }
 
 @media (max-width: 1099px) {
