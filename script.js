@@ -548,7 +548,7 @@ animate = () => {
        for(let i = 0; i < sparksArray.length; i++) {
            sparksArray[i].update();
            console.log(sparksArray[i].y - c3H, c3H)
-           if (sparksArray[i].y - (c3H + 5) > c3H) {
+           if (sparksArray[i].y - 100 > c3H || sparksArray[i].size < 0.1) {
                sparksArray.splice(i, 1);
            }
        }
@@ -561,6 +561,8 @@ window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas2.height = window.innerHeight;
     canvas2.width = window.innerWidth;
+    canvas3.height = window.innerHeight/2;
+    canvas3.width = window.innerWidth;
 })
 
 createStars = () => {
@@ -612,7 +614,6 @@ for (let i=0; i < aBKids.length; i++) {
             const xSt = canvas2.width * 0.6 * Math.random() + canvas2.width * 0.3;
             boltArray.push(new Bolt(xSt, -10, e.x, e.y));
             canvas2.classList.add("whiteBg");
-            createSparks(e);
             animateLightning(e);
         })
     }
@@ -628,6 +629,8 @@ c2H = canvas2.height;
 
 let c2 = canvas2.getContext('2d');
 
+let sparksCreated = false;
+
 animateLightning = (e) => {
 
   if (boltArray.length > 0) {
@@ -635,7 +638,7 @@ animateLightning = (e) => {
           canvas2.classList.remove("whiteBg");
       }, 100)
 
-      setTimeout(() => {
+      // setTimeout(() => {
           let boltInterval = setInterval(() => {
               c2.clearRect(0, 0, c2W, c2H);
               boltArray[0].update( done => {
@@ -644,19 +647,21 @@ animateLightning = (e) => {
                           c2.clearRect(0, 0, c2W, c2H);
                           boltArray = [];
                           clearInterval(boltInterval);
-                      }, 250)
+                      }, 300)
                       let div = e.target || e.srcElement;
                       for (let i = 0; i < aBKids.length; i++) {
                           aBKids[i].classList.remove("aBUp");
                       }
                       setTimeout(() => {
                           div.classList.add("aBUp");
-                          animateSparks();
+                          if (!sparksCreated) {
+                              createSparks(e);
+                          }
                       }, 10);
                   }
               })
-          }, 10)
-      }, 35)
+          }, 1)
+      // }, 35)
     }
 }
 
@@ -693,7 +698,7 @@ function Bolt(xStart, yStart, xDest, yDest) {
     c2.beginPath();
     c2.moveTo(this.x, this.y);
 
-    const len = Math.random() * 150 + 25;
+    const len = Math.random() * c2H/5 + c2H/5;
     const xRange = ((yDest - this.y) / yDest) * (c2W * 0.7);
     this.x = Math.random() * xRange  + (c2W * 0.05);
     this.y += len;
@@ -708,11 +713,11 @@ function Bolt(xStart, yStart, xDest, yDest) {
     this.draw = () => c2.stroke();
 
     this.update = (next) => {
-        if (this.y < yDest - 165) {
+        if (this.y < yDest - 201) {
             next(false);
-            const len = Math.random() * 150 + 25;
-            const xRange = ((yDest - this.y) / yDest) * (c2W * 0.85);
-            this.x = Math.random() * xRange  + (c2W * 0.1);
+            const len = Math.random() * 150 + 50;
+            const xRange = ((yDest - this.y) / yDest) * (c2W * 0.75);
+            this.x = Math.random() * xRange  + (c2W * 0.05);
             this.y += len;
             c2.lineWidth = 5 * ((yDest - this.y) / yDest);
             c2.lineTo(this.x, this.y);
@@ -749,11 +754,16 @@ function Spark(x, y, dx, dy) {
     this.dy = dy;
     this.h = y - 100;
     this.down = false;
+    this.size = 2;
+    let grd = c3.createRadialGradient(x, y, 20, x, y, 60);
+    grd.addColorStop(0, "gold");
+    grd.addColorStop(0.7, "orange");
+    grd.addColorStop(1, "#484a46");
 
     this.draw = () => {
         c3.beginPath();
-        c3.arc(this.x, this.y, 2, 0, Math.PI * 2);
-        c3.fillStyle = 'gold';
+        c3.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        c3.fillStyle = grd;
         c3.fill();
         c3.closePath();
     }
@@ -763,25 +773,29 @@ function Spark(x, y, dx, dy) {
         this.dy = this.changeDY(this.y ,this.dy);
         this.x += this.dx;
         this.y += this.dy;
+        this.size *= 0.95;
         this.draw();
     }
 
     this.changeDY = (y, dy) => {
         if (y < this.h || this.down) {
             this.down = true;
-            return -dy * 1.01;
+            return Math.abs(dy * 1.1 + 20);
         } else {
-            return dy * 0.99 + 0.1;
+            return dy * 0.98 + 0.2;
         }
     }
 }
 
 createSparks = (e) => {
-    const numSparks = Math.random() * 50 + 25;
+    console.log("create")
+    sparksCreated = true;
+    const numSparks = Math.random() * 30 + 15;
     for(let i = 0; i < numSparks; i++) {
         const rate = Math.random() * 3;
         const dx = Math.random() < 0.5 ? rate : -rate;
         const dy = Math.random() * -5 - 0.2;
         sparksArray.push(new Spark(e.x, e.y - c3H, dx, dy))
     }
+    setTimeout(() => sparksCreated = false, 500);
 }
