@@ -68,11 +68,15 @@ var createElem = (num, elem) => {
 menuBall.innerHTML = createElem(6, "span");
 
 // Create the divs for the aboutMeMenu & fill in text
-aboutMeMenu.innerHTML = createElem(5, "div");
+aboutMeMenu.innerHTML = createElem(10, "div");
 for(let i=0; i < aboutMeMenu.children.length; i++) {
     const text = ["DESK", "/", "HEAD", "/", "HEART"];
-    aboutMeMenu.children[i].textContent = text[i];
-    aboutMeMenu.children[i].setAttribute("id", text[i].toLowerCase());
+    if (i < aboutMeMenu.children.length) {
+        aboutMeMenu.children[i].textContent = text[i];
+        aboutMeMenu.children[i].setAttribute("id", text[i].toLowerCase());
+    } else {
+        aboutMeMenu.children[i].setAttribute("id", text[i].toLowerCase()+"Img");
+    }
 }
 
 
@@ -561,8 +565,12 @@ window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas2.height = window.innerHeight;
     canvas2.width = window.innerWidth;
+    c2H = canvas2.height;
+    c2W = canvas2.width;
     canvas3.height = window.innerHeight/2;
     canvas3.width = window.innerWidth;
+    c3H = canvas3.height;
+    c3W = canvas3.width;
 })
 
 createStars = () => {
