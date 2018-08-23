@@ -587,7 +587,7 @@ p {
   left: 40px;
   /* border: 1px solid black; */
   width: 180px;
-  height: 25px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -599,16 +599,17 @@ p {
   cursor: pointer;
 }
 
-#aboutMeMenu div {
+#head, #desk, #heart, #slash {
   position: relative;
   text-align: center;
+  color: white;
   transition:
       color 0.1s linear,
       font-weight 0.1s linear,
       transform 0.15s ease-in-out;
 }
 
-#aboutMeMenu div:nth-child(odd):hover {
+#head:hover, #desk:hover, #heart:hover, #slash:hover {
   color: gold;
   font-weight: normal;
 }
@@ -616,15 +617,44 @@ p {
 #lightning, .lightningContainer {
   width: 100vw;
   height: 100vh;
-  background-color: gray;
+  background: gray;
 }
 
 #lightning.whiteBg {
   background-color: white;
 }
 
-#aboutMe div.aBUp {
+#head.aBUp, #desk.aBUp, #heart.aBUp, #slash.aBUp,
+#headImg.aBUp, #deskImg.aBUp, #heartImg.aBUp, #slashImg.aBUp {
     transform: translateY(-50px);
+}
+
+#headImg, #heartImg, #deskImg {
+  -webkit-filter: drop-shadow(2px 2px 2px #484a46);
+  filter: drop-shadow(2px 2px 2px #484a46);
+  height: 48px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#headImg {
+  background-image: url("./img/head1.png");
+}
+
+#headImg.img2 {
+  background-image: url("./img/head2.png");
+}
+
+#headImg.img3 {
+  background-image: url("./img/head3.png");
+}
+
+#heartImg {
+  background-image: url("./img/heart1.png");
+}
+
+#deskImg {
+  background-image: url("./img/desk1.png");
 }
 
 #sparks, .sparksContainer {

@@ -71,11 +71,24 @@ menuBall.innerHTML = createElem(6, "span");
 aboutMeMenu.innerHTML = createElem(10, "div");
 for(let i=0; i < aboutMeMenu.children.length; i++) {
     const text = ["DESK", "/", "HEAD", "/", "HEART"];
-    if (i < aboutMeMenu.children.length) {
-        aboutMeMenu.children[i].textContent = text[i];
-        aboutMeMenu.children[i].setAttribute("id", text[i].toLowerCase());
+    const kids = aboutMeMenu.children;
+    if (i < text.length) {
+        kids[i].textContent = text[i];
+        let id = text[i] === "/" ? "slash" : text[i].toLowerCase();
+        kids[i].setAttribute("id", id);
+        aboutMeMenu
     } else {
-        aboutMeMenu.children[i].setAttribute("id", text[i].toLowerCase()+"Img");
+        let imgId = text[i-text.length] === "/" ? "slashImg" : text[i-text.length].toLowerCase()+"Img";
+        kids[i].setAttribute("id", imgId);
+        let top = kids[i-text.length].offsetTop + 30;
+        let style = `
+          position: absolute;
+          height: 50px;
+          width:`+ kids[i-text.length].clientWidth +`px;
+          top:`+ top +`px;
+          left:`+ kids[i-text.length].offsetLeft +`px;
+        `
+        kids[i].setAttribute("style", style);
     }
 }
 
@@ -532,7 +545,6 @@ animate = () => {
             } else {
                 if (!planetArray[i].colorized) {
                     planetArray[i].colorize();
-                    console.log(onDown, onUp);
                     if (onUp.pageX > onDown.pageX &&
                        Math.abs(onUp.pageX - onDown.pageX) / canvas.width > 0.099) {
                         let factor = ((onUp.pageX - onDown.pageX) / canvas.width) + 1.5;
@@ -551,7 +563,6 @@ animate = () => {
     if (sparksArray.length > 0) {
        for(let i = 0; i < sparksArray.length; i++) {
            sparksArray[i].update();
-           console.log(sparksArray[i].y - c3H, c3H)
            if (sparksArray[i].y - 100 > c3H || sparksArray[i].size < 0.1) {
                sparksArray.splice(i, 1);
            }
@@ -619,10 +630,13 @@ const aBKids = document.getElementById("aboutMeMenu").children;
 for (let i=0; i < aBKids.length; i++) {
     if (true) {
         aBKids[i].addEventListener("click", (e) => {
-            const xSt = canvas2.width * 0.6 * Math.random() + canvas2.width * 0.3;
-            boltArray.push(new Bolt(xSt, -10, e.x, e.y));
-            canvas2.classList.add("whiteBg");
-            animateLightning(e);
+            const div = e.target || e.srcElement;
+            if (div.id.indexOf("Img") < 0) {
+                const xSt = c2W * 0.6 * Math.random() + c2W * 0.3;
+                boltArray.push(new Bolt(xSt, -10, e.x, e.y));
+                canvas2.classList.add("whiteBg");
+                animateLightning(e);
+            }
         })
     }
 }
@@ -641,6 +655,9 @@ let sparksCreated = false;
 
 animateLightning = (e) => {
 
+  let div = e.target || e.srcElement;
+  let lowerDiv;
+
   if (boltArray.length > 0) {
       setTimeout(() => {
           canvas2.classList.remove("whiteBg");
@@ -651,17 +668,28 @@ animateLightning = (e) => {
               c2.clearRect(0, 0, c2W, c2H);
               boltArray[0].update( done => {
                   if (done) {
+                      clearInterval(boltInterval);
                       setTimeout(() => {
                           c2.clearRect(0, 0, c2W, c2H);
                           boltArray = [];
-                          clearInterval(boltInterval);
                       }, 300)
-                      let div = e.target || e.srcElement;
-                      for (let i = 0; i < aBKids.length; i++) {
-                          aBKids[i].classList.remove("aBUp");
+
+                      if (div.id !== "slash" && div.id !== "slashImg" && div.id !== imgID) {
+                          for (let i = 0; i < aBKids.length; i++) {
+                              imgID = div.id;
+                              aBKids[i].classList.remove("aBUp");
+                              if (aBKids[i].id === div.id && i < 5) {
+                                  lowerDiv = aBKids[i+5];
+                              }
+                          }
+                      } else {
+                          div.classList.toggle("aBUp");
                       }
                       setTimeout(() => {
                           div.classList.add("aBUp");
+                          lowerDiv.classList.add("aBUp");
+                          animatingImg && clearInterval(animateImgIDInterval);
+                          animateImgID();
                           if (!sparksCreated) {
                               createSparks(e);
                           }
@@ -673,6 +701,22 @@ animateLightning = (e) => {
     }
 }
 
+//ANIMATION OF ABOUT ME MENU IMAGES
+let imgID;
+let currAnimatingID;
+let animatingImg = false;
+
+animateImgID = () => {
+    animatingID = true;
+    let num = 1;
+    let elem = document.getElementById(imgID + "Img");
+    console.log(elem.style)
+    let animateImgIDInterval = setInterval(() => {
+        num < 3 ? num++ : num = 1;
+        elem.setAttribute("style", elem.style +
+          "background-image: url(./img/" + imgID + num + ".png);");
+    }, 500)
+}
 // function Cloud(x, y, size, dx, dy) {
 //     this.x = x;
 //     this.y = y;
@@ -749,8 +793,6 @@ canvas3.height = box3.height;
 c3W = canvas3.width;
 c3H = canvas3.height;
 
-console.log(box3)
-
 let c3 = canvas3.getContext('2d');
 
 let sparksArray = [];
@@ -796,7 +838,6 @@ function Spark(x, y, dx, dy) {
 }
 
 createSparks = (e) => {
-    console.log("create")
     sparksCreated = true;
     const numSparks = Math.random() * 30 + 15;
     for(let i = 0; i < numSparks; i++) {
