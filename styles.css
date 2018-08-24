@@ -637,7 +637,7 @@ p {
   background-position: center;
 }
 
-#headImg {
+#headImg.img1 {
   background-image: url("./img/head1.png");
 }
 
@@ -649,12 +649,28 @@ p {
   background-image: url("./img/head3.png");
 }
 
-#heartImg {
+#heartImg.img1 {
   background-image: url("./img/heart1.png");
 }
 
-#deskImg {
+#heartImg.img2 {
+  background-image: url("./img/heart2.png");
+}
+
+#heartImg.img3 {
+  background-image: url("./img/heart3.png");
+}
+
+#deskImg.img1 {
   background-image: url("./img/desk1.png");
+}
+
+#deskImg.img2 {
+  background-image: url("./img/desk2.png");
+}
+
+#deskImg.img3 {
+  background-image: url("./img/desk3.png");
 }
 
 #sparks, .sparksContainer {

@@ -80,6 +80,7 @@ for(let i=0; i < aboutMeMenu.children.length; i++) {
     } else {
         let imgId = text[i-text.length] === "/" ? "slashImg" : text[i-text.length].toLowerCase()+"Img";
         kids[i].setAttribute("id", imgId);
+        kids[i].classList.add("img1");
         let top = kids[i-text.length].offsetTop + 30;
         let style = `
           position: absolute;
@@ -688,7 +689,11 @@ animateLightning = (e) => {
                       setTimeout(() => {
                           div.classList.add("aBUp");
                           lowerDiv.classList.add("aBUp");
-                          animatingImg && clearInterval(animateImgIDInterval);
+                          lowerDiv.classList.add("img1");
+                          if (animatingImg) {
+                              clearInterval(animateImgIDInterval);
+                              removeImgsFromSiblings(div);
+                          }
                           animateImgID();
                           if (!sparksCreated) {
                               createSparks(e);
@@ -701,20 +706,39 @@ animateLightning = (e) => {
     }
 }
 
+removeImgsFromSiblings = div => {
+    let kids = div.parentNode.children;
+    for(let i = 0; i < kids.length; i++) {
+        if (kids[i].classList.contains("img2")) {
+            kids[i].classList.remove("img2");
+        } else if (kids[i].classList.contains("img3")) {
+            kids[i].classList.remove("img3");
+        }
+    }
+}
+
 //ANIMATION OF ABOUT ME MENU IMAGES
 let imgID;
 let currAnimatingID;
 let animatingImg = false;
+let animateImgIDInterval;
 
 animateImgID = () => {
-    animatingID = true;
+    animatingImg = true;
     let num = 1;
     let elem = document.getElementById(imgID + "Img");
-    console.log(elem.style)
-    let animateImgIDInterval = setInterval(() => {
+    animateImgIDInterval = setInterval(() => {
         num < 3 ? num++ : num = 1;
-        elem.setAttribute("style", elem.style +
-          "background-image: url(./img/" + imgID + num + ".png);");
+        if (num === 1) {
+            elem.classList.remove("img3");
+            elem.classList.add("img1");
+        } else if (num === 2) {
+            elem.classList.remove("img1");
+            elem.classList.add("img2");
+        } else {
+            elem.classList.remove("img2");
+            elem.classList.add("img3");
+        }
     }, 500)
 }
 // function Cloud(x, y, size, dx, dy) {
