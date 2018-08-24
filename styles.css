@@ -586,7 +586,7 @@ p {
   bottom: 30px;
   left: 40px;
   /* border: 1px solid black; */
-  width: 180px;
+  width: 200px;
   height: 50px;
   display: flex;
   flex-direction: row;
@@ -607,6 +607,12 @@ p {
       color 0.1s linear,
       font-weight 0.1s linear,
       transform 0.15s ease-in-out;
+}
+
+#head, #desk, #heart {
+  width: 55px;
+  height: 65px;
+  padding-top: 45px;
 }
 
 #head:hover, #desk:hover, #heart:hover, #slash:hover {
@@ -632,7 +638,7 @@ p {
 #headImg, #heartImg, #deskImg {
   -webkit-filter: drop-shadow(2px 2px 2px #484a46);
   filter: drop-shadow(2px 2px 2px #484a46);
-  height: 48px;
+  height: 65px;
   background-repeat: no-repeat;
   background-position: center;
 }

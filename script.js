@@ -81,12 +81,11 @@ for(let i=0; i < aboutMeMenu.children.length; i++) {
         let imgId = text[i-text.length] === "/" ? "slashImg" : text[i-text.length].toLowerCase()+"Img";
         kids[i].setAttribute("id", imgId);
         kids[i].classList.add("img1");
-        let top = kids[i-text.length].offsetTop + 30;
         let style = `
           position: absolute;
           height: 50px;
           width:`+ kids[i-text.length].clientWidth +`px;
-          top:`+ top +`px;
+          top: 50px;
           left:`+ kids[i-text.length].offsetLeft +`px;
         `
         kids[i].setAttribute("style", style);
@@ -711,8 +710,6 @@ removeImgsFromSiblings = div => {
     for(let i = 0; i < kids.length; i++) {
         if (kids[i].classList.contains("img2")) {
             kids[i].classList.remove("img2");
-        } else if (kids[i].classList.contains("img3")) {
-            kids[i].classList.remove("img3");
         }
     }
 }
@@ -728,16 +725,13 @@ animateImgID = () => {
     let num = 1;
     let elem = document.getElementById(imgID + "Img");
     animateImgIDInterval = setInterval(() => {
-        num < 3 ? num++ : num = 1;
+        num < 2 ? num++ : num = 1;
         if (num === 1) {
-            elem.classList.remove("img3");
+            elem.classList.remove("img2");
             elem.classList.add("img1");
-        } else if (num === 2) {
+        } else {
             elem.classList.remove("img1");
             elem.classList.add("img2");
-        } else {
-            elem.classList.remove("img2");
-            elem.classList.add("img3");
         }
     }, 500)
 }
