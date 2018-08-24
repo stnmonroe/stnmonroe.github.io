@@ -682,13 +682,13 @@ animateLightning = (e) => {
                                   lowerDiv = aBKids[i+5];
                               }
                           }
+                          lowerDiv.classList.add("aBUp");
+                          lowerDiv.classList.add("img1");
                       } else {
                           div.classList.toggle("aBUp");
                       }
                       setTimeout(() => {
                           div.classList.add("aBUp");
-                          lowerDiv.classList.add("aBUp");
-                          lowerDiv.classList.add("img1");
                           if (animatingImg) {
                               clearInterval(animateImgIDInterval);
                               removeImgsFromSiblings(div);
