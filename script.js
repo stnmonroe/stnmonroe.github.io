@@ -5,6 +5,7 @@ const socialContainer = document.getElementById('socialContainer');
 let lastScrollTop = 0;
 const contents = document.getElementsByClassName("content");
 const aboutMeMenu = document.getElementById("aboutMeMenu");
+const initial = document.getElementById("initial");
 
 //Click anywhere except on menu to close menuDrawer
 document.addEventListener('click', (event) => {
@@ -50,7 +51,7 @@ window.onload = () => {
 }
 
 initialAnimation = () => {
-  const kids = document.getElementById("initial").children;
+  const kids = initial.children;
   for(let i = 0; i < kids.length; i++) {
     kids[i].classList.add("in");
   }
@@ -147,7 +148,7 @@ var portfolioItems = [
       src: "img/witwars.png"
     },
     tech: ["React-Native", "Redux", "Router-Flux", "Node.js", "Express", "Pug", "CSS", "jQuery", "AdMob"],
-    desc: "Co-founder, sole UI Engineer for iOS & Android app, sole designer, sole content creator, and co-developer of web app.",
+    desc: "Co-founder, sole UI Engineer for React-Native app, sole designer, sole content creator, and co-developer of web app.",
     btn: {
       text: "More Info",
       name: "witwars"
@@ -451,16 +452,18 @@ portContain.addEventListener("mousedown", (e) => {
 
 portContain.addEventListener("touchstart", (e) => {
     growPlanet(e, true);
+    console.log(e)
 })
 
 growPlanet = (e, touch) => {
     planetInstructions.textContent = "Drag right to increase the planet's speed.";
     if (e.button === 0 || touch) {
-        touch ? e = e.touches[0] : null;
         growing = true;
-        onDown = e;
+        onDown = touch ? e.changedTouches[0] : e;
         growth > 6 ? growth = 6 : null;
-        planetArray.push(new Planet(e.pageX, (e.pageY - portContain.clientHeight)));
+        let x = touch ? e.changedTouches[0].pageX : e.pageX;
+        let y = touch ? e.changedTouches[0].pageY - initial.offsetHeight : e.pageY - portContain.clientHeight;
+        planetArray.push(new Planet(x, y));
         planetGrow = setInterval(() => {
             growth += (growth * 0.15);
         }, 1)
@@ -480,7 +483,7 @@ releasePlanet = (e, touch) => {
     growing = false;
     growth = 6;
     clearInterval(planetGrow);
-    onUp = touch ? e.touches[0] : e;
+    onUp = touch ? e.changedTouches[0] : e;
 }
 
 animate = () => {
@@ -633,6 +636,8 @@ for (let i=0; i < aBKids.length; i++) {
             const div = e.target || e.srcElement;
             if (div.id.indexOf("Img") < 0) {
                 const xSt = c2W * 0.6 * Math.random() + c2W * 0.3;
+                console.log(e)
+                console.log(e.x, e.y)
                 boltArray.push(new Bolt(xSt, -10, e.x, e.y));
                 canvas2.classList.add("whiteBg");
                 animateLightning(e);
@@ -659,6 +664,7 @@ animateLightning = (e) => {
   let lowerDiv;
 
   if (boltArray.length > 0) {
+      hideAllAboutMeContent();
       setTimeout(() => {
           canvas2.classList.remove("whiteBg");
       }, 100)
@@ -697,6 +703,7 @@ animateLightning = (e) => {
                           }
                           lowerDiv.classList.add("aBUp");
                           lowerDiv.classList.add("img1");
+                          revealAboutMeContent(div.id);
                       }, 10);
                   }
               })
@@ -865,4 +872,20 @@ createSparks = (e) => {
         sparksArray.push(new Spark(e.x, e.y - c3H, dx, dy))
     }
     setTimeout(() => sparksCreated = false, 500);
+}
+
+hideAllAboutMeContent = () => {
+    let divs = document.querySelectorAll(".aboutMeInfoContainer");
+    for(let i = 0; i < divs.length; i++) {
+        divs[i].classList.add("hidden");
+        divs[i].classList.remove("appear");
+    }
+}
+
+revealAboutMeContent = (id) => {
+    let newId = id + "Container";
+    let div = document.getElementById(newId);
+    div.classList.remove("hidden")
+    setTimeout(() => div.classList.add("appear"), 500);
+
 }

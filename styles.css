@@ -592,6 +592,7 @@ p {
   justify-content: space-around;
   align-items: center;
   overflow: hidden;
+  z-index: 100;
 }
 
 #aboutMeMenu:hover {
@@ -691,6 +692,7 @@ p {
   bottom: 0;
   left: 0;
   background-color: transparent;
+  z-index: 99;
 }
 
 .aboutMeInfoContainer {
@@ -701,6 +703,7 @@ p {
   align-items: center;
   justify-content: center;
   padding: 10px;
+  top: 50px;
 }
 
 #formalEducation, #formalEducation div {
@@ -722,7 +725,7 @@ p {
 
 #formalEducation div h2 {
   margin: 0;
-  align-self: flex-end;
+  align-self: flex-start;
   font-weight: 400;
 }
 
@@ -819,6 +822,22 @@ p {
   padding-left: 100px;
 }
 
+#deskContainer, #headContainer, #heartContainer {
+  opacity: 0;
+  transform: translateX(-100vw);
+  transition: 0.01s ease-in-out;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+#deskContainer.appear, #headContainer.appear, #heartContainer.appear {
+  transform: translateX(0vw);
+  opacity: 1;
+  transition: 0.5s ease-in-out;
+}
+
 @media (max-width: 1099px) {
 
 }
@@ -850,6 +869,10 @@ p {
     max-height: 1260px;
   }
 
+  .portfolioHeader p {
+    font-size: 12px;
+  }
+
   .portfolioBox {
     /* transform: scale(0.6); */
     /* margin: 0; */
@@ -876,4 +899,11 @@ p {
   #initial span {
     width: 85%;
   }
+
+  #aboutMeMenu {
+    bottom: 10px;
+    left: 10px;
+    font-weight: bold;
+  }
+  
 }
