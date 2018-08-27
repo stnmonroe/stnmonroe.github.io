@@ -682,8 +682,6 @@ animateLightning = (e) => {
                                   lowerDiv = aBKids[i+5];
                               }
                           }
-                          lowerDiv.classList.add("aBUp");
-                          lowerDiv.classList.add("img1");
                       } else {
                           div.classList.toggle("aBUp");
                       }
@@ -697,6 +695,8 @@ animateLightning = (e) => {
                           if (!sparksCreated) {
                               createSparks(e);
                           }
+                          lowerDiv.classList.add("aBUp");
+                          lowerDiv.classList.add("img1");
                       }, 10);
                   }
               })

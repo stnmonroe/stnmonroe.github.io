@@ -585,7 +585,6 @@ p {
   position: absolute;
   bottom: 30px;
   left: 40px;
-  /* border: 1px solid black; */
   width: 200px;
   height: 50px;
   display: flex;
@@ -603,8 +602,10 @@ p {
   position: relative;
   text-align: center;
   color: white;
+  opacity: 1;
   transition:
       color 0.1s linear,
+      opacity 0.01s linear,
       font-weight 0.1s linear,
       transform 0.15s ease-in-out;
 }
@@ -628,6 +629,10 @@ p {
 
 #lightning.whiteBg {
   background-color: white;
+}
+
+#head.aBUp, #desk.aBUp, #heart.aBUp, #slash.aBUp {
+  opacity: 0;
 }
 
 #head.aBUp, #desk.aBUp, #heart.aBUp, #slash.aBUp,
@@ -686,6 +691,132 @@ p {
   bottom: 0;
   left: 0;
   background-color: transparent;
+}
+
+.aboutMeInfoContainer {
+  width: 92%;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+#formalEducation, #formalEducation div {
+  display: flex;
+  position: relative;
+}
+
+#formalEducation, #informalEducation, #confidenceLevels {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#formalEducation div {
+  flex-direction: column;
+  color: white;
+}
+
+#formalEducation div h2 {
+  margin: 0;
+  align-self: flex-end;
+  font-weight: 400;
+}
+
+#formalEducation div p {
+  align-self: flex-start;
+  font-weight: 100;
+}
+
+#formalEducation img {
+  height: 100px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+#informalEducation, #confidenceLevels, #jsInfo {
+  color: white;
+  background-color: #484a46;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 20px auto 0;
+  position: relative;
+}
+
+#informalEducation {
+  max-width: 685px;
+}
+
+#confJSContainer {
+  max-width: 760px;
+}
+
+#informalEducation code:nth-child(2) {
+  padding-left: 50px;
+}
+
+#deskContainer span {
+  height: 1px;
+  width: 75%;
+  min-width: 500px;
+  background-color: white;
+  margin-top: 10px;
+}
+
+#confidenceLevels {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+#confidenceLevels code:nth-child(even) {
+  font-weight: 200;
+  font-size: 14px;
+}
+
+.htmlTag, .cssPerc {
+  color: orange;
+  background-color: transparent !important;
+  font-weight: 500;
+}
+
+#confJSContainer {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.fnBlue, .fnPurple {
+  background: transparent !important;
+  font-weight: 500;
+}
+
+.fnBlue {
+  color: lightblue;
+}
+
+.fnPurple {
+  color: #cf75f6;
+}
+
+#jsInfo code:nth-child(2),
+#jsInfo code:nth-child(6),
+#jsInfo code:nth-child(10),
+#jsInfo code:nth-child(13) {
+  padding-left: 50px;
+}
+
+#jsInfo code:nth-child(3),
+#jsInfo code:nth-child(4),
+#jsInfo code:nth-child(5),
+#jsInfo code:nth-child(11),
+#jsInfo code:nth-child(12)  {
+  padding-left: 100px;
 }
 
 @media (max-width: 1099px) {
