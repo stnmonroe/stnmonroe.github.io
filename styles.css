@@ -7,14 +7,17 @@ html, body {
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+  user-select: none;
 }
 
 div {
   position: absolute;
+  user-select: none;
 }
 
 p {
   margin: 0;
+  user-select: none;
 }
 
 .mainContainer {
@@ -157,7 +160,7 @@ p {
   visibility: hidden;
   border-radius: 5px;
   position: fixed;
-  background-color: rgba(72, 74, 70, 0.9);
+  background-color: rgba(59, 146, 253, 0.9);
   top: 10px;
   left: 10px;
   width: 1px;
@@ -451,7 +454,7 @@ p {
   transition: 1s ease-in-out 1s;
   opacity: 0;
   transform: translateY(-60vh);
-  box-shadow: 3px 3px 6px #484a46;
+  /* box-shadow: 3px 3px 6px #484a46; */
 }
 
 #initial img.in {
@@ -466,7 +469,7 @@ p {
   margin: 0;
   transition: 1s ease-in-out;
   opacity: 0;
-  text-shadow: 3px 3px 6px #484a46;
+  /* text-shadow: 3px 3px 6px #484a46; */
 }
 
 #initial h2.in {
@@ -480,7 +483,7 @@ p {
   background-color: white;
   transition: 0.5s ease-in-out 2.5s;
   transform: scale(0);
-  box-shadow: 2px 2px 4px #484a46;
+  /* box-shadow: 2px 2px 4px #484a46; */
 }
 
 #initial span.in {
@@ -494,7 +497,7 @@ p {
   font-size: 2em;
   transition: 0.5s ease-in-out 2.0s;
   transform: translateY(-50px);
-  text-shadow: 2px 2px 4px #484a46;
+  /* text-shadow: 2px 2px 4px #484a46; */
   opacity: 0;
 }
 
@@ -615,6 +618,7 @@ p {
   width: 55px;
   height: 65px;
   padding-top: 45px;
+  text-shadow: 1px 1px 4px black;
 }
 
 #head:hover, #desk:hover, #heart:hover, #slash:hover {
@@ -625,11 +629,18 @@ p {
 #lightning, .lightningContainer {
   width: 100vw;
   height: 100vh;
-  background: gray;
+  background: transparent;
+  transition: 1.5s ease-in-out;
 }
 
 #lightning.whiteBg {
   background-color: white;
+  transition: 0.01s linear;
+}
+
+#lightning.grayBg {
+  background-color: gray;
+  transition: 0.01s linear;
 }
 
 #head.aBUp, #desk.aBUp, #heart.aBUp, #slash.aBUp {
@@ -641,12 +652,17 @@ p {
     transform: translateY(-50px);
 }
 
+#headImg.aBUp, #deskImg.aBUp, #heartImg.aBUp, #slashImg.aBUp {
+  opacity: 1;
+}
+
 #headImg, #heartImg, #deskImg {
-  -webkit-filter: drop-shadow(2px 2px 2px #484a46);
-  filter: drop-shadow(2px 2px 2px #484a46);
+  -webkit-filter: drop-shadow(1px 1px 5px black);
+  filter: drop-shadow(1px 1px 5px black);
   height: 65px;
   background-repeat: no-repeat;
   background-position: center;
+  opacity: 0;
 }
 
 #headImg.img1 {
@@ -716,6 +732,7 @@ p {
   justify-content: center;
   align-items: center;
   position: relative;
+  flex: 1;
 }
 
 #formalEducation div {
@@ -745,7 +762,7 @@ p {
   background-color: #484a46;
   border-radius: 10px;
   padding: 10px 20px;
-  margin: 20px auto 0;
+  margin: 5px auto 0;
   position: relative;
 }
 
@@ -808,17 +825,13 @@ p {
 }
 
 #jsInfo code:nth-child(2),
-#jsInfo code:nth-child(6),
-#jsInfo code:nth-child(10),
-#jsInfo code:nth-child(13) {
+#jsInfo code:nth-child(6) {
   padding-left: 50px;
 }
 
 #jsInfo code:nth-child(3),
 #jsInfo code:nth-child(4),
-#jsInfo code:nth-child(5),
-#jsInfo code:nth-child(11),
-#jsInfo code:nth-child(12)  {
+#jsInfo code:nth-child(5)  {
   padding-left: 100px;
 }
 
@@ -836,6 +849,63 @@ p {
   transform: translateX(0vw);
   opacity: 1;
   transition: 0.5s ease-in-out;
+}
+
+#tabContainer, #editor {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+}
+
+#tabContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+#editor {
+  background: #484a46;
+  border-radius: 0 10px 10px 10px;
+  height: 60%;
+  flex: 2;
+}
+
+.tab {
+  position: relative;
+  background: lightgray;
+  border-radius: 10px 10px 0 0;
+  padding: 6px 15px;
+  font-size: 14px;
+}
+
+.tab:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 10px white;
+}
+
+#headContainer {
+  display: flex;
+  justify-content: space-around;
+  max-width: 700px;
+}
+
+.statement {
+  position: relative;
+  border-radius: 10px;
+  padding: 5px 10px;
+  max-width: 75%;
+  user-select: none;
+}
+
+.left {
+  color: black;
+  background: white;
+  align-self: flex-start;
+}
+
+.right {
+  color: white;
+  background: black;
+  align-self: flex-end;
 }
 
 @media (max-width: 1099px) {
@@ -903,7 +973,22 @@ p {
   #aboutMeMenu {
     bottom: 10px;
     left: 10px;
-    font-weight: bold;
   }
-  
+
+  #formalEducation img {
+    height: 80px;
+  }
+
+  #formalEducation h2 {
+    font-size: 1.25em;
+  }
+
+  #formalEducation p {
+    font-size: 14px;
+  }
+
+  code {
+    font-size: 12px;
+  }
+
 }

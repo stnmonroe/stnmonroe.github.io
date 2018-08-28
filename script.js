@@ -639,6 +639,7 @@ for (let i=0; i < aBKids.length; i++) {
                 console.log(e)
                 console.log(e.x, e.y)
                 boltArray.push(new Bolt(xSt, -10, e.x, e.y));
+                canvas2.classList.remove("grayBg");
                 canvas2.classList.add("whiteBg");
                 animateLightning(e);
             }
@@ -667,7 +668,12 @@ animateLightning = (e) => {
       hideAllAboutMeContent();
       setTimeout(() => {
           canvas2.classList.remove("whiteBg");
+          canvas2.classList.add("grayBg");
       }, 100)
+
+      setTimeout(() => {
+          canvas2.classList.remove("grayBg");
+      }, 900)
 
       // setTimeout(() => {
           let boltInterval = setInterval(() => {
@@ -883,9 +889,85 @@ hideAllAboutMeContent = () => {
 }
 
 revealAboutMeContent = (id) => {
+    let aboutMe = document.getElementById("aboutMe");
     let newId = id + "Container";
     let div = document.getElementById(newId);
-    div.classList.remove("hidden")
+    div.classList.remove("hidden");
+    if (id === "desk") {
+        aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7857ea46fded9c0fcb5b65b9a20a41d9&auto=format&fit=crop&w=1441&q=80)");
+        changeDeskContent("aBMeHTML");
+    }
+    if (id === "head") {
+      aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1529389135404-da3244310a24?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c156e525308dd3fcbfd527d768aaa011&auto=format&fit=crop&w=1351&q=80)");
+    }
+    if (id === "heart") {
+      aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1529389135404-da3244310a24?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c156e525308dd3fcbfd527d768aaa011&auto=format&fit=crop&w=1351&q=80)");
+    }
     setTimeout(() => div.classList.add("appear"), 500);
 
+}
+
+let tabs = document.querySelectorAll(".tab");
+let editor = document.getElementById("editor");
+
+for(let i = 0; i < tabs.length; i++) {
+    tabs[i].addEventListener("click", (e) => {
+        let id = e.target.id || e.srcElement.id;
+        changeDeskContent(id);
+    })
+}
+
+const deskContent = {
+    "aBMeHTML": `
+        <div id="informalEducation">
+          <code>&lt;<span class="htmlTag">self-taught</span>&gt;<br/></code>
+          <div style="padding-left: 50px; position: relative">
+            <code>I've received no formal education in my development journey. Special thanks to Codecademy, Derrick Bannas, YouTube, GitHub, StackOverflow, the React-Native community, and &lt;em&gt;my patient wife&lt;/em&gt;.<br/></code>
+          </div>
+          <code>&lt;/<span class="htmlTag">self-taught</span>&gt;</code>
+        </div>
+    `,
+    "aBMeCSS": `
+        <div id="confidenceLevels">
+          <code><span style="color: lightblue; background: transparent">.confidenceLevels</span> {<br/></code>
+          <div style="padding-left: 50px; position: relative">
+            <code>
+              react-native: <span class="cssPerc">90%</span>;<br/>
+              wordpress: <span class="cssPerc">90%</span>;<br/>
+              javascript: <span class="cssPerc">90%</span>;<br/>
+              redux: <span class="cssPerc">85%</span>;<br/>
+              html: <span class="cssPerc">80%</span>;<br/>
+              css: <span class="cssPerc">80%</span>;<br/>
+              react: <span class="cssPerc">75%</span>;<br/>
+              express: <span class="cssPerc">70%</span>;<br/>
+              sequelize: <span class="cssPerc">60%</span>;<br/>
+            </code>
+          </div>
+          <code>}</code>
+        </div>
+    `,
+    "aBMeJS": `
+        <div id="jsInfo">
+          <code><span class="fnPurple">const</span> <span class="fnBlue">myGoal</span> = () <span class="fnPurple">=></span> {<br/></code>
+          <code><span class="fnPurple">while</span> (awake) {<br/></code>
+          <code><span class="fnBlue">keepLearning</span>();<br/></code>
+          <code><span class="fnBlue">exploreEverything</span>();<br/></code>
+          <code><span class="fnBlue">challengeMyself</span>();<br/></code>
+          <code>}<br/></code>
+          <code>}<br/></code>
+        </div>
+    `
+}
+
+changeDeskContent = (id) => {
+    editor.innerHTML = deskContent[id];
+    for(let i = 0; i < tabs.length; i++) {
+        if (tabs[i].id === id) {
+            let onStyle = "background: #484a46; color: white; opacity: 1";
+            tabs[i].setAttribute("style", onStyle);
+        } else {
+            let offStyle = "background: lightgray; color: black; opacity: 0.8";
+            tabs[i].setAttribute("style", offStyle);
+        }
+    }
 }
