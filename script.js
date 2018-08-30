@@ -899,6 +899,7 @@ revealAboutMeContent = (id) => {
     }
     if (id === "head") {
       aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1529389135404-da3244310a24?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c156e525308dd3fcbfd527d768aaa011&auto=format&fit=crop&w=1351&q=80)");
+      turnOnLightBulb();
     }
     if (id === "heart") {
       aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1529389135404-da3244310a24?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c156e525308dd3fcbfd527d768aaa011&auto=format&fit=crop&w=1351&q=80)");
@@ -970,4 +971,36 @@ changeDeskContent = (id) => {
             tabs[i].setAttribute("style", offStyle);
         }
     }
+}
+
+turnOnLightBulb = () => {
+    let bulb = document.getElementById("bulb");
+    bulb.addEventListener("click", () => turnOnLightBulb());
+    let num;
+    window.innerWidth < 580 ? num = 200 : num = 300;
+    bulb.width = num;
+    bulb.height = num;
+    let bctx = bulb.getContext("2d");
+    let unlit = document.getElementById("unlit");
+    let partial = document.getElementById("partial");
+    let lit = document.getElementById("lit");
+
+    bctx.drawImage(unlit, 0, 0, num, num);
+    setTimeout(() => {
+            let count = 0;
+            let int = setInterval(() => {
+                bctx.clearRect(0, 0, bulb.width, bulb.height);
+                bctx.drawImage(partial, 0, 0, num, num);
+                setTimeout(() => {
+                    bctx.clearRect(0, 0, bulb.width, bulb.height);
+                    bctx.drawImage(unlit, 0, 0, num, num);;
+                    count++
+                    if (count > 2) {
+                        clearInterval(int);
+                        bctx.clearRect(0, 0, bulb.width, bulb.height);
+                        bctx.drawImage(lit, 0, 0, num, num);
+                    }
+                }, 100)
+            }, 250);
+        }, 2500)
 }

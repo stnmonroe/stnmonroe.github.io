@@ -886,6 +886,7 @@ p {
   display: flex;
   justify-content: space-around;
   max-width: 700px;
+  top: 25px;
 }
 
 .statement {
@@ -906,6 +907,10 @@ p {
   color: white;
   background: black;
   align-self: flex-end;
+}
+
+#bulb {
+  position: relative;
 }
 
 @media (max-width: 1099px) {
@@ -989,6 +994,10 @@ p {
 
   code {
     font-size: 12px;
+  }
+
+  .statement {
+    font-size: 14px;
   }
 
 }
