@@ -582,6 +582,7 @@ p {
 #aboutMe {
   background-color: transparent;
   overflow: hidden;
+  background-size: cover;
 }
 
 #aboutMeMenu {

@@ -70,6 +70,7 @@ menuBall.innerHTML = createElem(6, "span");
 
 // Create the divs for the aboutMeMenu & fill in text
 aboutMeMenu.innerHTML = createElem(10, "div");
+console.log(aboutMeMenu.children)
 for(let i=0; i < aboutMeMenu.children.length; i++) {
     const text = ["DESK", "/", "HEAD", "/", "HEART"];
     const kids = aboutMeMenu.children;
@@ -82,12 +83,13 @@ for(let i=0; i < aboutMeMenu.children.length; i++) {
         let imgId = text[i-text.length] === "/" ? "slashImg" : text[i-text.length].toLowerCase()+"Img";
         kids[i].setAttribute("id", imgId);
         kids[i].classList.add("img1");
+        console.log(kids[i-text.length].offsetLeft);
         let style = `
-          position: absolute;
-          height: 50px;
-          width:`+ kids[i-text.length].clientWidth +`px;
-          top: 50px;
-          left:`+ kids[i-text.length].offsetLeft +`px;
+            position: absolute;
+            height: 50px;
+            width:`+ kids[i-text.length].clientWidth +`px;
+            top: 50px;
+            left:`+ kids[i-text.length].offsetLeft +`px;
         `
         kids[i].setAttribute("style", style);
     }
@@ -303,7 +305,7 @@ const box = canvas.getBoundingClientRect();
 canvas.width = box.width;
 canvas.height = box.height;
 let maxStarSize = 2.8;
-let numStars = 1000;
+let numStars = 200;
 
 var c = canvas.getContext('2d');
 
@@ -316,8 +318,8 @@ function Star(x, y, size, dx, dy) {
 
     this.draw = () => {
         c.beginPath();
-        c.shadowBlur = this.size * 5;
-        c.shadowColor = "white";
+        // c.shadowBlur = this.size * 5;
+        // c.shadowColor = "white";
         c.arc(this.x, this.y, size, 0, Math.PI * 2);
         c.fillStyle = 'white';
         c.fill();
@@ -363,8 +365,8 @@ function ShootingStar(x, y, size, dx, dy, fill) {
     this.draw = () => {
         c.beginPath();
         c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        c.shadowBlur = this.size/4;
-        c.shadowColor = "gold";
+        // c.shadowBlur = this.size/4;
+        // c.shadowColor = "gold";
         c.fillStyle = fill;
         c.fill();
         c.closePath();
@@ -394,8 +396,8 @@ function Planet(x, y) {
         c.beginPath();
         c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         c.fillStyle = this.grd;
-        c.shadowBlur = this.size/4;
-        c.shadowColor = "gray";
+        // c.shadowBlur = this.size/4;
+        // c.shadowColor = "gray";
         c.fill();
         c.closePath();
     }
@@ -465,7 +467,7 @@ growPlanet = (e, touch) => {
         let y = touch ? e.changedTouches[0].pageY - initial.offsetHeight : e.pageY - portContain.clientHeight;
         planetArray.push(new Planet(x, y));
         planetGrow = setInterval(() => {
-            growth += (growth * 0.15);
+            growth += (growth * 0.05);
         }, 1)
     }
 }
@@ -491,7 +493,7 @@ animate = () => {
     c.clearRect(0, 0, canvas.width, canvas.height);
 
     let starChance = Math.random();
-    if (starChance < 0.25) {
+    if (starChance < 0.04) {
         let x = -50;
         let y = Math.random() * canvas.height;
         let size = createStarSize(starChance > 0.075);
@@ -501,7 +503,7 @@ animate = () => {
     }
 
     if (shootingStarArray.length < 1) {
-        if (Math.random() < 0.1) {
+        if (Math.random() < 0.05) {
             let x = -50;
             let y = Math.random() * box.height;
             let size = Math.random() * maxStarSize + 2;
@@ -512,7 +514,7 @@ animate = () => {
 
             for (let i = 0; i < tailLen; i++) {
                 let factor = (tailLen - i) / tailLen;
-                let fill = "rgba(255, 255, 255, " + (factor/2) + ")";
+                let fill = "rgba(255, 233, 122, " + (factor/2) + ")";
                 shootingStarArray.push(
                   new ShootingStar(x-(i * dx/8), y-(i * dy/8), size * factor, dx, dy, fill)
                 );
@@ -586,31 +588,6 @@ window.addEventListener("resize", () => {
     c3H = canvas3.height;
     c3W = canvas3.width;
 })
-
-createStars = () => {
-
-
-  // for(let i = 0; i < num; i++) {
-  //   // const a = Math.random() * 2 * Math.PI;
-  //   // const R = box.width >= box.height ? box.height : box.width;
-  //   // const r = R * Math.sqrt(Math.random());
-  //   // const y = r * Math.sin(a);
-  //   // const x = r * Math.cos(a);
-  //
-  //   const x = canvas.width * Math.random();
-  //   const y = canvas.height * Math.random();
-  //
-  //   c.beginPath();
-  //   const size = Math.random() * 2;
-  //   c.shadowBlur = size * 10;
-  //   c.shadowColor = "white";
-  //   c.arc(x, y, Math.random() * 2, 0, Math.PI * 2);
-  //   c.fillStyle = 'white';
-  //   c.fill();
-  //
-  //
-  // }
-}
 
 randomColor = () => {
 
@@ -748,29 +725,6 @@ animateImgID = () => {
         }
     }, 500)
 }
-// function Cloud(x, y, size, dx, dy) {
-//     this.x = x;
-//     this.y = y;
-//     this.size = size;
-//     this.dx = dx;
-//     this.dy = Math.random() > 0.49 ? dy : -dy;
-//
-//     this.draw = () => {
-//         c.beginPath();
-//         c.shadowBlur = this.size * 5;
-//         c.shadowColor = "white";
-//         c.arc(this.x, this.y, size, 0, Math.PI * 2);
-//         c.fillStyle = 'white';
-//         c.fill();
-//         c.closePath();
-//     }
-//
-//     this.update = () => {
-//       this.x += this.dx;
-//       this.y += this.dy;
-//       this.draw();
-//     }
-// }
 
 let boltArray = [];
 
@@ -902,7 +856,7 @@ revealAboutMeContent = (id) => {
       turnOnLightBulb();
     }
     if (id === "heart") {
-      aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1529389135404-da3244310a24?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c156e525308dd3fcbfd527d768aaa011&auto=format&fit=crop&w=1351&q=80)");
+      aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1530477220084-4b4fddfa3dcc?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0223eea1606301eb772157a1b688b8bf&auto=format&fit=crop&w=1120&q=80)");
     }
     setTimeout(() => div.classList.add("appear"), 500);
 
