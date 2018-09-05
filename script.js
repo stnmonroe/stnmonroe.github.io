@@ -14,15 +14,19 @@ document.addEventListener('click', (event) => {
 
   if (e !== menuBall && e !== menuDrawer &&
       e.parentElement !== menuBall && e.parentElement !== menuDrawer) {
-    menuBall.classList.remove("open");
-    menuDrawer.classList.remove("open");
-    for(var i=0; i < menuItems.length; i++) {
-      menuItems[i].classList.remove("open");
-    }
-    socialContainer.classList.remove("open");
-    logo.classList.remove("open");
+    closeMenu();
   }
 })
+
+closeMenu = () => {
+  menuBall.classList.remove("open");
+  menuDrawer.classList.remove("open");
+  for(var i=0; i < menuItems.length; i++) {
+    menuItems[i].classList.remove("open");
+  }
+  socialContainer.classList.remove("open");
+  logo.classList.remove("open");
+}
 
 //Show menuBall on mouseover top left area of document
 // document.body.addEventListener("mousemove", (e) => {
@@ -133,7 +137,10 @@ menuBall.addEventListener("click", () => {
   //Scroll to location when menuItem is clicked
   let behave = { behavior: "smooth", block: "start"};
 
-  logo.addEventListener("click", () => initial.scrollIntoView(behave))
+  logo.addEventListener("click", () => {
+    initial.scrollIntoView(behave);
+    closeMenu();
+  })
 
   for (let i = 0; i < menuItems.length; i++) {
     menuItems[i].addEventListener("click", (event) => {
