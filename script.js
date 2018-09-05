@@ -67,6 +67,12 @@ initialAnimation = () => {
 hoverProfile = () => {
   let profile = document.getElementById("profile");
   let origSrc = profile.src;
+  let logo = "img/logo.png";
+
+  profile.src = logo;
+
+  setTimeout(() => profile.src = origSrc, 5000);
+
   profile.addEventListener("mouseover", () => {
     profile.src = "img/logo.png";
   })

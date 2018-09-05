@@ -218,6 +218,9 @@ p {
   -o-transition: 0.1s ease-in-out;
   transition: 0.1s ease-in-out;
   transform: scale(0.01);
+  border: 5px solid white;
+  border-radius: 50%;
+  user-select: none;
 }
 
 #logo.open {
@@ -230,6 +233,7 @@ p {
   -webkit-filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5));
   filter: drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.5));
   cursor: pointer;
+  user-select: none;
 }
 
 #menuDrawer p {
@@ -481,11 +485,13 @@ p {
   opacity: 0;
   transform: translateY(-60vh);
   /* box-shadow: 3px 3px 6px #484a46; */
+  user-select: none;
 }
 
 #profile.in {
   opacity: 1;
   transform: translateY(0);
+  user-select: none;
 }
 
 #initial h2 {
