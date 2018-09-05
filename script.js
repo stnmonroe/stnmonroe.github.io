@@ -6,6 +6,7 @@ let lastScrollTop = 0;
 const contents = document.getElementsByClassName("content");
 const aboutMeMenu = document.getElementById("aboutMeMenu");
 const initial = document.getElementById("initial");
+const logo = document.getElementById("logo");
 
 //Click anywhere except on menu to close menuDrawer
 document.addEventListener('click', (event) => {
@@ -19,6 +20,7 @@ document.addEventListener('click', (event) => {
       menuItems[i].classList.remove("open");
     }
     socialContainer.classList.remove("open");
+    logo.classList.remove("open");
   }
 })
 
@@ -45,6 +47,7 @@ window.onload = () => {
     setTimeout( () => menuBall.classList.remove("offScreen"), 2500);
 
     initialAnimation();
+    hoverProfile();
     createPortfolioBoxes();
     createInitialStars();
     animate();
@@ -55,6 +58,18 @@ initialAnimation = () => {
   for(let i = 0; i < kids.length; i++) {
     kids[i].classList.add("in");
   }
+}
+
+hoverProfile = () => {
+  let profile = document.getElementById("profile");
+  let origSrc = profile.src;
+  profile.addEventListener("mouseover", () => {
+    profile.src = "img/logo.png";
+  })
+
+  profile.addEventListener("mouseleave", () => {
+    profile.src = origSrc;
+  })
 }
 
 var createElem = (num, elem) => {
@@ -99,12 +114,14 @@ for(let i=0; i < aboutMeMenu.children.length; i++) {
 menuBall.addEventListener("click", () => {
   menuBall.classList.toggle("open");
   menuDrawer.classList.toggle("open");
+  logo.classList.add("open");
   for(var i=0; i < menuItems.length; i++) {
     menuItems[i].classList.toggle("open");
   }
 
   if (socialContainer.classList.contains("open")) {
     socialContainer.classList.remove("open");
+    logo.classList.remove("open");
   } else {
     setTimeout(() => {
       if (menuDrawer.classList.contains("open")) {
@@ -114,19 +131,17 @@ menuBall.addEventListener("click", () => {
   }
   checkLocationForMenu();
   //Scroll to location when menuItem is clicked
+  let behave = { behavior: "smooth", block: "start"};
+
+  logo.addEventListener("click", () => initial.scrollIntoView(behave))
+
   for (let i = 0; i < menuItems.length; i++) {
     menuItems[i].addEventListener("click", (event) => {
       let e = event.target || event.srcElement;
       if (e.textContent === "portfolio") {
-        document.getElementById("portfolioContainer").scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
+        document.getElementById("portfolioContainer").scrollIntoView(behave);
       } else if (e.textContent === "about me") {
-        document.getElementById("aboutMe").scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
+        document.getElementById("aboutMe").scrollIntoView(behave);
       } else {
         //TODO
       }
@@ -437,7 +452,7 @@ const originalPlanetInstructions = planetInstructions.textContent;
 let planetArray = [];
 let planetGrow;
 let growing = false;
-let growth = 6;
+let growth = 5;
 let onDown;
 let onUp;
 
@@ -462,12 +477,12 @@ growPlanet = (e, touch) => {
     if (e.button === 0 || touch) {
         growing = true;
         onDown = touch ? e.changedTouches[0] : e;
-        growth > 6 ? growth = 6 : null;
+        growth > 5 ? growth = 5 : null;
         let x = touch ? e.changedTouches[0].pageX : e.pageX;
         let y = touch ? e.changedTouches[0].pageY - initial.offsetHeight : e.pageY - portContain.clientHeight;
         planetArray.push(new Planet(x, y));
         planetGrow = setInterval(() => {
-            growth += (growth * 0.05);
+            growth += (growth * 0.02);
         }, 1)
     }
 }
@@ -483,7 +498,7 @@ document.addEventListener("touchend", (e) => {
 releasePlanet = (e, touch) => {
     planetInstructions.textContent = originalPlanetInstructions;
     growing = false;
-    growth = 6;
+    growth = 5;
     clearInterval(planetGrow);
     onUp = touch ? e.changedTouches[0] : e;
 }
@@ -508,8 +523,8 @@ animate = () => {
             let y = Math.random() * box.height;
             let size = Math.random() * maxStarSize + 2;
             let tailLen = Math.floor(size) * 60;
-            let dx = Math.random() * (size) + 10;
-            let d = Math.random() < 0.5 ? -6 : 6;
+            let dx = Math.random() * (size) + 8;
+            let d = Math.random() < 0.5 ? -3 : 3;
             let dy = Math.random() * (size * d);
 
             for (let i = 0; i < tailLen; i++) {

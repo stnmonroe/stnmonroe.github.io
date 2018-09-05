@@ -25,7 +25,7 @@ p {
 }
 
 #menuBall {
-  background-color: rgba(254, 246, 226, 0.6);
+  background-color: rgba(254, 246, 226, 0.5);
   position: fixed;
   border-radius: 50%;
   margin: 20px 20px;
@@ -181,7 +181,7 @@ p {
 
 #menuDrawer.open {
   visibility: visible;
-  height: 330px;
+  height: 390px;
   width: 170px;
   -webkit-transition: 0.25s ease-in-out;
   -moz-transition: 0.25s ease-in-out;
@@ -204,6 +204,32 @@ p {
 #menuDrawer div.open {
   opacity: 1;
   transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#logo {
+  height: 75px;
+  width: 75px;
+  align-self: center;
+  margin-bottom: 30px;
+  opacity: 0;
+  transition-delay: 0s;
+  -webkit-transition: 0.1s ease-in-out;
+  -moz-transition: 0.1s ease-in-out;
+  -o-transition: 0.1s ease-in-out;
+  transition: 0.1s ease-in-out;
+  transform: scale(0.01);
+}
+
+#logo.open {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+  transform: scale(1);
+}
+
+#logo.open:hover {
+  -webkit-filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.5));
+  filter: drop-shadow(0px 0px 12px rgba(255, 255, 255, 0.5));
+  cursor: pointer;
 }
 
 #menuDrawer p {
@@ -446,7 +472,7 @@ p {
   align-items: center;
 }
 
-#initial img {
+#profile {
   height: 200px;
   width: 200px;
   border-radius: 50%;
@@ -457,7 +483,7 @@ p {
   /* box-shadow: 3px 3px 6px #484a46; */
 }
 
-#initial img.in {
+#profile.in {
   opacity: 1;
   transform: translateY(0);
 }
@@ -958,7 +984,7 @@ p {
     margin-bottom: 25px;
   }
 
-  #initial img {
+  #profile {
     height: 160px;
     width: 160px;
     border-width: 7px;
