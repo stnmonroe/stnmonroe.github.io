@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Austin's Portfolio</title>
-    <link rel="stylesheet" href="styles.css"></style>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://unpkg.com/ionicons@4.4.2/dist/css/ionicons.min.css" rel="stylesheet">
   </head>
   <body>
     <div class="mainContainer">
@@ -120,21 +121,31 @@
             <div id="sHText">
               Blah blah blah blah blah. Blah blah blah blah blah blah. Blah blah blah.
             </div>
-            <div id="sHForm">
-              <table>
-                <tr>
-                  <td id="nameLabel" class="label">Name</td>
-                  <td><input id="name" type="text" name="name" ></td>
-                </tr>
-                <tr>
-                  <td id="emailLabel" class="label">Email</td>
-                  <td><input id="email" type="text" name="email" ></td>
-                </tr>
-                <tr>
-                  <td id="messageLabel" class="label">Message</td>
-                  <td><textarea id="message" type="text" name="message" ></textarea></td>
-                </tr>
-              </table>
+            <div id="sHFormContainer">
+              <div id="sHForm">
+                <div id="name">
+                  <label>Name</label>
+                  <input type="text" name="name" autocomplete="off">
+                </div>
+                <div id="email">
+                  <label>Email</label>
+                  <input type="text" name="email" autocomplete="off">
+                </div>
+                <div id="message">
+                  <label>Message</label>
+                  <textarea type="text" name="message" ></textarea>
+                </div>
+              </div>
+              <div id="sHFormSend">
+                <p>Send</p>
+                <span>i</span>
+                <span>n</span>
+                <span>g</span>
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+                <i class="icon ion-md-send"></i>
+              </div>
             </div>
           </div>
         </div>

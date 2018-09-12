@@ -10,6 +10,10 @@ html, body {
   user-select: none;
 }
 
+*:focus {
+  outline: none;
+}
+
 div {
   position: absolute;
   user-select: none;
@@ -972,12 +976,12 @@ p {
   width: 95%;
 }
 
-#sHText, #sHForm {
+#sHText, #sHFormContainer {
   align-items: center;
   justify-content: center;
   padding: 15px;
-  border: 5px solid darkgray;
-  height: 50vh;
+  border: 5px solid white;
+  height: 58vh;
   background: rgba(34, 100, 50, 0.8);
   display: flex;
   flex-direction: column;
@@ -990,31 +994,94 @@ p {
   border-radius: 20px 0 0 20px;
 }
 
-#sHForm {
+#sHFormContainer {
   flex: 2;
   border-radius: 0 20px 20px 0;
   border-left: none;
 }
 
-#sHForm input, #sHForm textarea {
-  border-radius: 5px;
-  border: none;
-  padding: 3px 6px;
+#sHForm {
   max-width: 300px;
   width: 90%;
 }
 
-#sHForm table {
+#sHForm div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+#sHForm label {
+  align-self: flex-start;
+  color: white;
+  transform: translateY(30px);
+  transition: 0.3s ease-in-out;
+}
+
+#sHForm label.selected {
+  transform: translateY(0) scale(0.8) translateX(-10px);
+}
+
+#sHForm input, #sHForm textarea {
+  border-radius: 10px;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  padding: 10px;
   width: 100%;
 }
 
-td {
-  padding: 5px 10px;
+textarea {
+  font-family: 'Open Sans', Helvetica, Arial,
+    'Lucida Grande', sans-serif;
 }
 
 #sHForm textarea {
   resize: none;
-  height: 200px;
+  height: 160px;
+  margin-bottom: 15px;
+}
+
+#sHFormSend {
+  font-size: 18px;
+  padding: 5px 12px;
+  border-radius: 10px;
+  border: none;
+  background: orange;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#sHFormSend i {
+  margin-left: 10px;
+  transition: 1s ease-in-out;
+}
+
+#sHFormSend span {
+  visibility: hidden;
+  width: 0;
+  transition: 0.2s ease-in-out;
+}
+
+#sHFormSend span.sending {
+  visibility: visible;
+  width: auto;
+}
+
+#sHFormSend i.sending {
+  transform: translateX(200px);
+  opacity: 0;
+}
+
+#sHFormSend:hover {
+  cursor: pointer;
+  background: darkorange;
 }
 
 @media (max-width: 1099px) {
@@ -1102,6 +1169,22 @@ td {
 
   .statement {
     font-size: 14px;
+  }
+
+  .sHContent {
+    flex-direction: column;
+  }
+
+  #sHForm {
+    border-radius: 0 0 20px 20px;
+    border-top: none;
+    border-left: 5px solid white;
+    width: 90%;
+  }
+
+  #sHText {
+    border-radius: 20px 20px 0 0;
+    width: 90%;
   }
 
 }

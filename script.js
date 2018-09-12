@@ -55,6 +55,7 @@ window.onload = () => {
     createPortfolioBoxes();
     createInitialStars();
     animate();
+    createFormEventsListeners();
 }
 
 initialAnimation = () => {
@@ -985,4 +986,20 @@ turnOnLightBulb = () => {
                 }, 100)
             }, 250);
         }, 2500)
+}
+
+createFormEventsListeners = () => {
+    let formKids = document.getElementById("sHForm").children
+    for(let i = 0; i < formKids.length; i++) {
+        formKids[i].children[1].addEventListener("focusin", () => {
+            formKids[i].children[0].classList.add("selected")
+        })
+        formKids[i].children[1].addEventListener("focusout", () => {
+            console.log(formKids[i].children[1].value)
+            if (formKids[i].children[1].value.length < 1) {
+                formKids[i].children[0].classList.remove("selected")
+            }
+        })
+    }
+
 }
