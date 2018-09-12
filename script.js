@@ -49,9 +49,9 @@ closeMenu = () => {
 
 window.onload = () => {
     setTimeout( () => menuBall.classList.remove("offScreen"), 2500);
+    setTimeout( () => hoverProfile(), 8000);
 
     initialAnimation();
-    hoverProfile();
     createPortfolioBoxes();
     createInitialStars();
     animate();
@@ -63,22 +63,23 @@ initialAnimation = () => {
   for(let i = 0; i < kids.length; i++) {
     kids[i].classList.add("in");
   }
+  document.getElementById("profile").classList.add("in");
+  setTimeout(() => {
+    document.getElementById("sigA").classList.add("fade");
+    document.getElementById("sigM").classList.add("fade");
+  }, 5500)
 }
 
 hoverProfile = () => {
+  let profContain = document.getElementById("profileImgContainer");
   let profile = document.getElementById("profile");
   let origSrc = profile.src;
-  let logo = "img/logo.png";
 
-  profile.src = logo;
-
-  setTimeout(() => profile.src = origSrc, 5000);
-
-  profile.addEventListener("mouseover", () => {
-    profile.src = "img/logo.png";
+  profContain.addEventListener("mouseover", () => {
+    profile.src = "img/profile.jpg";;
   })
 
-  profile.addEventListener("mouseleave", () => {
+  profContain.addEventListener("mouseleave", () => {
     profile.src = origSrc;
   })
 }
@@ -818,7 +819,7 @@ function Spark(x, y, dx, dy) {
     this.dy = dy;
     this.h = y - 100;
     this.down = false;
-    this.size = 2;
+    this.size = 3;
     let grd = c3.createRadialGradient(x, y, 20, x, y, 60);
     grd.addColorStop(0, "gold");
     grd.addColorStop(0.7, "orange");

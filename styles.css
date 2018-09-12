@@ -211,10 +211,10 @@ p {
 }
 
 #logo {
-  height: 75px;
-  width: 75px;
+  height: 60px;
+  width: 60px;
   align-self: center;
-  margin-bottom: 30px;
+  margin: 5px auto 30px;
   opacity: 0;
   transition-delay: 0s;
   -webkit-transition: 0.1s ease-in-out;
@@ -222,7 +222,6 @@ p {
   -o-transition: 0.1s ease-in-out;
   transition: 0.1s ease-in-out;
   transform: scale(0.01);
-  border: 5px solid white;
   border-radius: 50%;
   user-select: none;
 }
@@ -468,7 +467,6 @@ p {
 .portfolioTechItem:hover {
   transform: scale(1.1);
   color: #3b92fd;
-  cursor: pointer;
 }
 
 #initial {
@@ -480,16 +478,78 @@ p {
   align-items: center;
 }
 
-#profile {
+#profileImgContainer {
   height: 200px;
   width: 200px;
-  border-radius: 50%;
-  border: 10px solid white;
-  transition: 1s ease-in-out 1s;
+  position: relative;
+}
+
+#sigA, #sigM {
+  position: absolute;
+  top: 0; bottom: 0;
+  right: 0; left: 0;
+  transition-duration: 2s;
+}
+
+#sigA {
+  stroke: white;
+  stroke-width: 3;
+  stroke-dasharray: 1622.916748046875px;
+  stroke-dashoffset: 1622.916748046875px;
+  animation-name: draw;
+  animation-duration: 4s;
+  animation-fill-mode: forwards; // Stay on the last frame
+  animation-iteration-count: 1; // Run only once
+  animation-timing-function: ease-in-out;
+}
+
+#sigM {
+  stroke: white;
+  stroke-width: 3;
+  stroke-dasharray: 1825.9140625px;
+  stroke-dashoffset: 1825.9140625px;
+  animation-name: draw;
+  animation-duration: 2s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+
+#A, #M {
+  fill: white;
+  fill-opacity: 0;
+  animation-name: fill;
+  animation-duration: 2s;
+  animation-delay: 4s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fill {
+  from { fill-opacity: 0; }
+  to { fill-opacity: 1; }
+}
+
+#sigA.fade, #sigM.fade {
   opacity: 0;
-  transform: translateY(-60vh);
-  /* box-shadow: 3px 3px 6px #484a46; */
+}
+
+#profile {
+  border-radius: 50%;
+  transition: 1s ease-in-out 5s;
+  opacity: 0;
   user-select: none;
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
 }
 
 #profile.in {
@@ -503,7 +563,7 @@ p {
   font-weight: normal;
   font-size: 3em;
   margin: 0;
-  transition: 1s ease-in-out;
+  transition: 1s ease-in-out 4s;
   opacity: 0;
   /* text-shadow: 3px 3px 6px #484a46; */
 }
@@ -513,33 +573,97 @@ p {
   margin: 10px 0 5px;
 }
 
-#initial span {
-  width: 550px;
+#line {
+  width: 490px;
   height: 1px;
   background-color: white;
-  transition: 0.5s ease-in-out 2.5s;
+  transition: 0.5s ease-in-out 6.5s;
   transform: scale(0);
   /* box-shadow: 2px 2px 4px #484a46; */
 }
 
-#initial span.in {
+#line.in {
   transform: scale(1);
 }
 
-#initial p {
+.outerDiv {
   font-weight: 100;
   color: white;
   margin-top: 5px;
-  font-size: 2em;
-  transition: 0.5s ease-in-out 2.0s;
+  font-size: 1.5em;
+  transition: 0.5s ease-in-out 6s;
   transform: translateY(-50px);
   /* text-shadow: 2px 2px 4px #484a46; */
   opacity: 0;
 }
 
-#initial p.in {
+.outerDiv.in {
   transform: translateX(0);
   opacity: 1;
+}
+
+.outerDiv {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.innerDiv {
+  transition: 0.15s linear;
+  padding: 0 10px;
+  position: relative;
+}
+
+.innerDiv:hover {
+  color: orange;
+}
+
+.innerDiv span {
+  visibility: hidden;
+  width: 160px;
+  top: 135%;
+  left: 50%;
+  margin-left: -80px;
+  background-color: rgba(0,0,0,.5);
+  border-radius: 6px;
+  padding: 10px;
+  text-align: center;
+  z-index: 25;
+  position: absolute;
+  color: white;
+  font-size: 12px;
+}
+
+.innerDiv span::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent rgba(0,0,0,.5) transparent;
+
+}
+
+.innerDiv:hover span {
+  visibility: visible;
+}
+
+.innerSpan:hover::after {
+  background: #333;
+  background: rgba(0,0,0,.5);
+  border-radius: 5px;
+  top: 40px; left: 0; right: 0;
+  color: #fff;
+  content: "hello";
+  padding: 5px 15px;
+  position: absolute;
+  z-index: 98;
+  width: 220px;
+  height: 100px;
 }
 
 .portfolioHeader {
@@ -932,6 +1056,8 @@ p {
   padding: 5px 10px;
   max-width: 75%;
   user-select: none;
+  display: flex;
+  align-items: center;
 }
 
 .left {
@@ -944,6 +1070,15 @@ p {
   color: white;
   background: black;
   align-self: flex-end;
+}
+
+.statement i {
+  font-size: 24px;
+  margin: 0 10px 0 5px;
+}
+
+.statement i.on {
+  color: yellow;
 }
 
 #bulb {
@@ -963,6 +1098,11 @@ p {
 .sHHeader {
   flex: 1;
   color: #fef6e2;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .sHContent {
@@ -1084,6 +1224,22 @@ textarea {
   background: darkorange;
 }
 
+.sHImg img {
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  margin: 10px;
+}
+
+.sHHeaderText {
+  padding: 10px;
+}
+
+.sHHeaderText h2 {
+  margin: 0;
+  font-size: 56px;
+}
+
 @media (max-width: 1099px) {
 
 }
@@ -1119,6 +1275,11 @@ textarea {
     font-size: 12px;
   }
 
+  .portfolioHeader h2 {
+    font-size: 35px;
+    margin-top: 10px;
+  }
+
   .portfolioBox {
     /* transform: scale(0.6); */
     /* margin: 0; */
@@ -1128,22 +1289,23 @@ textarea {
     margin-bottom: 25px;
   }
 
-  #profile {
-    height: 160px;
-    width: 160px;
-    border-width: 7px;
-  }
-
   #initial h2 {
     font-size: 2em;
   }
 
-  #initial p {
-    font-size: 1.2em;
+  .outerDiv {
+    font-size: 1em;
   }
 
-  #initial span {
+  #line {
     width: 85%;
+  }
+
+  .innerDiv span {
+    width: 100px;
+    margin-left: -50px;
+    font-size: 11px;
+    top: 150%;
   }
 
   #aboutMeMenu {
@@ -1175,16 +1337,36 @@ textarea {
     flex-direction: column;
   }
 
-  #sHForm {
+  #sHFormContainer {
     border-radius: 0 0 20px 20px;
     border-top: none;
     border-left: 5px solid white;
     width: 90%;
+    margin-bottom: 15px;
   }
 
   #sHText {
     border-radius: 20px 20px 0 0;
     width: 90%;
+    flex: 0.6;
+  }
+
+  .sHImg img {
+    margin-bottom: 0;
+    margin-top: 25px;
+  }
+
+  .sHContent {
+    flex: 2.2;
+  }
+
+  .sHHeader {
+    flex: 0.9;
+    margin-bottom: 25px;
+  }
+
+  .sHHeaderText {
+    padding-top: 0;
   }
 
 }
