@@ -2,7 +2,7 @@ const menuBall = document.getElementById('menuBall');
 const menuDrawer = document.getElementById('menuDrawer');
 const menuItems = document.getElementsByClassName('menuItemConatiner');
 const socialContainer = document.getElementById('socialContainer');
-let lastScrollTop = 0;
+// let lastScrollTop = 0;
 const contents = document.getElementsByClassName("content");
 const aboutMeMenu = document.getElementById("aboutMeMenu");
 const initial = document.getElementById("initial");
@@ -155,8 +155,8 @@ menuBall.addEventListener("click", () => {
         document.getElementById("portfolioContainer").scrollIntoView(behave);
       } else if (e.textContent === "about me") {
         document.getElementById("aboutMe").scrollIntoView(behave);
-      } else {
-        //TODO
+      } else if (e.textContent === "say hello") {
+        document.getElementById("sayHello").scrollIntoView(behave);
       }
     })
   }
