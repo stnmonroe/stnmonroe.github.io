@@ -1,5 +1,5 @@
 html, body {
-  font-family: 'Open Sans', Helvetica, Arial,
+  font-family: 'Chivo', Helvetica, Arial,
     'Lucida Grande', sans-serif;
   font-weight: 300;
   font-size: 16px;
@@ -8,6 +8,8 @@ html, body {
   width: 100%;
   overflow-x: hidden;
   user-select: none;
+  overflow: hidden; //Removed ability to scroll, must use menu
+  overflow-x: hidden;
 }
 
 *:focus {
@@ -66,6 +68,21 @@ p {
 #menuBall.open:hover {
   transform: scale(1);
   box-shadow: 2px 2px 4px #484a46;
+}
+
+#menuBall.highlight {
+  animation-name: glow;
+  animation-duration: 0.5s;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes glow {
+  to {
+    box-shadow: 1px 2px 50px gold;
+    background: gold;
+  }
 }
 
 #menuBall span {
@@ -301,7 +318,7 @@ p {
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
-  flex: 6;
+  flex: 5;
 }
 
 .portfolioBox {
@@ -322,6 +339,48 @@ p {
 
 .portfolioBox:hover {
   background-color: rgba(72, 74, 70, 0.9);
+}
+
+.profileMobile {
+  width: 75%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileMobile p {
+  font-size: 12px;
+}
+
+.mobileBtns {
+  position: relative;
+  width: 100%;
+  font-size: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  text-shadow: 1px 1px 10px darkgray;
+}
+
+.mobileBtns p {
+  font-size: 34px;
+}
+
+.mobileBtns i {
+  cursor: pointer;
+}
+
+.mobileBtns i:active {
+  color: gold;
+  text-shadow: none;
+}
+
+.mobileBtns i.noclick {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .img1stHalf {
@@ -565,6 +624,7 @@ p {
   margin: 0;
   transition: 1s ease-in-out 4s;
   opacity: 0;
+  font-weight: 200;
   /* text-shadow: 3px 3px 6px #484a46; */
 }
 
@@ -681,7 +741,7 @@ p {
   margin: 0;
   font-size: 3em;
   color: white;
-  font-weight: 200;
+  font-weight: 300;
   text-shadow: 3px 3px 10px #484a46;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -1086,13 +1146,21 @@ p {
 }
 
 #sayHello {
-  background: linear-gradient(navy, navy 40%, #fef6e2 40.1%, #fef6e2);
+  background: url("https://images.unsplash.com/photo-1446052377488-d40ee7263458?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1e556b9eca4d41dd11d8c22739519f27&auto=format&fit=crop&w=1949&q=80");
   display: flex;
   flex-direction: column;
 }
 
 #sayHello div {
   position: relative;
+}
+
+#sayHello::before {
+  content: " ";
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.7) 10%, rgba(0,0,0,0.5) 30%, transparent 70%);
 }
 
 .sHHeader {
@@ -1157,7 +1225,7 @@ p {
 #sHForm label {
   align-self: flex-start;
   color: white;
-  transform: translateY(30px);
+  transform: translateY(28px);
   transition: 0.3s ease-in-out;
 }
 
@@ -1175,7 +1243,7 @@ p {
 }
 
 textarea {
-  font-family: 'Open Sans', Helvetica, Arial,
+  font-family: 'Chivo', Helvetica, Arial,
     'Lucida Grande', sans-serif;
 }
 
@@ -1224,6 +1292,10 @@ textarea {
   background: darkorange;
 }
 
+.sHImg, .sHHeaderText {
+  margin-top: 5vh;
+}
+
 .sHImg img {
   border-radius: 50%;
   height: 120px;
@@ -1232,12 +1304,13 @@ textarea {
 }
 
 .sHHeaderText {
-  padding: 10px;
+  padding: 0 10px 10px;
 }
 
 .sHHeaderText h2 {
   margin: 0;
-  font-size: 56px;
+  font-size: 50px;
+  font-weight: 300;
 }
 
 @media (max-width: 1099px) {
@@ -1247,18 +1320,6 @@ textarea {
 @media (max-width: 579px) {
   #portfolioContainer.content {
     position: relative;
-    overflow: auto;
-    height: 1260px;
-    min-height: 1260px;
-  }
-
-  .portfolioHeader {
-    /* margin-top: 120px; */
-  }
-
-  #stars, .starsContainer {
-    min-height: 1260px;
-    height: 1260px;
   }
 
   .starsContainer {
@@ -1266,9 +1327,12 @@ textarea {
   }
 
   #portfolio {
-    width: 350px;
-    height: 1260px;
-    max-height: 1260px;
+    flex: 4
+  }
+
+  .portfolioHeader, .profileMobile {
+    flex: 1;
+    position: relative;
   }
 
   .portfolioHeader p {
@@ -1281,8 +1345,8 @@ textarea {
   }
 
   .portfolioBox {
-    /* transform: scale(0.6); */
-    /* margin: 0; */
+    position: absolute;
+    top: 15vh;
   }
 
   .portfolioBox:last-child {
@@ -1369,4 +1433,37 @@ textarea {
     padding-top: 0;
   }
 
+}
+
+@media (max-width: 329px) {
+  #formalEducation {
+    flex: 0.65;
+  }
+
+  #formalEducation img {
+    height: 50px;
+  }
+
+  #formalEducation div p {
+    font-size: 12px;
+  }
+
+  .outerDiv {
+    font-size: 0.82em;
+  }
+
+  .portfolioBox {
+    top: 0;
+  }
+
+  .tab {
+    font-size: 12px;
+    padding: 3px 7px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .statement {
+    font-size: 12px;
+  }
+  
 }

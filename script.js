@@ -2,8 +2,8 @@ const menuBall = document.getElementById('menuBall');
 const menuDrawer = document.getElementById('menuDrawer');
 const menuItems = document.getElementsByClassName('menuItemConatiner');
 const socialContainer = document.getElementById('socialContainer');
-// let lastScrollTop = 0;
 const contents = document.getElementsByClassName("content");
+const aboutMe = document.getElementById("aboutMe");
 const aboutMeMenu = document.getElementById("aboutMeMenu");
 const initial = document.getElementById("initial");
 const logo = document.getElementById("logo");
@@ -18,6 +18,18 @@ document.addEventListener('click', (event) => {
   }
 })
 
+document.addEventListener('wheel', () => highlightMenu());
+document.addEventListener('touchmove', () => highlightMenu());
+
+highlightMenu = () => {
+  if (!menuBall.classList.contains("highlight")) {
+    menuBall.classList.add("highlight");
+    setTimeout(() => {
+      menuBall.classList.remove("highlight");
+    }, 3000);
+  }
+}
+
 closeMenu = () => {
   menuBall.classList.remove("open");
   menuDrawer.classList.remove("open");
@@ -28,28 +40,17 @@ closeMenu = () => {
   logo.classList.remove("open");
 }
 
-//Show menuBall on mouseover top left area of document
-// document.body.addEventListener("mousemove", (e) => {
-//     if (e.clientX < 50 && e.clientY < 50) {
-//         menuBall.classList.remove("offScreen");
-//     }
-// })
-//
-// //Show/hide menuBall on scroll up/down
-// document.addEventListener("scroll", () => {
-//    let curr = window.pageYOffset || document.documentElement.scrollTop;
-//    console.log(curr, lastScrollTop)
-//    if (curr > lastScrollTop){
-//       menuBall.classList.add("offScreen");
-//    } else {
-//       menuBall.classList.remove("offScreen");
-//    }
-//    lastScrollTop = curr <= 0 ? 0 : curr;
-// });
-
 window.onload = () => {
-    setTimeout( () => menuBall.classList.remove("offScreen"), 2500);
+    setTimeout( () => {
+        menuBall.classList.remove("offScreen");
+        if (window.innerWidth < 580) {
+            arrangePortfolioForMobile();
+        }
+    }, 2500);
+
     setTimeout( () => hoverProfile(), 8000);
+
+    aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1504164996022-09080787b6b3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b237330e1a78d52ec28208cbe21be778&auto=format&fit=crop&w=1950&q=80)");
 
     initialAnimation();
     createPortfolioBoxes();
@@ -57,6 +58,22 @@ window.onload = () => {
     animate();
     createFormEventsListeners();
 }
+
+window.addEventListener("resize", () => {
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas2.height = window.innerHeight;
+    canvas2.width = window.innerWidth;
+    c2H = canvas2.height;
+    c2W = canvas2.width;
+    canvas3.height = window.innerHeight/2;
+    canvas3.width = window.innerWidth;
+    c3H = canvas3.height;
+    c3W = canvas3.width;
+    if (window.innerWidth < 580) {
+        arrangePortfolioForMobile();
+    }
+})
 
 initialAnimation = () => {
   const kids = initial.children;
@@ -124,6 +141,7 @@ for(let i=0; i < aboutMeMenu.children.length; i++) {
 
 
 menuBall.addEventListener("click", () => {
+  menuBall.classList.remove("highlight");
   menuBall.classList.toggle("open");
   menuDrawer.classList.toggle("open");
   logo.classList.add("open");
@@ -328,6 +346,86 @@ setTimeout(() => {
   }
 }, 1000)
 
+
+let pBIndex = 0;
+arrangePortfolioForMobile = () => {
+    let pC = document.getElementById("portfolioContainer");
+    //TODO click portfolio box, check index, move to that index in carousel
+    //TODO create element on bottom that has arrows
+
+    let left = "icon ion-md-arrow-dropleft-circle noclick";
+    let right = "icon ion-md-arrow-dropright-circle";
+    let div = document.createElement('div');
+    if (!document.getElementById("leftArrowBtn")) {
+        div.classList.add("profileMobile");
+        let btns = `
+            <div class="mobileBtns">
+              <i id="leftArrowBtn" class="`+left+`"></i>
+              <p id="mobileBtnsText">1 of 4</p>
+              <i id="rightArrowBtn" class="`+right+`"></i>
+            </div>
+            <p>Tap an item for more information.</p>
+        `
+        div.innerHTML = btns;
+        pC.appendChild(div);
+    }
+    portfolioBoxCarousel();
+
+    for(let i = 0; i < portfolioBoxes.length; i++) {
+        portfolioBoxes[i].addEventListener("touchstart", (e) => {
+            pBIndex = i;
+            portfolioBoxCarousel();
+            closePortfolioBox(e);
+            //TODO make sure this is working
+        })
+    }
+
+    document.getElementById("leftArrowBtn").addEventListener("click", () => {
+        if (pBIndex !== 0) {
+            pBIndex--;
+            portfolioBoxCarousel();
+        }
+    })
+    document.getElementById("rightArrowBtn").addEventListener("click", () => {
+        if (pBIndex !== portfolioBoxes.length - 1) {
+            pBIndex++;
+            portfolioBoxCarousel();
+        }
+    })
+}
+
+portfolioBoxCarousel = () => {
+    let pB = portfolioBoxes;
+    let leftArrow = document.getElementById("leftArrowBtn");
+    let rightArrow = document.getElementById("rightArrowBtn");
+
+    document.getElementById("mobileBtnsText").textContent = (pBIndex + 1) + " of " + pB.length;
+
+    if (pBIndex === 0) {
+        leftArrow.classList.add("noclick");
+    } else if (pBIndex === pB.length - 1) {
+        rightArrow.classList.add("noclick");
+    } else {
+        leftArrow.classList.remove("noclick");
+        rightArrow.classList.remove("noclick");
+    }
+
+    for(let i = 0; i < pB.length; i++) {
+        let x = pB[i].offsetWidth;
+
+        if (i < pBIndex) {
+            x *= (pBIndex - i) * -1.05;
+        } else if (i > pBIndex) {
+            x *= (i - pBIndex) * 1.05;
+        } else {
+            x *= 0;
+        }
+
+        let inlineStyle = "transform: translateX(" + x + "px)";
+        pBIndex !== i ? inlineStyle += "scale(0.85)" : null;
+        pB[i].setAttribute("style", inlineStyle);
+    }
+}
 
 //CANVAS ANIMATIONS FOR STARS, SHOOTINGSTARS, & PLANETS
 const canvas = document.getElementById("stars");
@@ -605,20 +703,6 @@ animate = () => {
     }
 }
 
-
-window.addEventListener("resize", () => {
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-    canvas2.height = window.innerHeight;
-    canvas2.width = window.innerWidth;
-    c2H = canvas2.height;
-    c2W = canvas2.width;
-    canvas3.height = window.innerHeight/2;
-    canvas3.width = window.innerWidth;
-    c3H = canvas3.height;
-    c3W = canvas3.width;
-})
-
 randomColor = () => {
 
   var hexValues = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
@@ -643,8 +727,6 @@ for (let i=0; i < aBKids.length; i++) {
             const div = e.target || e.srcElement;
             if (div.id.indexOf("Img") < 0) {
                 const xSt = c2W * 0.6 * Math.random() + c2W * 0.3;
-                console.log(e)
-                console.log(e.x, e.y)
                 boltArray.push(new Bolt(xSt, -10, e.x, e.y));
                 canvas2.classList.remove("grayBg");
                 canvas2.classList.add("whiteBg");
@@ -873,7 +955,6 @@ hideAllAboutMeContent = () => {
 }
 
 revealAboutMeContent = (id) => {
-    let aboutMe = document.getElementById("aboutMe");
     let newId = id + "Container";
     let div = document.getElementById(newId);
     div.classList.remove("hidden");
@@ -961,7 +1042,16 @@ turnOnLightBulb = () => {
     let bulb = document.getElementById("bulb");
     bulb.addEventListener("click", () => turnOnLightBulb());
     let num;
-    window.innerWidth < 580 ? num = 200 : num = 300;
+    const wIW = window.innerWidth;
+
+    if (wIW < 330) {
+        num = 100;
+    } else if (wIW < 580) {
+        num = 200;
+    } else {
+        num = 300;
+    }
+
     bulb.width = num;
     bulb.height = num;
     let bctx = bulb.getContext("2d");
