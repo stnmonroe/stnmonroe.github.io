@@ -529,7 +529,7 @@ p {
 }
 
 #initial {
-  background: url("https://picsum.photos/3001/1001");
+  background: url("./img/initialBg.jpeg");
   display: flex;
   flex-direction: column;
   position: relative;
@@ -959,6 +959,7 @@ p {
 #formalEducation div {
   flex-direction: column;
   color: white;
+  text-shadow: 1px 1px 8px black;
 }
 
 #formalEducation div h2 {
@@ -1313,6 +1314,10 @@ textarea {
   font-weight: 300;
 }
 
+.sHHeaderText p {
+  font-size: 19px;
+}
+
 @media (max-width: 1099px) {
 
 }
@@ -1418,6 +1423,16 @@ textarea {
   .sHImg img {
     margin-bottom: 0;
     margin-top: 25px;
+    height: 90px;
+    width: 90px;
+  }
+
+  .sHHeaderText h2 {
+    font-size: 40px;
+  }
+
+  .sHHeaderText p {
+    font-size: 16px;
   }
 
   .sHContent {
@@ -1430,7 +1445,7 @@ textarea {
   }
 
   .sHHeaderText {
-    padding-top: 0;
+    padding-top: 3vh;
   }
 
 }
@@ -1465,5 +1480,5 @@ textarea {
   .statement {
     font-size: 12px;
   }
-  
+
 }

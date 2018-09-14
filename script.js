@@ -959,15 +959,15 @@ revealAboutMeContent = (id) => {
     let div = document.getElementById(newId);
     div.classList.remove("hidden");
     if (id === "desk") {
-        aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7857ea46fded9c0fcb5b65b9a20a41d9&auto=format&fit=crop&w=1441&q=80)");
+        aboutMe.setAttribute("style", "background-image: url(./img/eduBg.jpeg)");
         changeDeskContent("aBMeHTML");
     }
     if (id === "head") {
-      aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1529389135404-da3244310a24?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c156e525308dd3fcbfd527d768aaa011&auto=format&fit=crop&w=1351&q=80)");
+      aboutMe.setAttribute("style", "background-image: url(./img/headBg.jpeg)");
       turnOnLightBulb();
     }
     if (id === "heart") {
-      aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1530477220084-4b4fddfa3dcc?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0223eea1606301eb772157a1b688b8bf&auto=format&fit=crop&w=1120&q=80)");
+      aboutMe.setAttribute("style", "background-image: url(./img/heartBg.jpeg)");
     }
     setTimeout(() => div.classList.add("appear"), 500);
 
