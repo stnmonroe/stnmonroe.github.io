@@ -1091,6 +1091,9 @@ createFormEventsListeners = () => {
                 formKids[i].children[0].classList.remove("selected")
             }
         })
+        formKids[i].children[0].addEventListener("click", () => {
+            formKids[i].children[1].focus();
+        })
     }
 
 }

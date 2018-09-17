@@ -1147,9 +1147,10 @@ p {
 }
 
 #sayHello {
-  background: url("https://images.unsplash.com/photo-1446052377488-d40ee7263458?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1e556b9eca4d41dd11d8c22739519f27&auto=format&fit=crop&w=1949&q=80");
+  background: url("./img/rome.jpg");
   display: flex;
   flex-direction: column;
+  background-size: cover;
 }
 
 #sayHello div {
@@ -1191,7 +1192,7 @@ p {
   padding: 15px;
   border: 5px solid white;
   height: 58vh;
-  background: rgba(34, 100, 50, 0.8);
+  background: rgba(72, 74, 70, 0.6);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1230,14 +1231,19 @@ p {
   transition: 0.3s ease-in-out;
 }
 
+#sHForm label:hover {
+  cursor: text;
+}
+
 #sHForm label.selected {
   transform: translateY(0) scale(0.8) translateX(-10px);
+  cursor: default;
 }
 
 #sHForm input, #sHForm textarea {
   border-radius: 10px;
   border: 2px solid white;
-  background: transparent;
+  background: rgba(72, 74, 70, 0.6);
   color: white;
   padding: 10px;
   width: 100%;
@@ -1310,12 +1316,13 @@ textarea {
 
 .sHHeaderText h2 {
   margin: 0;
-  font-size: 50px;
+  font-size: 62px;
   font-weight: 300;
 }
 
 .sHHeaderText p {
   font-size: 19px;
+  margin-top: -10px;
 }
 
 @media (max-width: 1099px) {
