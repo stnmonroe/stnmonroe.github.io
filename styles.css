@@ -72,7 +72,7 @@ p {
 
 #menuBall.highlight {
   animation-name: glow;
-  animation-duration: 0.5s;
+  animation-duration: 0.125s;
   animation-direction: alternate;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
@@ -535,6 +535,7 @@ p {
   position: relative;
   justify-content: center;
   align-items: center;
+  background-size: cover;
 }
 
 #profileImgContainer {
@@ -677,7 +678,7 @@ p {
 }
 
 .innerDiv:hover {
-  color: orange;
+  color: gold;
 }
 
 .innerDiv span {
@@ -1146,11 +1147,16 @@ p {
   position: relative;
 }
 
+#heartContainer {
+
+}
+
 #sayHello {
   background: url("./img/rome.jpg");
   display: flex;
   flex-direction: column;
   background-size: cover;
+  justify-content: space-around;
 }
 
 #sayHello div {
@@ -1166,7 +1172,7 @@ p {
 }
 
 .sHHeader {
-  flex: 1;
+  flex: 1.5;
   color: #fef6e2;
   display: flex;
   flex-direction: row;
@@ -1182,32 +1188,26 @@ p {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 700px;
+  max-width: 500px;
   width: 95%;
 }
 
-#sHText, #sHFormContainer {
+#sHFormContainer {
   align-items: center;
   justify-content: center;
   padding: 15px;
-  border: 5px solid white;
-  height: 58vh;
+  border: 4px solid white;
   background: rgba(72, 74, 70, 0.6);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-#sHText {
-  flex: 1;
-  border-radius: 20px 0 0 20px;
+  box-shadow: inset 0px 0px 10px #484a46;
 }
 
 #sHFormContainer {
   flex: 2;
-  border-radius: 0 20px 20px 0;
-  border-left: none;
+  border-radius: 20px;
 }
 
 #sHForm {
@@ -1245,7 +1245,7 @@ p {
   border: 2px solid white;
   background: rgba(72, 74, 70, 0.6);
   color: white;
-  padding: 10px;
+  padding: 9px;
   width: 100%;
 }
 
@@ -1256,7 +1256,7 @@ textarea {
 
 #sHForm textarea {
   resize: none;
-  height: 160px;
+  height: 120px;
   margin-bottom: 15px;
 }
 
@@ -1271,6 +1271,7 @@ textarea {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 #sHFormSend i {
@@ -1300,7 +1301,7 @@ textarea {
 }
 
 .sHImg, .sHHeaderText {
-  margin-top: 5vh;
+
 }
 
 .sHImg img {
@@ -1323,6 +1324,15 @@ textarea {
 .sHHeaderText p {
   font-size: 19px;
   margin-top: -10px;
+}
+
+#sHFormContainer p {
+  color: #fef6e2;
+  font-size: 10px;
+}
+
+#sHFormSend p {
+  font-size: 18px;
 }
 
 @media (max-width: 1099px) {
@@ -1409,29 +1419,15 @@ textarea {
     font-size: 14px;
   }
 
-  .sHContent {
-    flex-direction: column;
-  }
-
   #sHFormContainer {
-    border-radius: 0 0 20px 20px;
-    border-top: none;
-    border-left: 5px solid white;
-    width: 90%;
-    margin-bottom: 15px;
-  }
 
-  #sHText {
-    border-radius: 20px 20px 0 0;
-    width: 90%;
-    flex: 0.6;
   }
 
   .sHImg img {
     margin-bottom: 0;
     margin-top: 25px;
-    height: 90px;
-    width: 90px;
+    height: 110px;
+    width: 110px;
   }
 
   .sHHeaderText h2 {
@@ -1442,17 +1438,21 @@ textarea {
     font-size: 16px;
   }
 
-  .sHContent {
-    flex: 2.2;
-  }
-
   .sHHeader {
-    flex: 0.9;
-    margin-bottom: 25px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
   }
 
   .sHHeaderText {
-    padding-top: 3vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #sHForm textarea {
+    height: 100px;
   }
 
 }
