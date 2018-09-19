@@ -26,7 +26,7 @@ highlightMenu = () => {
     menuBall.classList.add("highlight");
     setTimeout(() => {
       menuBall.classList.remove("highlight");
-    }, 750);
+    }, 650);
   }
 }
 
@@ -1195,6 +1195,27 @@ let heartContent = [
     }
 ]
 
-populateHeartContent = () => {
+const hC = document.getElementById("heartContainer");
 
+populateHeartContent = () => {
+    let innerHc = createElement("div");
+    innerHc.classList.add("heartIconContainer");
+
+    let size = hC.clientWidth >= hC.clientHeight ? hC.clientHeight : hC.clientWidth;
+
+    //create an inner div that says "The Things I Love"
+    //needs to be within the confounds of the orbiting divs
+
+    for (let i = 0; i < heartContent.length; i++) {
+        let div = createElement("div");
+        div.classList.add(heartContent[i].name + "Container");
+
+        //create divs with svgs inside equally around a circle
+        //create event listeners to stop the rotation of the circled divs
+        //make sure the hover also adds a class to make the div glow
+
+        innerHc.appendChild(div);
+    }
+
+    hC.appendChild(innerHc);
 }
