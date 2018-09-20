@@ -173,6 +173,7 @@ menuBall.addEventListener("click", () => {
         document.getElementById("portfolioContainer").scrollIntoView(behave);
       } else if (e.textContent === "about me") {
         document.getElementById("aboutMe").scrollIntoView(behave);
+        startAboutMeAnimations();
       } else if (e.textContent === "say hello") {
         document.getElementById("sayHello").scrollIntoView(behave);
       }
@@ -423,6 +424,10 @@ portfolioBoxCarousel = () => {
         pBIndex !== i ? inlineStyle += "scale(0.85)" : null;
         pB[i].setAttribute("style", inlineStyle);
     }
+}
+
+startAboutMeAnimations = () => {
+  //// TODO:
 }
 
 //CANVAS ANIMATIONS FOR STARS, SHOOTINGSTARS, & PLANETS
@@ -1121,9 +1126,9 @@ let heartContent = [
             </svg>
         `,
         text: [
-            "Exercise sustains my health, confidence, energy, and focus.",
-            "I prefer playing basketball or tennis, but will run when such isn't available.",
-            "Lunch time workouts keep me productive throughout the entire day."
+            "Exercise sustains my health, confidence, energy, focus, and wild animal instincts.",
+            "I prefer playing basketball or tennis, but a lack of time and friends sometimes forces me to run.",
+            "Lunch time workouts increase my daily productivity."
         ]
     },
     {
@@ -1141,9 +1146,9 @@ let heartContent = [
             </svg>
         `,
         text: [
-            "My daily stress relief.",
-            "I'm confident in my Italian, Mexican, and American dishes.",
-            "I love cooking because I get to learn and experiment while making sure my food is to my taste."
+            "My daily stress relief. Mangia mangia!",
+            "I'm confident in Italian, Mexican, and American dishes. Also, I'm partially-married to olive oil.",
+            "In cooking, I get to learn, experiment, and enjoy...except when I cook fish."
         ]
     },
     {
@@ -1157,9 +1162,10 @@ let heartContent = [
             </svg>
         `,
         text: [
-            "There's no better break than an hour of gaming after a long day.",
-            "I only play competitive games online. I respect, but don't have time for, story-based games.",
-            "Video games are one of the most complex art forms."
+            "Video games are a complex art form.",
+            "Reprioritization has interferd with time played, but I revere the complicated work put into these games.",
+            "I occasionally squeeze in time for competitive online gaming. Such a rush!",
+
         ]
     },
     {
@@ -1176,9 +1182,9 @@ let heartContent = [
             </svg>
         `,
         text: [
-            "I love traveling with my wife.",
-            "We often commute on foot through exploritory and gastronomical adventures.",
-            "My favorite trip thus far was our tour of Italy in 2016."
+            "I love traveling with my wife. She's the other half of a wonderful puzzle.",
+            "We often commute on foot through exploritory or gastronomical adventures.",
+            "My most deared trip thus far is Italy, where everyone overloads on carbs and wears tight pants... Life is about choices, people!"
         ]
     },
     {
@@ -1233,7 +1239,7 @@ let heartContent = [
         text: [
             "As Nietzsche said, 'Without music, life would be a mistake.'",
             "I love how music emphasizes your emotional state and sparks your imagination.",
-            "I search for new artists regularly and even enjoy creating some of my own tunes.",
+            "I search for new artists regularly and even enjoy creating some tunes of my own.",
             "Right now I'm obsessed with Oscar Peterson, The Districts, The Wood Brothers, and The Bad Plus."
         ]
     }

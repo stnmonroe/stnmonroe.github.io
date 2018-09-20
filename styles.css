@@ -1428,6 +1428,7 @@ textarea {
   font-size: 50px;
   margin: 0 auto;
   color: #484a46;
+  flex: 2;
 }
 
 #heartDetails span {
@@ -1504,6 +1505,7 @@ textarea {
   align-items: center;
   position: relative;
   width: 100%;
+  flex: 2;
 }
 
 .detailTextContainer svg {
@@ -1513,6 +1515,15 @@ textarea {
 .detailTextContainer p {
   flex: 7;
   margin-left: 15px;
+}
+
+#svgContainer {
+  width: 40%;
+  max-width: 150px;
+  bottom: 0;
+  left: 65px;
+  transform: rotate(-12deg);
+  opacity: 0.8;
 }
 
 @media (max-width: 1099px) {
@@ -1644,7 +1655,7 @@ textarea {
   }
 
   #heartDetails h2 {
-    font-size: 38px;
+    font-size: 28px;
   }
 
   .detailTextContainer p {
