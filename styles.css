@@ -1335,6 +1335,186 @@ textarea {
   font-size: 18px;
 }
 
+.heartIcon {
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s;
+  transform: scale(0) rotate(0);
+  transition-timing-function: ease-in-out;
+}
+
+.heartIcon.in {
+  transform: scale(1) rotate(0);
+}
+
+.heartIcon.in:hover {
+  background-color: gold;
+  box-shadow: 0 0 20px white;
+  transform: scale(1.1) rotate(359deg) !important;
+  border: 5px solid white;
+  transition: 0.5s;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.heartIcon.focus {
+  top: 5px !important;
+  left: 5px !important;
+  background: transparent;
+  transform: scale(1.15) rotate(0);
+}
+
+.heartIconsContainer.focus {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px black;
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#close {
+  border-radius: 50%;
+  background: red;
+  padding: 5px;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  transition: 0.25s;
+}
+
+#close span {
+  border-radius: 10px;
+  background-color: white;
+  width: 20px;
+  height: 3px;
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  margin: auto;
+}
+
+#close span:nth-child(even) {
+  transform: rotate(45deg);
+}
+
+#close span:nth-child(odd) {
+  transform: rotate(135deg);
+}
+
+#close:hover {
+  box-shadow: 1px 1px 10px #484a46;
+  transform: scale(1.1)
+}
+
+#heartDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 5%;
+  position: relative;
+  height: 80%;
+}
+
+#heartDetails h2 {
+  font-size: 50px;
+  margin: 0 auto;
+  color: #484a46;
+}
+
+#heartDetails span {
+  background-image: linear-gradient(to right, transparent 10%, #484a46, transparent 90%);
+  height: 2px;
+  width: 100%;
+}
+
+/* .heartIconsContainer {
+  animation-name: iconRotate;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+
+.heartIconsContainer.pause {
+  animation-play-state: paused;
+} */
+
+/* @keyframes iconRotate {
+  to { transform: rotate(360deg) };
+  from { transform: rotate(0deg) };
+} */
+
+.thingsILoveContainer {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: -1;
+  color: white;
+  text-shadow: 1px 1px 5px black;
+}
+
+.thingsILoveContainer svg {
+  width: 60%;
+  fill: white;
+  fill-opacity: 0;
+  animation-name: fill;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+
+.thingsILoveContainer p {
+  margin: 0 auto;
+  font-size: 12px;
+  transition: 0.3s;
+  opacity: 0;
+}
+
+.thingsILoveContainer h2 {
+  margin: 0 auto;
+  font-size: 40px;
+  transition: 0.2s;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.thingsILoveContainer p.in, .thingsILoveContainer h2.in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.detailTextContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.detailTextContainer svg {
+  flex: 0.5;
+}
+
+.detailTextContainer p {
+  flex: 7;
+  margin-left: 15px;
+}
+
 @media (max-width: 1099px) {
 
 }
@@ -1453,6 +1633,22 @@ textarea {
 
   #sHForm textarea {
     height: 100px;
+  }
+
+  .thingsILoveContainer p {
+    font-size: 10px;
+  }
+
+  .thingsILoveContainer h2 {
+    font-size: 28px;
+  }
+
+  #heartDetails h2 {
+    font-size: 38px;
+  }
+
+  .detailTextContainer p {
+    font-size: 14px;
   }
 
 }
