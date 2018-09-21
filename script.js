@@ -7,6 +7,7 @@ const aboutMe = document.getElementById("aboutMe");
 const aboutMeMenu = document.getElementById("aboutMeMenu");
 const initial = document.getElementById("initial");
 const logo = document.getElementById("logo");
+const pC = document.getElementById("portfolioContainer");
 
 //Click anywhere except on menu to close menuDrawer
 document.addEventListener('click', (event) => {
@@ -33,7 +34,7 @@ highlightMenu = () => {
 closeMenu = () => {
   menuBall.classList.remove("open");
   menuDrawer.classList.remove("open");
-  for(var i=0; i < menuItems.length; i++) {
+  for(let i=0; i < menuItems.length; i++) {
     menuItems[i].classList.remove("open");
   }
   socialContainer.classList.remove("open");
@@ -49,8 +50,6 @@ window.onload = () => {
     }, 2500);
 
     setTimeout( () => hoverProfile(), 8000);
-
-    aboutMe.setAttribute("style", "background: url(https://images.unsplash.com/photo-1504164996022-09080787b6b3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b237330e1a78d52ec28208cbe21be778&auto=format&fit=crop&w=1950&q=80)");
 
     initialAnimation();
     createPortfolioBoxes();
@@ -72,6 +71,17 @@ window.addEventListener("resize", () => {
     c3W = canvas3.width;
     if (window.innerWidth < 580) {
         arrangePortfolioForMobile();
+    } else {
+        let portfolio = document.getElementById("portfolio");
+        console.log(portfolio.lastChild)
+        if (document.querySelector(".profileMobile")) {
+            document.querySelector(".profileMobile").remove();
+        }
+        while (portfolio.firstChild) {
+            portfolio.removeChild(portfolio.firstChild);
+        }
+        eventListenersAttached = false;
+        createPortfolioBoxes();
     }
 })
 
@@ -101,8 +111,8 @@ hoverProfile = () => {
   })
 }
 
-var createElem = (num, elem) => {
-  var elems = "";
+let createElem = (num, elem) => {
+  let elems = "";
   for(i=0; i<num; i++) {
     elems += "<" + elem + "></" + elem + ">"
   }
@@ -143,7 +153,7 @@ menuBall.addEventListener("click", () => {
   menuBall.classList.toggle("open");
   menuDrawer.classList.toggle("open");
   logo.classList.add("open");
-  for(var i=0; i < menuItems.length; i++) {
+  for(let i=0; i < menuItems.length; i++) {
     menuItems[i].classList.toggle("open");
   }
 
@@ -170,7 +180,7 @@ menuBall.addEventListener("click", () => {
     menuItems[i].addEventListener("click", (event) => {
       let e = event.target || event.srcElement;
       if (e.textContent === "portfolio") {
-        document.getElementById("portfolioContainer").scrollIntoView(behave);
+        pC.scrollIntoView(behave);
       } else if (e.textContent === "about me") {
         document.getElementById("aboutMe").scrollIntoView(behave);
         startAboutMeAnimations();
@@ -190,7 +200,7 @@ checkLocationForMenu = () => {
 
 
 //Create portfolio boxes
-var portfolioItems = [
+let portfolioItems = [
   {
     img: {
       name: "Witwars",
@@ -282,6 +292,8 @@ createPortfolioBoxes = () => {
       }
     })
   }
+
+  createPortfolioBoxEventListeners();
 }
 
 //Portfolio box open animation
@@ -337,20 +349,21 @@ const closePortfolioBox = (event) => {
   }
 }
 
-setTimeout(() => {
-  portfolioBoxes = document.querySelectorAll(".portfolioBox");
-  for (let i=0; i < portfolioBoxes.length; i++) {
-    portfolioBoxes[i].addEventListener('mouseover', openPortfolioBox);
-    portfolioBoxes[i].addEventListener('mouseleave', closePortfolioBox);
-  }
-}, 1000)
-
+createPortfolioBoxEventListeners = () => {
+  setTimeout(() => {
+    portfolioBoxes = document.querySelectorAll(".portfolioBox");
+    for (let i=0; i < portfolioBoxes.length; i++) {
+      portfolioBoxes[i].addEventListener('mouseover', openPortfolioBox);
+      portfolioBoxes[i].addEventListener('mouseleave', closePortfolioBox);
+    }
+  }, 1000)
+}
 
 let pBIndex = 0;
+let eventListenersAttached = false;
+
 arrangePortfolioForMobile = () => {
-    let pC = document.getElementById("portfolioContainer");
-    //TODO click portfolio box, check index, move to that index in carousel
-    //TODO create element on bottom that has arrows
+    pBIndex = 0;
 
     let left = "icon ion-md-arrow-dropleft-circle noclick";
     let right = "icon ion-md-arrow-dropright-circle";
@@ -370,27 +383,34 @@ arrangePortfolioForMobile = () => {
     }
     portfolioBoxCarousel();
 
-    for(let i = 0; i < portfolioBoxes.length; i++) {
-        portfolioBoxes[i].addEventListener("touchstart", (e) => {
-            pBIndex = i;
-            portfolioBoxCarousel();
-            closePortfolioBox(e);
-            //TODO make sure this is working
+    if (!eventListenersAttached) {
+        for(let i = 0; i < portfolioBoxes.length; i++) {
+            portfolioBoxes[i].addEventListener("touchstart", (e) => {
+                pBIndex = i;
+                portfolioBoxCarousel();
+                closePortfolioBox(e);
+                //TODO make sure this is working
+            })
+        }
+
+        document.getElementById("leftArrowBtn").addEventListener("click", () => {
+            if (pBIndex !== 0) {
+                pBIndex--;
+                portfolioBoxCarousel();
+                console.log(pBIndex);
+            }
         })
+        document.getElementById("rightArrowBtn").addEventListener("click", () => {
+            if (pBIndex !== portfolioBoxes.length - 1) {
+                pBIndex++;
+                portfolioBoxCarousel();
+                console.log(pBIndex);
+            }
+        })
+        eventListenersAttached = true;
     }
 
-    document.getElementById("leftArrowBtn").addEventListener("click", () => {
-        if (pBIndex !== 0) {
-            pBIndex--;
-            portfolioBoxCarousel();
-        }
-    })
-    document.getElementById("rightArrowBtn").addEventListener("click", () => {
-        if (pBIndex !== portfolioBoxes.length - 1) {
-            pBIndex++;
-            portfolioBoxCarousel();
-        }
-    })
+    createPortfolioBoxEventListeners();
 }
 
 portfolioBoxCarousel = () => {
@@ -426,9 +446,7 @@ portfolioBoxCarousel = () => {
     }
 }
 
-startAboutMeAnimations = () => {
-  //// TODO:
-}
+//TODO: CREATE SAY HELLO CONTACT FORM LOAD ANIMATIONS
 
 //CANVAS ANIMATIONS FOR STARS, SHOOTINGSTARS, & PLANETS
 const canvas = document.getElementById("stars");
@@ -438,7 +456,7 @@ canvas.height = box.height;
 let maxStarSize = 2.8;
 let numStars = 200;
 
-var c = canvas.getContext('2d');
+let c = canvas.getContext('2d');
 
 function Star(x, y, size, dx, dy) {
     this.x = x;
@@ -562,7 +580,6 @@ function Planet(x, y) {
     }
 }
 
-const portContain = document.getElementById("portfolioContainer");
 const planetInstructions = document.getElementById("planetInstructions");
 const originalPlanetInstructions = planetInstructions.textContent;
 let planetArray = [];
@@ -579,11 +596,11 @@ let onUp;
 //      return false;
 // };
 
-portContain.addEventListener("mousedown", (e) => {
+pC.addEventListener("mousedown", (e) => {
     growPlanet(e, false);
 })
 
-portContain.addEventListener("touchstart", (e) => {
+pC.addEventListener("touchstart", (e) => {
     growPlanet(e, true);
     console.log(e)
 })
@@ -595,7 +612,7 @@ growPlanet = (e, touch) => {
         onDown = touch ? e.changedTouches[0] : e;
         growth > 5 ? growth = 5 : null;
         let x = touch ? e.changedTouches[0].pageX : e.pageX;
-        let y = touch ? e.changedTouches[0].pageY - initial.offsetHeight : e.pageY - portContain.clientHeight;
+        let y = touch ? e.changedTouches[0].pageY - initial.offsetHeight : e.pageY - pC.clientHeight;
         planetArray.push(new Planet(x, y));
         planetGrow = setInterval(() => {
             growth += (growth * 0.02);
@@ -708,12 +725,12 @@ animate = () => {
 
 randomColor = () => {
 
-  var hexValues = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
+  let hexValues = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
 
   function populate(a) {
-    for ( var i = 0; i < 6; i++ ) {
-      var x = Math.round( Math.random() * 14 );
-      var y = hexValues[x];
+    for ( let i = 0; i < 6; i++ ) {
+      let x = Math.round( Math.random() * 14 );
+      let y = hexValues[x];
       a += y;
     }
     return a;
@@ -725,6 +742,7 @@ randomColor = () => {
 const aBKids = document.getElementById("aboutMeMenu").children;
 
 for (let i=0; i < aBKids.length; i++) {
+    //TODO: Figure out why I have this if(true) statement
     if (true) {
         aBKids[i].addEventListener("click", (e) => {
             const div = e.target || e.srcElement;
@@ -951,6 +969,27 @@ createSparks = (e) => {
     setTimeout(() => sparksCreated = false, 500);
 }
 
+startAboutMeAnimations = () => {
+  //// TODO:
+
+    canvas2.classList.remove("grayBg");
+    let initContain = document.getElementById("initialContainer");
+
+    let aBKids = initContain.parentNode.children;
+    for(let i = 0; i < aBKids.length; i++) {
+        if (aBKids[i].classList.contains("appear")) {
+            aBKids[i].classList.remove("appear");
+            aBKids[i].classList.add("hidden");
+        }
+    }
+
+    initContain.classList.remove("hidden");
+
+    aboutMe.setAttribute("style", "background-image: url(./img/einstein.jpg)");
+
+    setTimeout(() => initContain.classList.add("appear"), 500);
+}
+
 hideAllAboutMeContent = () => {
     let divs = document.querySelectorAll(".aboutMeInfoContainer");
     for(let i = 0; i < divs.length; i++) {
@@ -975,9 +1014,13 @@ revealAboutMeContent = (id) => {
     if (id === "heart") {
       aboutMe.setAttribute("style", "background-image: url(./img/heartBg.jpeg)");
       setTimeout(() => {
-        canvas3.style.height = 0;
-        canvas3.parentNode.style.height = 0;
+          canvas3.style.height = 0;
+          canvas3.parentNode.style.height = 0;
       }, 1500)
+      let heartNode = document.getElementById("heartContainer");
+      while (heartNode.firstChild) {
+          heartNode.removeChild(heartNode.firstChild);
+      }
       if (document.getElementById("heartContainer").children.length === 0) {
           populateHeartContent();
       }
@@ -1400,3 +1443,15 @@ const thingsILove = `
       </g>
   </svg>
 `
+
+sendContactForm = () => {
+
+    //TODO: Get all information from form and store in letiables below
+
+    Email.send(email,
+        "stnmonroe@gmail.com",
+        "Porfolio Contact from " + name,
+        message,
+        {token: "5893796f-ae5c-474d-b45c-78e57679e967"}
+    );
+}

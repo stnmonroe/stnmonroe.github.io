@@ -91,11 +91,11 @@
           <canvas id="sparks"></canvas>
         </div>
         <div id="aboutMeMenu"></div>
-        <div class="aboutMeInfoContainer appear" id="initialContainer">
+        <div class="aboutMeInfoContainer hidden" id="initialContainer">
           <div id="theory">
-            <p>A theory...</p>
-            <p>The moment you stop learning, you stop living.</p>
-            <p>I think that says a lot, but if you'd like to know more, please...</p>
+            <p class="quote">"Once you stop learning, you start dying."</p>
+            <p class="quoteName"> - Albert Einstein</p>
+            <p class="theoryText">This is a quote by which I live. I think that says a lot, but if you'd like to know more about me, by all means...</p>
           </div>
           <div id="svgContainer">
             <svg  id="about_me_arrow" viewBox="0 0 548 630" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -133,16 +133,16 @@
               I have always developed with mobile in mind.
             </div>
             <div class="statement right">
-              I love whitespace, when possible.
               <i class="icon ion-md-heart"></i>
+              I love whitespace, when possible.
             </div>
             <div class="statement left">
               <i class="icon ion-md-bulb"></i>
               I believe subtle animations make an experience spectacular.
             </div>
             <div class="statement right">
-              I think functionality supercedes uniqueness.
               <i class="icon ion-md-cog"></i>
+              I think functionality supercedes uniqueness.
             </div>
             <div class="statement left">
               <i class="icon ion-md-flash"></i>
@@ -167,6 +167,8 @@
           </div>
           <div class="sHContent">
             <div id="sHFormContainer">
+              <p>I'm open to full-time, part-time, and gig work. And if an idea is something I can vision, I'm interested in partnering up. Send me a message even if you just want my opinion on an idea.</p>
+              <span class="white"></span>
               <div id="sHForm">
                 <div id="name">
                   <label>Name</label>
@@ -198,5 +200,6 @@
 
       </div>
     <script type="text/javascript" src="./script.js"></script>
+    <script src="https://smtpjs.com/v2/smtp.js"></script>
   </body>
 </html>

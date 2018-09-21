@@ -1173,7 +1173,7 @@ p {
 
 .sHHeader {
   flex: 1.5;
-  color: #fef6e2;
+  color: white;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -1327,8 +1327,10 @@ textarea {
 }
 
 #sHFormContainer p {
-  color: #fef6e2;
-  font-size: 10px;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  max-width: 350px;
 }
 
 #sHFormSend p {
@@ -1518,12 +1520,47 @@ textarea {
 }
 
 #svgContainer {
-  width: 40%;
+  width: 25%;
   max-width: 150px;
   bottom: 0;
-  left: 65px;
-  transform: rotate(-12deg);
+  left: 85px;
+  transform: rotate(-20deg);
   opacity: 0.8;
+}
+
+#theory p {
+  color: white;
+  text-shadow: 1px 1px 10px black;
+}
+
+.quote {
+  font-size: 30px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.quoteName {
+  font-size: 16px;
+  font-style: italic;
+  text-align: right;
+  margin: 15px 15px;
+}
+
+.theoryText {
+  background: rgba(59, 146, 253, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 300px;
+  margin: 50px auto 0;
+  text-align: center;
+}
+
+span.white {
+  background-image: linear-gradient(to right, transparent 10%, white, transparent 90%);
+  height: 1px;
+  width: 100%;
+  margin: 20px auto 10px;
 }
 
 @media (max-width: 1099px) {
@@ -1617,8 +1654,8 @@ textarea {
   .sHImg img {
     margin-bottom: 0;
     margin-top: 25px;
-    height: 110px;
-    width: 110px;
+    height: 90px;
+    width: 90px;
   }
 
   .sHHeaderText h2 {
@@ -1634,6 +1671,7 @@ textarea {
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
+    flex: 1;
   }
 
   .sHHeaderText {
@@ -1661,6 +1699,26 @@ textarea {
   .detailTextContainer p {
     font-size: 14px;
   }
+
+  #sHFormContainer p {
+    font-size: 10px;
+  }
+
+  #sHFormSend p {
+    font-size: 18px;
+  }
+
+  span.white {
+    margin-top: 10px;
+  }
+
+  #sHFormContainer {
+    padding: 9px;
+  }
+
+  /* #sHForm input, #sHForm textarea {
+    padding: 6px 10px;
+  } */
 
 }
 
