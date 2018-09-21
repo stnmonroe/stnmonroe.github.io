@@ -22,12 +22,16 @@ document.addEventListener('click', (event) => {
 document.addEventListener('wheel', () => highlightMenu());
 document.addEventListener('touchmove', () => highlightMenu());
 
+let recentlyHighlighted = false;
+
 highlightMenu = () => {
-  if (!menuBall.classList.contains("highlight")) {
+  if (!menuBall.classList.contains("highlight") && !recentlyHighlighted) {
+    recentlyHighlighted = true;
     menuBall.classList.add("highlight");
     setTimeout(() => {
       menuBall.classList.remove("highlight");
     }, 900);
+    setTimeout(() => recentlyHighlighted = false, 2500);
   }
 }
 
