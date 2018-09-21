@@ -186,6 +186,13 @@ menuBall.addEventListener("click", () => {
       if (e.textContent === "portfolio") {
         pC.scrollIntoView(behave);
       } else if (e.textContent === "about me") {
+        let kids = aboutMeMenu.children;
+        for(let i = 0; i < kids.length; i++) {
+          kids[i].classList.remove("aBUp");
+          kids[i].classList.remove("img1");
+          kids[i].classList.remove("img2");
+        }
+        imgID = null;
         document.getElementById("aboutMe").scrollIntoView(behave);
         startAboutMeAnimations();
       } else if (e.textContent === "say hello") {
@@ -749,6 +756,12 @@ for (let i=0; i < aBKids.length; i++) {
     //TODO: Figure out why I have this if(true) statement
     if (true) {
         aBKids[i].addEventListener("click", (e) => {
+            let theoryKids = document.getElementById("theory").children;
+            for(let i = 0; i < theoryKids.length; i++) {
+                theoryKids[i].classList.remove("in");
+            }
+            document.getElementById("svgContainer").classList.remove("in");
+
             const div = e.target || e.srcElement;
             if (div.id.indexOf("Img") < 0) {
                 const xSt = c2W * 0.6 * Math.random() + c2W * 0.3;
@@ -991,7 +1004,14 @@ startAboutMeAnimations = () => {
 
     aboutMe.setAttribute("style", "background-image: url(./img/einstein.jpg)");
 
-    setTimeout(() => initContain.classList.add("appear"), 500);
+    setTimeout(() => {
+        initContain.classList.add("appear");
+        let theoryKids = document.getElementById("theory").children;
+        for(let i = 0; i < theoryKids.length; i++) {
+            theoryKids[i].classList.add("in");
+        }
+        document.getElementById("svgContainer").classList.add("in");
+    }, 500);
 }
 
 hideAllAboutMeContent = () => {

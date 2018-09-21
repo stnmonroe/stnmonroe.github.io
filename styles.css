@@ -765,19 +765,6 @@ p {
 #portfolioContainer.content {
   background: linear-gradient(135deg, #484a46, purple, navy, #3b92fd, lightblue, #fef6e2);
   background-size: 200% 200%;
-  /* animation: bgGradient 12s ease infinite; */
-}
-
-@keyframes bgGradient {
-  0%    {background-position: 0% 50%}
-  50%   {background-position: 100% 50%}
-  100%  {background-position: 0% 50%}
-}
-
-@keyframes starsPosition {
-  0%    {transform: translate(0vw, 0vh)}
-  50%   {transform: translate(-100vw, -100vh)}
-  100%  {transform: translate(0vw, 0vh)}
 }
 
 .starsContainer {
@@ -797,7 +784,6 @@ p {
 #stars {
   top: 0vh;
   left: 0vw;
-  /* animation: starsPosition 20s ease-in-out infinite alternate; */
 }
 
 #aboutMe {
@@ -1186,7 +1172,7 @@ p {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   max-width: 500px;
   width: 95%;
@@ -1521,11 +1507,31 @@ textarea {
 
 #svgContainer {
   width: 25%;
-  max-width: 150px;
+  max-width: 110px;
   bottom: 0;
   left: 85px;
-  transform: rotate(-20deg);
+  transform: rotate(-20deg) translateY(0px);
   opacity: 0.8;
+  animation-name: point;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+  animation-delay: 3s;
+  opacity: 0;
+  transition-duration: 0.25s;
+  transition-delay: 0s;
+}
+
+#svgContainer.in {
+  opacity: 1;
+  transition-duration: 1s;
+  transition-delay: 8s;
+}
+
+@keyframes point {
+  0%    { transform: translateY(0px) rotate(-20deg) }
+  85%   { transform: translateY(50px) rotate(-20deg) }
+  100%  { transform: translateY(0px) rotate(-20deg) }
 }
 
 #theory p {
@@ -1537,6 +1543,15 @@ textarea {
   font-size: 30px;
   font-weight: 400;
   text-align: center;
+  transform: translateX(-100vw);
+  transition-duration: 0.25s;
+  transition-delay: 0s;
+}
+
+.quote.in {
+  transform: translateX(0);
+  transition-duration: 0.5s;
+  transition-delay: 1s
 }
 
 .quoteName {
@@ -1544,16 +1559,35 @@ textarea {
   font-style: italic;
   text-align: right;
   margin: 15px 15px;
+  transform: translateX(100vw);
+  transition-duration: 0.25s;
+  transition-delay: 0s;
+}
+
+.quoteName.in {
+  transform: translateX(0);
+  transition-duration: 0.25s;
+  transition-delay: 3s;
 }
 
 .theoryText {
   background: rgba(59, 146, 253, 0.5);
   padding: 10px 20px;
   border-radius: 10px;
+  border: 4px solid white;
   width: 90%;
   max-width: 300px;
   margin: 50px auto 0;
   text-align: center;
+  opacity: 0;
+  transition-duration: 0.25s;
+  transition-delay: 0s;
+}
+
+.theoryText.in {
+  opacity: 1;
+  transition-duration: 1s;
+  transition-delay: 5s;
 }
 
 span.white {
@@ -1682,6 +1716,10 @@ span.white {
 
   #sHForm textarea {
     height: 100px;
+  }
+
+  .sHContent {
+    align-items: center;
   }
 
   .thingsILoveContainer p {
