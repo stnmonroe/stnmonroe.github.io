@@ -57,8 +57,6 @@ window.onload = () => {
 
     initialAnimation();
     createPortfolioBoxes();
-    createInitialStars();
-    animate();
     createFormEventsListeners();
 }
 
@@ -182,21 +180,27 @@ menuBall.addEventListener("click", () => {
 
   for (let i = 0; i < menuItems.length; i++) {
     menuItems[i].addEventListener("click", (event) => {
+      c.clearRect(0, 0, canvas.width, canvas.height);
+      starArray = [];
+      cancelAnimationFrame(starsSparksAnimation);
       let e = event.target || event.srcElement;
       if (e.textContent === "portfolio") {
-        pC.scrollIntoView(behave);
+          createInitialStars();
+          animate();
+          pC.scrollIntoView(behave);
       } else if (e.textContent === "about me") {
-        let kids = aboutMeMenu.children;
-        for(let i = 0; i < kids.length; i++) {
-          kids[i].classList.remove("aBUp");
-          kids[i].classList.remove("img1");
-          kids[i].classList.remove("img2");
-        }
-        imgID = null;
-        document.getElementById("aboutMe").scrollIntoView(behave);
-        startAboutMeAnimations();
+          animate();
+          let kids = aboutMeMenu.children;
+          for(let i = 0; i < kids.length; i++) {
+            kids[i].classList.remove("aBUp");
+            kids[i].classList.remove("img1");
+            kids[i].classList.remove("img2");
+          }
+          imgID = null;
+          document.getElementById("aboutMe").scrollIntoView(behave);
+          startAboutMeAnimations();
       } else if (e.textContent === "say hello") {
-        document.getElementById("sayHello").scrollIntoView(behave);
+          document.getElementById("sayHello").scrollIntoView(behave);
       }
     })
   }
@@ -647,8 +651,11 @@ releasePlanet = (e, touch) => {
     onUp = touch ? e.changedTouches[0] : e;
 }
 
+let starsSparksAnimation;
+
 animate = () => {
-    requestAnimationFrame(animate);
+    starsSparksAnimation = requestAnimationFrame(animate);
+
     c.clearRect(0, 0, canvas.width, canvas.height);
 
     let starChance = Math.random();
