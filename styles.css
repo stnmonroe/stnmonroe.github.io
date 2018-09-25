@@ -1194,7 +1194,6 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: inset 0px 0px 10px #484a46;
 }
 
 #sHFormContainer {
@@ -1584,7 +1583,7 @@ span.white {
 
 }
 
-@media (max-width: 579px) {
+@media only screen and (max-width: 579px), only screen and (max-height: 579px) {
   #portfolioContainer.content {
     position: relative;
   }
@@ -1747,7 +1746,7 @@ span.white {
 
 }
 
-@media (max-width: 329px) {
+@media only screen and (max-width: 329px), only screen and (max-height: 329px) {
   #formalEducation {
     flex: 0.65;
   }
@@ -1757,7 +1756,16 @@ span.white {
   }
 
   #formalEducation div p {
-    font-size: 12px;
+    font-size: 11px;
+  }
+
+  #formalEducation div h2 {
+    font-size: 1em;
+  }
+
+  #formalEducation div {
+    height: 40px;
+    padding: 5px 10px;
   }
 
   .outerDiv {
@@ -1778,4 +1786,61 @@ span.white {
     font-size: 12px;
   }
 
+  .sHHeader {
+    flex-direction: row;
+    margin-left: 50px;
+  }
+
+  .sHImg img {
+    height: 60px;
+    width: 60px;
+    margin: 0;
+  }
+
+  .sHHeaderText {
+    align-items: flex-start;
+  }
+
+  .sHHeaderText h2 {
+    font-size: 30px;
+  }
+
+  .sHHeaderText p {
+    font-size: 12px;
+  }
+
+  #formDesc, span.white {
+    visibility: hidden;
+    height: 0px;
+    margin: 0;
+  }
+
+  #sHFormContainer {
+    border: none;
+    background: none;
+    padding: 5px;
+  }
+
+  .sHContent {
+    flex: 3.5;
+    align-items: flex-start;
+  }
+
+}
+
+@media only screen and (orientation:landscape) and (max-width: 824px) {
+  body {
+    height: 100vw;
+    transform: rotate(90deg);
+  }
+
+  #menuBall {
+    visibility: hidden;
+  }
+
+  .content {
+    width: 100vh;
+    height: 100vw;
+    z-index: 1;
+  }
 }

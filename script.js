@@ -9,6 +9,13 @@ const initial = document.getElementById("initial");
 const logo = document.getElementById("logo");
 const pC = document.getElementById("portfolioContainer");
 
+//Lock screen orientation to "portrait"
+// let locOrientation = screen.lockOrientation ||
+//                      screen.mozLockOrientation ||
+//                      screen.msLockOrientation ||
+//                      screen.orientation.lock;
+// locOrientation('portrait');
+
 //Click anywhere except on menu to close menuDrawer
 document.addEventListener('click', (event) => {
   const e = event.target || event.srcElement;
@@ -75,7 +82,6 @@ window.addEventListener("resize", () => {
         arrangePortfolioForMobile();
     } else {
         let portfolio = document.getElementById("portfolio");
-        console.log(portfolio.lastChild)
         if (document.querySelector(".profileMobile")) {
             document.querySelector(".profileMobile").remove();
         }
@@ -351,7 +357,7 @@ const openPortfolioBox = (event) => {
 }
 
 const closePortfolioBox = (event) => {
-  const e = event.target || event.srcElement;
+  let e = event.target || event.srcElement;
 
   if (e.classList.contains("portfolioInfo") || e.classList.contains("portfolioDesc") ||
       e.classList.contains("portfolioTech") || e.classList.contains("portfolioBtn")) {
@@ -368,11 +374,17 @@ const closePortfolioBox = (event) => {
 }
 
 createPortfolioBoxEventListeners = () => {
+    let events = [
+        ['mouseover', openPortfolioBox],
+        ['mouseleave', closePortfolioBox],
+        ['touchstart', openPortfolioBox]
+    ];
     setTimeout(() => {
         portfolioBoxes = document.querySelectorAll(".portfolioBox");
         for (let i=0; i < portfolioBoxes.length; i++) {
-            portfolioBoxes[i].addEventListener('mouseover', openPortfolioBox);
-            portfolioBoxes[i].addEventListener('mouseleave', closePortfolioBox);
+            events.forEach( evt => {
+                portfolioBoxes[i].addEventListener(evt[0], e => evt[1](e));
+            })
         }
     }, 1000)
 }
@@ -415,14 +427,12 @@ arrangePortfolioForMobile = () => {
             if (pBIndex !== 0) {
                 pBIndex--;
                 portfolioBoxCarousel();
-                console.log(pBIndex);
             }
         })
         document.getElementById("rightArrowBtn").addEventListener("click", () => {
             if (pBIndex !== portfolioBoxes.length - 1) {
                 pBIndex++;
                 portfolioBoxCarousel();
-                console.log(pBIndex);
             }
         })
         eventListenersAttached = true;
@@ -621,7 +631,6 @@ pC.addEventListener("mousedown", (e) => {
 
 pC.addEventListener("touchstart", (e) => {
     growPlanet(e, true);
-    console.log(e)
 })
 
 growPlanet = (e, touch) => {
@@ -1033,7 +1042,6 @@ positionDivAboveAboutMeMenu = () => {
 
     let contentBottom = window.innerHeight - parent.offsetHeight - parent.offsetTop;
     let aBMenuTop = window.innerHeight - aboutMeMenu.offsetTop;
-    console.log(contentBottom, aBMenuTop)
     let left = aboutMeMenu.offsetLeft - parent.offsetLeft;
     let bottom = aBMenuTop - contentBottom + 15;
     let center = aboutMeMenu.offsetLeft + aboutMeMenu.clientWidth/2;
