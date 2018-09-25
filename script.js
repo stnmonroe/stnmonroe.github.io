@@ -90,35 +90,35 @@ window.addEventListener("resize", () => {
 initialAnimation = () => {
   const kids = initial.children;
   for(let i = 0; i < kids.length; i++) {
-    kids[i].classList.add("in");
+      kids[i].classList.add("in");
   }
   document.getElementById("profile").classList.add("in");
   setTimeout(() => {
-    document.getElementById("sigA").classList.add("fade");
-    document.getElementById("sigM").classList.add("fade");
+      document.getElementById("sigA").classList.add("fade");
+      document.getElementById("sigM").classList.add("fade");
   }, 5500)
 }
 
 hoverProfile = () => {
-  let profContain = document.getElementById("profileImgContainer");
-  let profile = document.getElementById("profile");
-  let origSrc = profile.src;
+    let profContain = document.getElementById("profileImgContainer");
+    let profile = document.getElementById("profile");
+    let origSrc = profile.src;
 
-  profContain.addEventListener("mouseover", () => {
-    profile.src = "img/profile.jpg";;
-  })
+    profContain.addEventListener("mouseover", () => {
+        profile.src = "img/profile.jpg";;
+    })
 
-  profContain.addEventListener("mouseleave", () => {
-    profile.src = origSrc;
-  })
-}
-
-let createElem = (num, elem) => {
-  let elems = "";
-  for(i=0; i<num; i++) {
-    elems += "<" + elem + "></" + elem + ">"
+    profContain.addEventListener("mouseleave", () => {
+        profile.src = origSrc;
+    })
   }
-  return elems;
+
+  let createElem = (num, elem) => {
+      let elems = "";
+      for(i=0; i < num; i++) {
+          elems += "<" + elem + "></" + elem + ">"
+      }
+      return elems;
 }
 
 // Create the spans for the menuBall
@@ -135,7 +135,8 @@ for(let i=0; i < aboutMeMenu.children.length; i++) {
         kids[i].setAttribute("id", id);
         aboutMeMenu
     } else {
-        let imgId = text[i-text.length] === "/" ? "slashImg" : text[i-text.length].toLowerCase()+"Img";
+        let imgId = text[i-text.length] === "/" ?
+                "slashImg" : text[i-text.length].toLowerCase()+"Img";
         kids[i].setAttribute("id", imgId);
         kids[i].classList.add("img1");
         let style = `
@@ -170,6 +171,7 @@ menuBall.addEventListener("click", () => {
     }, 250)
   }
   checkLocationForMenu();
+
   //Scroll to location when menuItem is clicked
   let behave = { behavior: "smooth", block: "start"};
 
@@ -178,6 +180,7 @@ menuBall.addEventListener("click", () => {
     closeMenu();
   })
 
+  //Add event listeners to main menu items
   for (let i = 0; i < menuItems.length; i++) {
     menuItems[i].addEventListener("click", (event) => {
       c.clearRect(0, 0, canvas.width, canvas.height);
@@ -218,94 +221,94 @@ checkLocationForMenu = () => {
 let portfolioItems = [
   {
     img: {
-      name: "Witwars",
-      src: "img/witwars.png"
+        name: "Witwars",
+        src: "img/witwars.png"
     },
     tech: ["React-Native", "Redux", "Router-Flux", "Node.js", "Express", "Pug", "CSS", "jQuery", "AdMob"],
     desc: "Co-founder, sole UI Engineer for React-Native app, sole designer, sole content creator, and co-developer of web app.",
     btn: {
-      text: "More Info",
-      name: "witwars"
+        text: "More Info",
+        name: "witwars"
     }
   },
   {
     img: {
-      name: "Voyager",
-      src: "img/voyager.png"
+        name: "Voyager",
+        src: "img/voyager.png"
     },
     tech: ["Wordpress", "HTML", "CSS", "SEO", "Google Ads", "Facebook Ads", "GIMP", "Sketch 3", "Final Cut Pro"],
     desc: "Designed website and online marketing strategy, plus created most video, written, and graphic content for manufacturing company.",
     btn: {
-      text: "Visit Site",
-      link: "http://www.mtcvoyager.com"
+        text: "Visit Site",
+        link: "http://www.mtcvoyager.com"
     }
   },
   {
     img: {
-      name: "Witwars Admin",
-      src: "img/witwars_admin.png"
+        name: "Witwars Admin",
+        src: "img/witwars_admin.png"
     },
     tech: ["React", "Redux", "Router", "Node.js", "Express", "Postgres", "Sequelize", "Axios"],
     desc: "Full stack development of console for Witwars app allowing admin accounts to manage premises on a secure local server.",
     btn: {
-      text: "More Info",
-      name: "witwars_admin"
+        text: "More Info",
+        name: "witwars_admin"
     }
   },
   {
     img: {
-      name: "Ottawa Recreation",
-      src: "img/ottawa_rec.png"
+        name: "Ottawa Recreation",
+        src: "img/ottawa_rec.png"
     },
     tech: ["Wordpress", "HTML", "CSS"],
     desc: "As a member of the Ottawa, IL Playgrounds & Recreation Board, I voluntarily built them a new website, but do not maintain it regularly.",
     btn: {
-      text: "Visit Site",
-      link: "http://www.ottawarecreation.org"
+        text: "Visit Site",
+        link: "http://www.ottawarecreation.org"
     }
   }
 ]
 
 openInNewTab = (url) => {
-  let win = window.open(url, "_blank");
-  win.focus();
+    let win = window.open(url, "_blank");
+    win.focus();
 }
 
 createPortfolioBoxes = () => {
   const p = document.getElementById("portfolio");
   const pI = portfolioItems;
   for (let i = 0; i < pI.length; i++) {
-    let div = document.createElement('div');
-    div.className = 'portfolioBox';
-    div.innerHTML = `
-      <div class="img1stHalf" style="background: url(` + pI[i].img.src + `) 0 0"></div>
-      <div class="img2ndHalf" style="background: url(` + pI[i].img.src + `) -125px 0"></div>
-      <div class="portfolioInfo">
-        <p class="portfolioDesc">` + pI[i].desc + `</p>
-        <div class="portfolioTechContainer">
-          <div class="portfolioTech"></div>
-        </div>
-        <div class="portfolioBtnContainer">
-          <div class="portfolioBtn">` + pI[i].btn.text + `</div>
-        </div>
-      </div>
-    `
+      let div = document.createElement('div');
+      div.className = 'portfolioBox';
+      div.innerHTML = `
+          <div class="img1stHalf" style="background: url(` + pI[i].img.src + `) 0 0"></div>
+          <div class="img2ndHalf" style="background: url(` + pI[i].img.src + `) -125px 0"></div>
+          <div class="portfolioInfo">
+            <p class="portfolioDesc">` + pI[i].desc + `</p>
+            <div class="portfolioTechContainer">
+              <div class="portfolioTech"></div>
+            </div>
+            <div class="portfolioBtnContainer">
+              <div class="portfolioBtn">` + pI[i].btn.text + `</div>
+            </div>
+          </div>
+        `
     p.appendChild(div);
   }
 
   //Add links to portfolio info buttons
   let btns = p.querySelectorAll(".portfolioBtn");
   for (let j = 0; j < btns.length; j++) {
-    const desc = btns[j].parentElement.parentElement
-                  .querySelector(".portfolioDesc").textContent;
-    const index = portfolioItems.findIndex( p => p.desc === desc );
-    btns[j].addEventListener("click", () => {
-      if (portfolioItems[index].btn.link) {
-          openInNewTab(portfolioItems[index].btn.link);
-      } else {
-          console.log("no link found");
-      }
-    })
+      const desc = btns[j].parentElement.parentElement
+                    .querySelector(".portfolioDesc").textContent;
+      const index = portfolioItems.findIndex( p => p.desc === desc );
+      btns[j].addEventListener("click", () => {
+          if (portfolioItems[index].btn.link) {
+              openInNewTab(portfolioItems[index].btn.link);
+          } else {
+              console.log("no link found");
+          }
+      })
   }
 
   createPortfolioBoxEventListeners();
@@ -315,36 +318,36 @@ createPortfolioBoxes = () => {
 let portfolioBoxes;
 
 const openPortfolioBox = (event) => {
-  let e = event.target || event.srcElement;
+    let e = event.target || event.srcElement;
 
-  if (e.classList.contains("portfolioInfo") || e.classList.contains("portfolioDesc") ||
-      e.classList.contains("portfolioTech") || e.classList.contains("portfolioBtn") ||
-      e.classList.contains("portfolioTechContainer") || e.classList.contains("portfolioTechItem") ||
-      e.classList.contains("portfolioBtnContainer")) {
-        return null;
-  } else {
+    if (e.classList.contains("portfolioInfo") || e.classList.contains("portfolioDesc") ||
+        e.classList.contains("portfolioTech") || e.classList.contains("portfolioBtn") ||
+        e.classList.contains("portfolioTechContainer") || e.classList.contains("portfolioTechItem") ||
+        e.classList.contains("portfolioBtnContainer")) {
+          return null;
+    } else {
 
-    if (e.classList.contains("img1stHalf") || e.classList.contains("img2ndHalf")) {
-      e = e.parentElement;
+        if (e.classList.contains("img1stHalf") || e.classList.contains("img2ndHalf")) {
+            e = e.parentElement;
+        }
+
+        e.children[0].classList.add("open-left");
+        e.children[1].classList.add("open-right");
+
+        const tech = e.querySelector(".portfolioTech");
+        if (!tech.querySelector(".portfolioTechItem")) {
+            const desc = e.querySelector(".portfolioDesc").textContent;
+            const index = portfolioItems.findIndex( p => p.desc === desc );
+
+            for (let i = 0; i < portfolioItems[index].tech.length; i++) {
+                let div = document.createElement("DIV");
+                let text = document.createTextNode(portfolioItems[index].tech[i]);
+                div.appendChild(text);
+                div.classList.add("portfolioTechItem");
+                tech.appendChild(div);
+            }
+        }
     }
-
-    e.children[0].classList.add("open-left");
-    e.children[1].classList.add("open-right");
-
-    const tech = e.querySelector(".portfolioTech");
-    if (!tech.querySelector(".portfolioTechItem")) {
-      const desc = e.querySelector(".portfolioDesc").textContent;
-      const index = portfolioItems.findIndex( p => p.desc === desc );
-
-      for (let i = 0; i < portfolioItems[index].tech.length; i++) {
-        let div = document.createElement("DIV");
-        let text = document.createTextNode(portfolioItems[index].tech[i]);
-        div.appendChild(text);
-        div.classList.add("portfolioTechItem");
-        tech.appendChild(div);
-      }
-    }
-  }
 }
 
 const closePortfolioBox = (event) => {
@@ -365,13 +368,13 @@ const closePortfolioBox = (event) => {
 }
 
 createPortfolioBoxEventListeners = () => {
-  setTimeout(() => {
-    portfolioBoxes = document.querySelectorAll(".portfolioBox");
-    for (let i=0; i < portfolioBoxes.length; i++) {
-      portfolioBoxes[i].addEventListener('mouseover', openPortfolioBox);
-      portfolioBoxes[i].addEventListener('mouseleave', closePortfolioBox);
-    }
-  }, 1000)
+    setTimeout(() => {
+        portfolioBoxes = document.querySelectorAll(".portfolioBox");
+        for (let i=0; i < portfolioBoxes.length; i++) {
+            portfolioBoxes[i].addEventListener('mouseover', openPortfolioBox);
+            portfolioBoxes[i].addEventListener('mouseleave', closePortfolioBox);
+        }
+    }, 1000)
 }
 
 let pBIndex = 0;
@@ -500,21 +503,22 @@ function Star(x, y, size, dx, dy) {
 let starArray = [];
 
 createInitialStars = () => {
-  for (let i = 0; i < numStars; i++) {
-    let x = Math.random() * box.width - 50;
-    let y = Math.random() * box.height;
-    let size = createStarSize(i < numStars-100);
-    let dx = Math.random() * (size/6) + 0.05;
-    let dy = Math.random() * (size/10);
-    starArray.push(new Star(x, y, size, dx, dy));
-  }
+    for (let i = 0; i < numStars; i++) {
+        let x = Math.random() * box.width - 50;
+        let y = Math.random() * box.height;
+        let size = createStarSize(i < numStars-100);
+        let dx = Math.random() * (size/6) + 0.05;
+        let dy = Math.random() * (size/10);
+        starArray.push(new Star(x, y, size, dx, dy));
+    }
 }
 
 createStarSize = d => {
     if (d) {
-      return Math.random() * 0.4 + 0.35;
+        return Math.random() * 0.4 + 0.35;
     } else {
-      return Math.random() * maxStarSize + 0.2;
+
+        return Math.random() * maxStarSize + 0.2;
     }
 }
 
@@ -757,8 +761,9 @@ randomColor = () => {
   return populate("#");
 }
 
-const aBKids = document.getElementById("aboutMeMenu").children;
 
+// Add event listeners to About Me menu items and animate lightning
+const aBKids = document.getElementById("aboutMeMenu").children;
 for (let i=0; i < aBKids.length; i++) {
     //TODO: Figure out why I have this if(true) statement
     if (true) {
@@ -767,7 +772,7 @@ for (let i=0; i < aBKids.length; i++) {
             for(let i = 0; i < theoryKids.length; i++) {
                 theoryKids[i].classList.remove("in");
             }
-            document.getElementById("svgContainer").classList.remove("in");
+            document.getElementById("menuArrow").classList.remove("in");
 
             const div = e.target || e.srcElement;
             if (div.id.indexOf("Img") < 0) {
@@ -994,8 +999,6 @@ createSparks = (e) => {
 }
 
 startAboutMeAnimations = () => {
-  //// TODO:
-
     canvas2.classList.remove("grayBg");
     let initContain = document.getElementById("initialContainer");
 
@@ -1017,8 +1020,27 @@ startAboutMeAnimations = () => {
         for(let i = 0; i < theoryKids.length; i++) {
             theoryKids[i].classList.add("in");
         }
-        document.getElementById("svgContainer").classList.add("in");
+        document.getElementById("menuArrow").classList.add("in");
+        positionDivAboveAboutMeMenu();
     }, 500);
+}
+
+positionDivAboveAboutMeMenu = () => {
+    const menuArrow = document.getElementById("menuArrow");
+    const parent = menuArrow.parentNode;
+    const text = menuArrow.children[0];
+    const icon = menuArrow.children[1];
+
+    let contentBottom = window.innerHeight - parent.offsetHeight - parent.offsetTop;
+    let aBMenuTop = window.innerHeight - aboutMeMenu.offsetTop;
+    console.log(contentBottom, aBMenuTop)
+    let left = aboutMeMenu.offsetLeft - parent.offsetLeft;
+    let bottom = aBMenuTop - contentBottom + 15;
+    let center = aboutMeMenu.offsetLeft + aboutMeMenu.clientWidth/2;
+
+    menuArrow.style.left = left + "px";
+    menuArrow.style.bottom = bottom + "px";
+    menuArrow.style.width = aboutMeMenu.clientWidth + "px";
 }
 
 hideAllAboutMeContent = () => {

@@ -109,7 +109,7 @@ p {
 }
 
 #menuBall span:nth-child(1) {
-  top: 10px;
+  top: 9.5px;
 }
 
 #menuBall span:nth-child(3) {
@@ -126,7 +126,7 @@ p {
 }
 
 #menuBall span:nth-child(2) {
-  top: 10px;
+  top: 9.5px;
 }
 
 #menuBall span:nth-child(4) {
@@ -401,11 +401,11 @@ p {
 }
 
 .open-left {
-  transform: translateX(-125px);
+  transform: translateX(-127px);
 }
 
 .open-right {
-  transform: translateX(125px);
+  transform: translateX(127px);
 }
 
 .portfolioInfo {
@@ -684,7 +684,7 @@ p {
 .innerDiv span {
   visibility: hidden;
   width: 160px;
-  top: 135%;
+  top: 170%;
   left: 50%;
   margin-left: -80px;
   background-color: rgba(0,0,0,.5);
@@ -947,6 +947,13 @@ p {
   flex-direction: column;
   color: white;
   text-shadow: 1px 1px 8px black;
+  background: rgba(0,0,0,0.5);
+  height: 90px;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: center;
+  border-radius: 0 5px 5px 0;
+  transform: translateX(-1px);
 }
 
 #formalEducation div h2 {
@@ -962,8 +969,7 @@ p {
 
 #formalEducation img {
   height: 100px;
-  border-radius: 5px;
-  margin: 10px;
+  border-radius: 5px 0 0 5px;
 }
 
 #informalEducation, #confidenceLevels, #jsInfo {
@@ -1158,7 +1164,7 @@ p {
 }
 
 .sHHeader {
-  flex: 1.5;
+  flex: 1.2;
   color: white;
   display: flex;
   flex-direction: row;
@@ -1399,7 +1405,8 @@ textarea {
 
 #close:hover {
   box-shadow: 1px 1px 10px #484a46;
-  transform: scale(1.1)
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 #heartDetails {
@@ -1424,23 +1431,6 @@ textarea {
   height: 2px;
   width: 100%;
 }
-
-/* .heartIconsContainer {
-  animation-name: iconRotate;
-  animation-duration: 30s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-play-state: running;
-}
-
-.heartIconsContainer.pause {
-  animation-play-state: paused;
-} */
-
-/* @keyframes iconRotate {
-  to { transform: rotate(360deg) };
-  from { transform: rotate(0deg) };
-} */
 
 .thingsILoveContainer {
   width: 100%;
@@ -1505,33 +1495,10 @@ textarea {
   margin-left: 15px;
 }
 
-#svgContainer {
-  width: 25%;
-  max-width: 110px;
-  bottom: 0;
-  left: 85px;
-  transform: rotate(-20deg) translateY(0px);
-  opacity: 0.8;
-  animation-name: point;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-out;
-  animation-delay: 3s;
-  opacity: 0;
-  transition-duration: 0.25s;
-  transition-delay: 0s;
-}
-
-#svgContainer.in {
-  opacity: 0.9;
-  transition-duration: 1s;
-  transition-delay: 7s;
-}
-
 @keyframes point {
-  0%    { transform: translateY(0px) rotate(-20deg) }
-  85%   { transform: translateY(50px) rotate(-20deg) }
-  100%  { transform: translateY(0px) rotate(-20deg) }
+  0%    { transform: translateY(0px) }
+  85%   { transform: translateY(50px) }
+  100%  { transform: translateY(0px) }
 }
 
 #theory p {
@@ -1570,24 +1537,40 @@ textarea {
   transition-delay: 2s;
 }
 
-.theoryText {
-  background: rgba(59, 146, 253, 0.5);
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: 4px solid white;
-  width: 90%;
-  max-width: 300px;
-  margin: 50px auto 0;
-  text-align: center;
+#menuArrow {
   opacity: 0;
   transition-duration: 0.25s;
   transition-delay: 0s;
+  color: white;
+  text-shadow: 1px 1px 8px black;
+  font-size: 14px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
 }
 
-.theoryText.in {
+#menuArrow.in {
   opacity: 1;
   transition-duration: 1s;
   transition-delay: 4s;
+}
+
+#menuArrow i {
+  font-size: 34px;
+  animation-name: point;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+  transform: translateY(0px);
+}
+
+@keyframes point {
+  0%    { transform: translateY(0px) }
+  20%   { transform: translateY(15px) }
+  100%  { transform: translateY(0px) }
 }
 
 span.white {
@@ -1659,6 +1642,10 @@ span.white {
   #aboutMeMenu {
     bottom: 10px;
     left: 10px;
+  }
+
+  #formalEducation div {
+    height: 70px;
   }
 
   #formalEducation img {
