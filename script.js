@@ -258,7 +258,7 @@ let portfolioItems = [
     desc: "Full stack development of console for Witwars app allowing admin accounts to manage premises on a secure local server.",
     btn: {
         text: "More Info",
-        name: "witwars_admin"
+        name: "admin"
     }
   },
   {
@@ -302,7 +302,7 @@ createPortfolioBoxes = () => {
     p.appendChild(div);
   }
 
-  //Add links to portfolio info buttons
+  // Add events to portfolio box buttons
   let btns = p.querySelectorAll(".portfolioBtn");
   for (let j = 0; j < btns.length; j++) {
       const desc = btns[j].parentElement.parentElement
@@ -312,12 +312,86 @@ createPortfolioBoxes = () => {
           if (portfolioItems[index].btn.link) {
               openInNewTab(portfolioItems[index].btn.link);
           } else {
-              console.log("no link found");
+              if (portfolioItems[index].btn.name === "witwars") {
+                  populateWitwarsInfo();
+              } else if (portfolioItems[index].btn.name === "admin") {
+                  populateAdminConsoleInfo();
+              }
           }
       })
   }
 
   createPortfolioBoxEventListeners();
+}
+
+const witwarsInfo = [
+  {
+    name: "Mobile App",
+    statements: [
+      "Sole developer from init to app stores.",
+      "Global state managed with Redux.",
+      "Persistance managed with AsyncStorage.",
+      "Navigation structure uses React-Native-Router-Flux.",
+      "Experience setting up and using the Facebook SDK.",
+      "Scaling functions used to accommodate all screen sizes.",
+      "Works with a RESTful API."
+    ],
+    images: [
+
+    ],
+    extraHTML: `
+
+    `
+  },
+  {
+    name: "Web App",
+    statements: [
+      "Works with a RESTful API."
+    ],
+    images: [
+
+    ]
+  },
+  {
+    name: "Design",
+    statements: [
+        "Sole designer.",
+        "Prototyped mobile and web apps prior to development.",
+        "Designed the logo and some in game icon work.",
+    ],
+    images: [
+
+    ]
+  },
+  {
+    name: "Everything Else",
+    statements: [
+
+    ],
+    images: [
+
+    ]
+  }
+];
+
+populateWitwarsInfo = () => {
+    let div = document.createElement('div');
+    div.className = 'portfolioMoreInfo';
+    div.id = 'witwarsInfo';
+    // div.innerHTML = `
+    //     <div class="img1stHalf" style="background: url(` + pI[i].img.src + `) 0 0"></div>
+    //     <div class="img2ndHalf" style="background: url(` + pI[i].img.src + `) -125px 0"></div>
+    //     <div class="portfolioInfo">
+    //       <p class="portfolioDesc">` + pI[i].desc + `</p>
+    //       <div class="portfolioTechContainer">
+    //         <div class="portfolioTech"></div>
+    //       </div>
+    //       <div class="portfolioBtnContainer">
+    //         <div class="portfolioBtn">` + pI[i].btn.text + `</div>
+    //       </div>
+    //     </div>
+    //   `
+    pC.appendChild(div);
 }
 
 //Portfolio box open animation
