@@ -336,9 +336,13 @@ const witwarsInfo = [
       "Scaling functions used to accommodate all screen sizes.",
       "Works with a RESTful API."
     ],
+    bgImage: "./img/mobileAppBg.jpg",
     images: [
-
+      "./img/mobileApp1.jpg",
+      "./img/mobileApp2.jpg",
+      "./img/mobileApp3.jpg",
     ],
+    // TODO: Add linked app store badges
     extraHTML: `
 
     `
@@ -346,8 +350,14 @@ const witwarsInfo = [
   {
     name: "Web App",
     statements: [
-      "Works with a RESTful API."
+      "We have discontinued the web app due to a lack of use.",
+      "It has been replaced with a static landing page.",
+      "Worked with a RESTful API.",
+      "Used the Express framework and rendered via Pug (formerly Jade).",
+      "Co-developed web app with former business partner.",
+      "Priority was to get users on the mobile app by offering limited features."
     ],
+    bgImage: "",
     images: [
 
     ]
@@ -355,10 +365,11 @@ const witwarsInfo = [
   {
     name: "Design",
     statements: [
-        "Sole designer.",
-        "Prototyped mobile and web apps prior to development.",
-        "Designed the logo and some in game icon work.",
+      "Sole designer.",
+      "Prototyped mobile and web apps prior to development.",
+      "Designed the logo and some in game icon work.",
     ],
+    bgImage: "",
     images: [
 
     ]
@@ -366,8 +377,11 @@ const witwarsInfo = [
   {
     name: "Everything Else",
     statements: [
+      "I write all of the public premises... Please don't judge too harshly.",
+      "Wrote, animated, voiced, and edited the explainer video.",
 
     ],
+    bgImage: "",
     images: [
 
     ]
