@@ -1578,6 +1578,90 @@ span.white {
   margin: 20px auto 10px;
 }
 
+.portfolioMoreInfo {
+  top: 0; bottom: 0;
+  right: 0; left: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: darkgray;
+}
+
+#witwarsInfo {
+
+}
+
+.infoSectionBg {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  background-position: center;
+  transition: 0.3s ease-in-out;
+}
+
+.infoSectionBg:hover {
+  flex: 1.75;
+}
+
+.infoSection {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  transition: 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.infoSection:hover {
+  background: none;
+}
+
+.infoSectionText h2 {
+  transition: 0.4s ease-in-out;
+  font-weight: 100;
+  font-size: 2em;
+}
+
+.infoSection:hover .infoSectionText h2 {
+  transform: scale(1.4);
+  text-shadow: 1px 1px 10px black;
+}
+
+.infoSectionText p {
+  opacity: 0;
+  transform: translateY(-15px);
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #484a46;
+  transition: 0.2s ease-in-out
+}
+
+.infoSection:hover .infoSectionText p {
+  transform: translateY(0px);
+  opacity: 1;
+  transition: 0.3s ease-in-out 0.3s;
+}
+
+.infoSectionText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease-in-out;
+}
+
+.infoSection span {
+  bottom: 5px;
+  position: absolute;
+  font-size: 10px;
+}
+
+
 @media (max-width: 1099px) {
 
 }

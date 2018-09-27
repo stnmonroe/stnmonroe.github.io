@@ -327,6 +327,8 @@ createPortfolioBoxes = () => {
 const witwarsInfo = [
   {
     name: "Mobile App",
+    desc: "Availble on iOS & Android.",
+    id: "wwInfoMobile",
     statements: [
       "Sole developer from init to app stores.",
       "Global state managed with Redux.",
@@ -349,6 +351,8 @@ const witwarsInfo = [
   },
   {
     name: "Web App",
+    desc: "Tool converting users to mobile.",
+    id: "wwInfoWeb",
     statements: [
       "We have discontinued the web app due to a lack of use.",
       "It has been replaced with a static landing page.",
@@ -357,31 +361,42 @@ const witwarsInfo = [
       "Co-developed web app with former business partner.",
       "Priority was to get users on the mobile app by offering limited features."
     ],
-    bgImage: "",
+    bgImage: "./img/witwarsWebBg.jpg",
     images: [
+      "./img/witwarsWeb1.jpg",
+      "./img/witwarsWeb2.jpg",
+      "./img/witwarsWeb3.jpg",
+      "./img/witwarsWeb4.jpg",
+    ],
+    // TODO: Add a link to the static site
+    extraHTML: `
 
-    ]
+    `
   },
   {
     name: "Design",
+    desc: "Sketch & GIMP used for all assets.",
+    id: "wwInfoDesign",
     statements: [
       "Sole designer.",
       "Prototyped mobile and web apps prior to development.",
-      "Designed the logo and some in game icon work.",
+      "Designed the logo and most in-game assets.",
     ],
-    bgImage: "",
+    bgImage: "./img/designBg.jpg",
     images: [
 
     ]
   },
   {
     name: "Everything Else",
+    desc: "An array of other necessary work.",
+    id: "wwInfoEE",
     statements: [
       "I write all of the public premises... Please don't judge too harshly.",
       "Wrote, animated, voiced, and edited the explainer video.",
 
     ],
-    bgImage: "",
+    bgImage: "./img/eElseBg.jpg",
     images: [
 
     ]
@@ -392,6 +407,30 @@ populateWitwarsInfo = () => {
     let div = document.createElement('div');
     div.className = 'portfolioMoreInfo';
     div.id = 'witwarsInfo';
+
+    // TODO: Add "X" icon that closes more info
+
+    for(let i = 0; i < witwarsInfo.length; i++) {
+        let bgNode = document.createElement('div');
+        bgNode.className = 'infoSectionBg';
+        bgNode.setAttribute("style",
+            "background-image: url(" + witwarsInfo[i].bgImage + ")");
+
+        let node = document.createElement('div');
+        node.className = 'infoSection';
+        node.id = witwarsInfo[i].id;
+
+        node.innerHTML = `
+            <div class="infoSectionText">
+                <h2>`+ witwarsInfo[i].name +`</h2>
+                <p>`+ witwarsInfo[i].desc +`</p>
+            </div>
+            <span><p>Click/tap for more info.</p></span>
+        `
+
+        bgNode.appendChild(node);
+        div.appendChild(bgNode);
+    }
     // div.innerHTML = `
     //     <div class="img1stHalf" style="background: url(` + pI[i].img.src + `) 0 0"></div>
     //     <div class="img2ndHalf" style="background: url(` + pI[i].img.src + `) -125px 0"></div>
