@@ -340,9 +340,9 @@ const witwarsInfo = [
     ],
     bgImage: "./img/mobileAppBg.jpg",
     images: [
-      "./img/mobileApp1.jpg",
-      "./img/mobileApp2.jpg",
-      "./img/mobileApp3.jpg",
+      "img/mobileApp1.png",
+      "img/mobileApp2.png",
+      "img/mobileApp3.png",
     ],
     // TODO: Add linked app store badges
     extraHTML: `
@@ -361,12 +361,11 @@ const witwarsInfo = [
       "Co-developed web app with former business partner.",
       "Priority was to get users on the mobile app by offering limited features."
     ],
-    bgImage: "./img/witwarsWebBg.jpg",
+    bgImage: "img/witwarsWebBg.jpg",
     images: [
-      "./img/witwarsWeb1.jpg",
-      "./img/witwarsWeb2.jpg",
-      "./img/witwarsWeb3.jpg",
-      "./img/witwarsWeb4.jpg",
+      "img/witwarsWeb2.png",
+      "img/witwarsWeb3.png",
+      "img/witwarsWeb4.png",
     ],
     // TODO: Add a link to the static site
     extraHTML: `
@@ -408,19 +407,31 @@ populateWitwarsInfo = () => {
     div.className = 'portfolioMoreInfo';
     div.id = 'witwarsInfo';
 
-    // TODO: Add "X" icon that closes more info
     let closeIcon = document.createElement('i');
     closeIcon.className = "moreInfoClose icon ion-md-close";
     div.appendChild(closeIcon);
-    closeIcon.addEventListener("click", () => {
-        for(let i = div.children.length - 1; i >= 0; i--) {
+    closeIcon.addEventListener("click", (e) => {
+        if (e.target.classList.contains("minimize") ||
+            e.srcElement.classList.contains("minimize")) {
+              for(let i = 0; i < div.children.length; i++) {
+                  div.children[i].classList.remove("minimize");
+                  if (div.children[i].querySelector(".infoSection")) {
+                      div.children[i].querySelector(".infoSection").classList.remove("hide");
+                  }
+                  if (document.querySelector(".detailedInfo")) {
+                      document.querySelector(".detailedInfo").remove();
+                  }
+              }
+        } else {
+            for(let i = div.children.length - 1; i >= 0; i--) {
+                setTimeout(() => {
+                    div.children[i].classList.remove("in");
+                }, i * 100)
+            }
             setTimeout(() => {
-                div.children[i].classList.remove("in");
-            }, i * 100)
+                div.remove();
+            }, (div.children.length + 1) * 100)
         }
-        setTimeout(() => {
-            div.remove();
-        }, (div.children.length + 1) * 100)
     });
 
     for(let i = 0; i < witwarsInfo.length; i++) {
@@ -444,21 +455,64 @@ populateWitwarsInfo = () => {
         bgNode.appendChild(node);
         div.appendChild(bgNode);
 
-        setTimeout(() => bgNode.classList.add("in"), (i + 1) * 100);
+        setTimeout(() => {
+            bgNode.classList.add("in");
+            if (i === witwarsInfo.length-1) {
+                closeIcon.classList.add("in");
+            }
+        }, (i + 1) * 100);
+
+        bgNode.addEventListener("click", () => {
+            for(let j = 0; j < div.children.length; j++) {
+               if (bgNode !== div.children[j]) {
+                  div.children[j].classList.add("minimize");
+               } else {
+                  div.children[j].children[0].classList.add("hide");
+
+                  detailedInfo = document.createElement('div');
+                  detailedInfo.className = 'detailedInfo';
+
+                  detailedInfoGallery = document.createElement('div');
+                  detailedInfoGallery.className = 'detailedInfoGallery';
+                  detailedInfoGallery.innerHTML = witwarsInfo[i].images.map( img => {
+                      return "<img src=" + img + ">"
+                  }).join("");
+
+                  detailedInfoStatements = document.createElement('div');
+                  detailedInfoStatements.className = 'detailedInfoStatements';
+                  detailedInfoStatements.innerHTML = witwarsInfo[i].statements.map( text => {
+                      return "<div class='infoStatement'>" + text + "</div>";
+                  }).join("");
+
+
+
+
+
+
+                  detailedInfo.appendChild(detailedInfoGallery);
+                  detailedInfo.appendChild(detailedInfoStatements);
+                  // if (witwarsInfo[i].extraHTML) {
+                  //     detailedInfoExtra = document.createElement('div');
+                  //     detailedInfoExtra.className = 'detailedInfoExtra'
+                  //
+                  //     detailedInfo.appendChild(detailedInfoExtra);
+                  // }
+                  bgNode.classList.add("blur");
+                  document.getElementById("witwarsInfo").appendChild(detailedInfo);
+
+                  let dIs = detailedInfo.children;
+
+                  for(let x = 0; x < dIs.length; x++) {
+                      setTimeout(() => {
+                          dIs[x].classList.add("in");
+                      }, 300 * (x + 1));
+                  }
+               }
+            }
+        })
+
     }
-    // div.innerHTML = `
-    //     <div class="img1stHalf" style="background: url(` + pI[i].img.src + `) 0 0"></div>
-    //     <div class="img2ndHalf" style="background: url(` + pI[i].img.src + `) -125px 0"></div>
-    //     <div class="portfolioInfo">
-    //       <p class="portfolioDesc">` + pI[i].desc + `</p>
-    //       <div class="portfolioTechContainer">
-    //         <div class="portfolioTech"></div>
-    //       </div>
-    //       <div class="portfolioBtnContainer">
-    //         <div class="portfolioBtn">` + pI[i].btn.text + `</div>
-    //       </div>
-    //     </div>
-    //   `
+
     pC.appendChild(div);
 }
 

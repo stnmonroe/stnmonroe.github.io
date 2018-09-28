@@ -1607,6 +1607,16 @@ span.white {
   transform: translateX(0);
 }
 
+.infoSectionBg.minimize {
+  flex: 0;
+}
+
+.infoSectionBg.minimize .infoSection {
+  opacity: 0;
+  visibility: hidden;
+  user-select: none;
+}
+
 .infoSectionBg.in:hover {
   flex: 1.75;
   cursor: pointer;
@@ -1624,6 +1634,10 @@ span.white {
   color: white;
 }
 
+.infoSection.hide {
+  opacity: 0;
+}
+
 .infoSection:hover {
   background: rgba(0, 0, 0, 0.15);
 }
@@ -1633,10 +1647,11 @@ span.white {
   font-weight: 100;
   font-size: 2em;
   margin: 0 0 10px;
+  transform: scale(1) translateY(20px);
 }
 
 .infoSection:hover .infoSectionText h2 {
-  transform: scale(1.4);
+  transform: scale(1.4) translateY(0);
   text-shadow: 1px 1px 10px black;
 }
 
@@ -1645,7 +1660,7 @@ span.white {
   transform: translateY(-15px);
   padding: 5px 10px;
   border-radius: 5px;
-  background-color: #484a46;
+  background-color: rgba(72, 74, 70, 0.9);
   transition: 0.2s ease-in-out
 }
 
@@ -1671,15 +1686,15 @@ span.white {
   padding: 5px 10px;
   border-radius: 5px 5px 0 0;
   opacity: 0;
-  transform: translateY(15px);
+  transform: translateY(25px);
   transition: 0.15s linear;
+  font-size: 14px;
 }
 
 .infoSection:hover span {
   opacity: 1;
   transform: translateY(0px);
   transition: 0.3s ease-in-out 0.5s;
-  font-size: 14px;
 }
 
 .moreInfoClose {
@@ -1688,15 +1703,81 @@ span.white {
   right: 20px;
   font-size: 50px;
   color: rgba(255, 255, 255, 0.7);
-  transition: 0.1s linear;
+  transition: 0.2s linear;
   z-index: 51;
+  transform: scale(0.01);
 }
 
-.moreInfoClose:hover {
+.moreInfoClose.in {
+  transform: scale(1);
+  text-shadow: 1px 1px 5px black;
+}
+
+.moreInfoClose.in:hover {
   color: rgba(255, 255, 255, 1);
   transform: scale(1.1);
   cursor: pointer;
-  text-shadow: 1px 1px 10px black;
+  text-shadow: 2px 2px 10px black;
+}
+
+.detailedInfo div {
+  position: relative;
+}
+
+.detailedInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0; bottom: 0;
+  right: 0; left: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.detailedInfoGallery {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  transform: translateX(-100vw);
+  transition: 0.35s ease-in-out;
+}
+
+.detailedInfoGallery.in {
+  transform: translateX(0);
+}
+
+.detailedInfoGallery img {
+  max-width: 20%;
+  border-radius: 5px;
+  flex: 1;
+}
+
+.detailedInfoStatements {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100vw);
+  transition: 0.35s ease-in-out;
+}
+
+.detailedInfoStatements.in {
+  transform: translateX(0);
+}
+
+.detailedInfoExtra {
+  transform: translateY(100vh);
+  transition: 0.3s ease-in-out;
+}
+
+.detailedInfoExtra.in {
+  transform: translateY(0);
+}
+
+.blur {
+  filter: blur(5px);
 }
 
 @media (max-width: 1099px) {
