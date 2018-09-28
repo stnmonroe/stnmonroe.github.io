@@ -327,7 +327,7 @@ createPortfolioBoxes = () => {
 const witwarsInfo = [
   {
     name: "Mobile App",
-    desc: "Availble on iOS & Android.",
+    desc: "Available on iOS & Android.",
     id: "wwInfoMobile",
     statements: [
       "Sole developer from init to app stores.",
@@ -409,6 +409,19 @@ populateWitwarsInfo = () => {
     div.id = 'witwarsInfo';
 
     // TODO: Add "X" icon that closes more info
+    let closeIcon = document.createElement('i');
+    closeIcon.className = "moreInfoClose icon ion-md-close";
+    div.appendChild(closeIcon);
+    closeIcon.addEventListener("click", () => {
+        for(let i = div.children.length - 1; i >= 0; i--) {
+            setTimeout(() => {
+                div.children[i].classList.remove("in");
+            }, i * 100)
+        }
+        setTimeout(() => {
+            div.remove();
+        }, (div.children.length + 1) * 100)
+    });
 
     for(let i = 0; i < witwarsInfo.length; i++) {
         let bgNode = document.createElement('div');
@@ -430,6 +443,8 @@ populateWitwarsInfo = () => {
 
         bgNode.appendChild(node);
         div.appendChild(bgNode);
+
+        setTimeout(() => bgNode.classList.add("in"), (i + 1) * 100);
     }
     // div.innerHTML = `
     //     <div class="img1stHalf" style="background: url(` + pI[i].img.src + `) 0 0"></div>

@@ -1586,7 +1586,8 @@ span.white {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: darkgray;
+  background-color: transparent;
+  transition: 0.2s linear;
 }
 
 #witwarsInfo {
@@ -1599,16 +1600,22 @@ span.white {
   width: 100%;
   background-position: center;
   transition: 0.3s ease-in-out;
+  transform: translateX(100vw);
 }
 
-.infoSectionBg:hover {
+.infoSectionBg.in {
+  transform: translateX(0);
+}
+
+.infoSectionBg.in:hover {
   flex: 1.75;
+  cursor: pointer;
 }
 
 .infoSection {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   transition: 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
@@ -1618,13 +1625,14 @@ span.white {
 }
 
 .infoSection:hover {
-  background: none;
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .infoSectionText h2 {
   transition: 0.4s ease-in-out;
   font-weight: 100;
   font-size: 2em;
+  margin: 0 0 10px;
 }
 
 .infoSection:hover .infoSectionText h2 {
@@ -1656,11 +1664,40 @@ span.white {
 }
 
 .infoSection span {
-  bottom: 5px;
+  bottom: 0;
   position: absolute;
   font-size: 10px;
+  background: #fd9401;
+  padding: 5px 10px;
+  border-radius: 5px 5px 0 0;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: 0.15s linear;
 }
 
+.infoSection:hover span {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: 0.3s ease-in-out 0.5s;
+  font-size: 14px;
+}
+
+.moreInfoClose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 50px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: 0.1s linear;
+  z-index: 51;
+}
+
+.moreInfoClose:hover {
+  color: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+  cursor: pointer;
+  text-shadow: 1px 1px 10px black;
+}
 
 @media (max-width: 1099px) {
 
