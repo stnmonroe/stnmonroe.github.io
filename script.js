@@ -336,7 +336,9 @@ const witwarsInfo = [
       "Navigation structure uses React-Native-Router-Flux.",
       "Experience setting up and using the Facebook SDK.",
       "Scaling functions used to accommodate all screen sizes.",
-      "Works with a RESTful API."
+      "Works with a RESTful API.",
+      "Integrated AdMob banner and insterstitial ads.",
+      "Runs background tasks for local push notifications."
     ],
     bgImage: "./img/mobileAppBg.jpg",
     images: [
@@ -346,7 +348,15 @@ const witwarsInfo = [
     ],
     // TODO: Add linked app store badges
     extraHTML: `
-
+      <p>Download Witwars today!</p>
+      <div class="appStoreBadges">
+        <a target="_blank" href="https://itunes.apple.com/us/app/witwars/id1363163894?ls=1&mt=8">
+          <img src="img/apple_app_store_badge.png" width="120" height="40">
+        </a>
+        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.witwarsapp">
+          <img src="img/google_play_badge.png" width="134" height="40">
+        </a>
+      </div>
     `
   },
   {
@@ -402,6 +412,8 @@ const witwarsInfo = [
   }
 ];
 
+let galleryIndex = 0;
+
 populateWitwarsInfo = () => {
     let div = document.createElement('div');
     div.className = 'portfolioMoreInfo';
@@ -413,15 +425,15 @@ populateWitwarsInfo = () => {
     closeIcon.addEventListener("click", (e) => {
         if (e.target.classList.contains("minimize") ||
             e.srcElement.classList.contains("minimize")) {
+              galleryIndex = 0;
               for(let i = 0; i < div.children.length; i++) {
                   div.children[i].classList.remove("minimize");
+                  div.children[i].classList.remove("blur");
                   if (div.children[i].querySelector(".infoSection")) {
                       div.children[i].querySelector(".infoSection").classList.remove("hide");
                   }
-                  if (document.querySelector(".detailedInfo")) {
-                      document.querySelector(".detailedInfo").remove();
-                  }
               }
+              document.querySelector(".detailedInfo").remove();
         } else {
             for(let i = div.children.length - 1; i >= 0; i--) {
                 setTimeout(() => {
@@ -464,56 +476,102 @@ populateWitwarsInfo = () => {
 
         bgNode.addEventListener("click", () => {
             for(let j = 0; j < div.children.length; j++) {
-               if (bgNode !== div.children[j]) {
-                  div.children[j].classList.add("minimize");
-               } else {
-                  div.children[j].children[0].classList.add("hide");
+                if (bgNode !== div.children[j]) {
+                    div.children[j].classList.add("minimize");
+                } else {
+                    div.children[j].children[0].classList.add("hide");
 
-                  detailedInfo = document.createElement('div');
-                  detailedInfo.className = 'detailedInfo';
+                    detailedInfo = document.createElement('div');
+                    detailedInfo.className = 'detailedInfo';
 
-                  detailedInfoGallery = document.createElement('div');
-                  detailedInfoGallery.className = 'detailedInfoGallery';
-                  detailedInfoGallery.innerHTML = witwarsInfo[i].images.map( img => {
-                      return "<img src=" + img + ">"
-                  }).join("");
+                    detailedInfoGallery = document.createElement('div');
+                    detailedInfoGallery.className = 'detailedInfoGallery';
+                    let iLeft = document.createElement('i');
+                      iLeft.className = "icon ion-md-arrow-dropleft hidden";
+                      detailedInfoGallery.appendChild(iLeft);
+                    let galleryImg = document.createElement('img');
+                      galleryImg.src = witwarsInfo[i].images[galleryIndex];
+                      galleryImg.style = "height:" + pC.offsetHeight * 0.4 + "px";
+                      detailedInfoGallery.appendChild(galleryImg);
+                    let iRight = document.createElement('i');
+                      iRight.className = "icon ion-md-arrow-dropright"
+                      detailedInfoGallery.appendChild(iRight);
 
-                  detailedInfoStatements = document.createElement('div');
-                  detailedInfoStatements.className = 'detailedInfoStatements';
-                  detailedInfoStatements.innerHTML = witwarsInfo[i].statements.map( text => {
-                      return "<div class='infoStatement'>" + text + "</div>";
-                  }).join("");
+                    iLeft.addEventListener("click", () => {
+                        galleryIndex--;
+                        iRight.classList.remove("hidden");
+                        if (galleryIndex === 0) {
+                            iLeft.classList.add("hidden");
+                        }
+                        galleryImg.src = witwarsInfo[i].images[galleryIndex];
+                    });
+
+                    iRight.addEventListener("click", () => {
+                        galleryIndex++;
+                        iLeft.classList.remove("hidden");
+                        if (galleryIndex === witwarsInfo[i].images.length - 1) {
+                            iRight.classList.add("hidden");
+                        }
+                        galleryImg.src = witwarsInfo[i].images[galleryIndex];
+                    });
+
+                    witwarsInfo[i].images.map( img => {
+                        return "<img src=" + img + " style='height:" + pC.offsetHeight * 0.4 + "px'>"
+                    }).join("");
+
+                    detailedInfoStatements = document.createElement('div');
+                    detailedInfoStatements.className = 'detailedInfoStatements';
+                    let statementsArray = witwarsInfo[i].statements.map( (text, index) => {
+                        let textNode = document.createElement('div');
+                        textNode.className = "infoStatement";
+                        textNode.innerHTML = text;
+
+                        return textNode;
+                    });
+
+                    for (let a = 0; a < statementsArray.length; a++) {
+                        detailedInfoStatements.appendChild(statementsArray[a]);
+                        setTimeout(() => statementsArray[a].classList.add("in"), (a + 1) * 100);
+                    }
 
 
 
 
 
 
-                  detailedInfo.appendChild(detailedInfoGallery);
-                  detailedInfo.appendChild(detailedInfoStatements);
-                  // if (witwarsInfo[i].extraHTML) {
-                  //     detailedInfoExtra = document.createElement('div');
-                  //     detailedInfoExtra.className = 'detailedInfoExtra'
-                  //
-                  //     detailedInfo.appendChild(detailedInfoExtra);
-                  // }
-                  bgNode.classList.add("blur");
-                  document.getElementById("witwarsInfo").appendChild(detailedInfo);
+                    detailedInfo.appendChild(detailedInfoGallery);
+                    detailedInfo.appendChild(detailedInfoStatements);
+                    if (witwarsInfo[i].extraHTML) {
+                        detailedInfoExtra = document.createElement('div');
+                        detailedInfoExtra.className = 'detailedInfoExtra';
+                        detailedInfoExtra.innerHTML = witwarsInfo[i].extraHTML;
+                        detailedInfo.appendChild(detailedInfoExtra);
+                    }
+                    bgNode.classList.add("blur");
+                    document.getElementById("witwarsInfo").appendChild(detailedInfo);
 
-                  let dIs = detailedInfo.children;
+                    let dIs = detailedInfo.children;
 
-                  for(let x = 0; x < dIs.length; x++) {
-                      setTimeout(() => {
-                          dIs[x].classList.add("in");
-                      }, 300 * (x + 1));
-                  }
-               }
+                    for(let x = 0; x < dIs.length; x++) {
+                        setTimeout(() => {
+                            dIs[x].classList.add("in");
+                        }, 300 * (x + 1));
+                    }
+                }
             }
         })
 
     }
 
     pC.appendChild(div);
+}
+
+const imageGalleryMove = (num, index, arr, img) => {
+    let newNum = index + num;
+    img.src = arr[newNum];
+    if (arr.length - 1 === newNum) {
+
+    }
 }
 
 //Portfolio box open animation
