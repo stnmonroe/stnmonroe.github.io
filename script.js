@@ -313,9 +313,9 @@ createPortfolioBoxes = () => {
               openInNewTab(portfolioItems[index].btn.link);
           } else {
               if (portfolioItems[index].btn.name === "witwars") {
-                  populateWitwarsInfo();
+                  populateMoreInfo(witwarsInfo);
               } else if (portfolioItems[index].btn.name === "admin") {
-                  populateAdminConsoleInfo();
+                  populateMoreInfo(adminConsoleInfo);
               }
           }
       })
@@ -412,12 +412,59 @@ const witwarsInfo = [
   }
 ];
 
+const adminConsoleInfo = [
+  {
+    name: "Front End",
+    desc: "React, React Router DOM, Redux",
+    id: "",
+    statements: [
+    ],
+    bgImage: "img/",
+    images: [
+      "img/",
+      "img/",
+      "img/",
+    ],
+    // TODO: Add linked app store badges
+    extraHTML: `
+
+    `
+  },
+  {
+    name: "Back End",
+    desc: "Express, Sequelize, Postgres",
+    id: "",
+    statements: [
+    ],
+    bgImage: "img/",
+    images: [
+      "img/",
+      "img/",
+      "img/",
+    ],
+    // TODO: Add a link to the static site
+    extraHTML: `
+
+    `
+  },
+  {
+    name: "Uses",
+    desc: "Manage premises, mass emails, and social media images.",
+    id: "",
+    statements: [
+    ],
+    bgImage: "img/",
+    images: [
+
+    ]
+  }
+];
+
 let galleryIndex = 0;
 
-populateWitwarsInfo = () => {
+populateMoreInfo = (data) => {
     let div = document.createElement('div');
     div.className = 'portfolioMoreInfo';
-    div.id = 'witwarsInfo';
 
     let closeIcon = document.createElement('i');
     closeIcon.className = "moreInfoClose icon ion-md-close";
@@ -446,20 +493,20 @@ populateWitwarsInfo = () => {
         }
     });
 
-    for(let i = 0; i < witwarsInfo.length; i++) {
+    for(let i = 0; i < data.length; i++) {
         let bgNode = document.createElement('div');
         bgNode.className = 'infoSectionBg';
         bgNode.setAttribute("style",
-            "background-image: url(" + witwarsInfo[i].bgImage + ")");
+            "background-image: url(" + data[i].bgImage + ")");
 
         let node = document.createElement('div');
         node.className = 'infoSection';
-        node.id = witwarsInfo[i].id;
+        node.id = data[i].id;
 
         node.innerHTML = `
             <div class="infoSectionText">
-                <h2>`+ witwarsInfo[i].name +`</h2>
-                <p>`+ witwarsInfo[i].desc +`</p>
+                <h2>`+ data[i].name +`</h2>
+                <p>`+ data[i].desc +`</p>
             </div>
             <span><p>Click/tap for more info.</p></span>
         `
@@ -469,7 +516,7 @@ populateWitwarsInfo = () => {
 
         setTimeout(() => {
             bgNode.classList.add("in");
-            if (i === witwarsInfo.length-1) {
+            if (i === data.length-1) {
                 closeIcon.classList.add("in");
             }
         }, (i + 1) * 100);
@@ -490,7 +537,7 @@ populateWitwarsInfo = () => {
                       iLeft.className = "icon ion-md-arrow-dropleft hidden";
                       detailedInfoGallery.appendChild(iLeft);
                     let galleryImg = document.createElement('img');
-                      galleryImg.src = witwarsInfo[i].images[galleryIndex];
+                      galleryImg.src = data[i].images[galleryIndex];
                       galleryImg.style = "height:" + pC.offsetHeight * 0.4 + "px";
                       detailedInfoGallery.appendChild(galleryImg);
                     let iRight = document.createElement('i');
@@ -503,25 +550,21 @@ populateWitwarsInfo = () => {
                         if (galleryIndex === 0) {
                             iLeft.classList.add("hidden");
                         }
-                        galleryImg.src = witwarsInfo[i].images[galleryIndex];
+                        galleryImg.src = data[i].images[galleryIndex];
                     });
 
                     iRight.addEventListener("click", () => {
                         galleryIndex++;
                         iLeft.classList.remove("hidden");
-                        if (galleryIndex === witwarsInfo[i].images.length - 1) {
+                        if (galleryIndex === data[i].images.length - 1) {
                             iRight.classList.add("hidden");
                         }
-                        galleryImg.src = witwarsInfo[i].images[galleryIndex];
+                        galleryImg.src = data[i].images[galleryIndex];
                     });
-
-                    witwarsInfo[i].images.map( img => {
-                        return "<img src=" + img + " style='height:" + pC.offsetHeight * 0.4 + "px'>"
-                    }).join("");
 
                     detailedInfoStatements = document.createElement('div');
                     detailedInfoStatements.className = 'detailedInfoStatements';
-                    let statementsArray = witwarsInfo[i].statements.map( (text, index) => {
+                    let statementsArray = data[i].statements.map( (text, index) => {
                         let textNode = document.createElement('div');
                         textNode.className = "infoStatement";
                         textNode.innerHTML = text;
@@ -531,7 +574,7 @@ populateWitwarsInfo = () => {
 
                     for (let a = 0; a < statementsArray.length; a++) {
                         detailedInfoStatements.appendChild(statementsArray[a]);
-                        setTimeout(() => statementsArray[a].classList.add("in"), (a + 1) * 100);
+                        setTimeout(() => statementsArray[a].classList.add("in"), (a + 1) * 50);
                     }
 
 
@@ -541,14 +584,14 @@ populateWitwarsInfo = () => {
 
                     detailedInfo.appendChild(detailedInfoGallery);
                     detailedInfo.appendChild(detailedInfoStatements);
-                    if (witwarsInfo[i].extraHTML) {
+                    if (data[i].extraHTML) {
                         detailedInfoExtra = document.createElement('div');
                         detailedInfoExtra.className = 'detailedInfoExtra';
-                        detailedInfoExtra.innerHTML = witwarsInfo[i].extraHTML;
+                        detailedInfoExtra.innerHTML = data[i].extraHTML;
                         detailedInfo.appendChild(detailedInfoExtra);
                     }
                     bgNode.classList.add("blur");
-                    document.getElementById("witwarsInfo").appendChild(detailedInfo);
+                    div.appendChild(detailedInfo);
 
                     let dIs = detailedInfo.children;
 
