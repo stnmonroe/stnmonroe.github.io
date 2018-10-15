@@ -324,6 +324,8 @@ createPortfolioBoxes = () => {
   createPortfolioBoxEventListeners();
 }
 
+let badgeHeight = window.innerWidth < 580 ? 28 : 40;
+
 const witwarsInfo = [
   {
     name: "Mobile App",
@@ -351,10 +353,10 @@ const witwarsInfo = [
       <p>Download Witwars today!</p>
       <div class="appStoreBadges">
         <a target="_blank" href="https://itunes.apple.com/us/app/witwars/id1363163894?ls=1&mt=8">
-          <img src="img/apple_app_store_badge.png" width="120" height="40">
+          <img src="img/apple_app_store_badge.png" height="`+ badgeHeight +`">
         </a>
         <a target="_blank" href="https://play.google.com/store/apps/details?id=com.witwarsapp">
-          <img src="img/google_play_badge.png" width="134" height="40">
+          <img src="img/google_play_badge.png" height="`+ badgeHeight +`">
         </a>
       </div>
     `
@@ -364,10 +366,10 @@ const witwarsInfo = [
     desc: "Tool converting users to mobile.",
     id: "wwInfoWeb",
     statements: [
-      "We have discontinued the web app due to a lack of use.",
-      "It has been replaced with a static landing page.",
-      "Worked with a RESTful API.",
-      "Used the Express framework and rendered via Pug (formerly Jade).",
+      "An entry version of the game, used mostly as a landing page.",
+      "Also, used to handle forgetten passwords and war sharing.",
+      "Works with a RESTful API.",
+      "Uses Express and renders via Pug (formerly Jade).",
       "Co-developed web app with former business partner.",
       "Priority was to get users on the mobile app by offering limited features."
     ],
@@ -377,9 +379,8 @@ const witwarsInfo = [
       "img/witwarsWeb3.png",
       "img/witwarsWeb4.png",
     ],
-    // TODO: Add a link to the static site
     extraHTML: `
-
+      <p>Check it out at <a target="_blank" href="https://www.witwars.com/">www.witwars.com</a>!</p>
     `
   },
   {
@@ -538,7 +539,7 @@ populateMoreInfo = (data) => {
                       detailedInfoGallery.appendChild(iLeft);
                     let galleryImg = document.createElement('img');
                       galleryImg.src = data[i].images[galleryIndex];
-                      galleryImg.style = "height:" + pC.offsetHeight * 0.4 + "px";
+                      galleryImg.style = "height:" + pC.offsetHeight * 0.5 + "px; max-width:" + pC.offsetWidth * 0.9 + "px";
                       detailedInfoGallery.appendChild(galleryImg);
                     let iRight = document.createElement('i');
                       iRight.className = "icon ion-md-arrow-dropright"

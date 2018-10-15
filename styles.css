@@ -1702,7 +1702,7 @@ span.white {
   position: absolute;
   top: 20px;
   right: 20px;
-  font-size: 50px;
+  font-size: 46px;
   color: rgba(255, 255, 255, 0.7);
   transition: 0.2s linear;
   z-index: 51;
@@ -1736,7 +1736,7 @@ span.white {
 }
 
 .detailedInfoGallery {
-  flex: 1;
+  flex: 2;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -1793,7 +1793,7 @@ span.white {
   text-align: center;
   width: 95%;
   max-width: 750px;
-  margin: 10px;
+  margin: 5px 0 20px;
 }
 
 /* .detailedInfoStatements.in {
@@ -1819,6 +1819,11 @@ span.white {
   transform: translateY(0);
 }
 
+.detailedInfoExtra a {
+  color: #3b92fd;
+  font-weight: bold;
+}
+
 .blur {
   filter: blur(5px);
 }
@@ -1828,7 +1833,7 @@ span.white {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box
+  box-sizing: border-box;
   padding: 10px;
   width: 33.3%;
   transition: 0.1s ease-in-out;
@@ -1837,6 +1842,7 @@ span.white {
 
 .infoStatement.in {
   transform: translateX(0);
+  transition: 1s ease-in-out;
 }
 
 .infoStatement i {
@@ -1852,6 +1858,16 @@ span.white {
 .infoStatement:nth-child(even) {
   background: rgba(0, 0, 0, 0.75);
   color: white;
+}
+
+.infoStatement:nth-child(odd):hover {
+  background: #fd9401;
+  transition: 0.1s ease-in-out;
+}
+
+.infoStatement:nth-child(even):hover {
+  background: #3b92fd;
+  transition: 0.1s ease-in-out;
 }
 
 .appStoreBadges img {
@@ -2031,6 +2047,11 @@ span.white {
     font-size: 12px;
   }
 
+  .detailedInfoExtra p {
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+
 }
 
 @media only screen and (max-width: 329px), only screen and (max-height: 329px) {
@@ -2111,6 +2132,19 @@ span.white {
   .sHContent {
     flex: 3.5;
     align-items: flex-start;
+  }
+
+  .infoStatement {
+    font-size: 9px;
+  }
+
+  .detailedInfoStatements {
+    overflow: scroll;
+    margin: 0;
+  }
+
+  .detailTextContainer p {
+    font-size: 11px;
   }
 
 }
