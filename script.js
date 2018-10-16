@@ -417,16 +417,22 @@ const adminConsoleInfo = [
   {
     name: "Front End",
     desc: "React, React Router DOM, Redux",
-    id: "",
+    id: "adminInfoFE",
     statements: [
+      "React-Router-DOM",
+      "Redux, Thunk",
+      "Styled-Components",
+      "All premise and user mangement needs in one place.",
+      "Allows admin to navigate without losing current work.",
+      "Duplicates custom components for efficient building."
+
     ],
-    bgImage: "img/",
+    bgImage: "img/admin_frontend.jpg",
     images: [
       "img/",
       "img/",
       "img/",
     ],
-    // TODO: Add linked app store badges
     extraHTML: `
 
     `
@@ -434,16 +440,21 @@ const adminConsoleInfo = [
   {
     name: "Back End",
     desc: "Express, Sequelize, Postgres",
-    id: "",
+    id: "adminInfoBE",
     statements: [
+      "Express, Axios",
+      "Sequilize, Postgres",
+      "Nodemailer, AWS SES",
+      "Receives and handles requests from front-end.",
+      "Database management made simple.",
+      "Custom mass emails sent inexpensively."
     ],
-    bgImage: "img/",
+    bgImage: "img/admin_backend.jpg",
     images: [
       "img/",
       "img/",
       "img/",
     ],
-    // TODO: Add a link to the static site
     extraHTML: `
 
     `
@@ -451,10 +462,16 @@ const adminConsoleInfo = [
   {
     name: "Uses",
     desc: "Manage premises, mass emails, and social media images.",
-    id: "",
+    id: "adminInfoU",
     statements: [
+      "Create premises and fills for variable premises.",
+      "Generate premises to be used in game.",
+      "Send premises to main database and record them locally.",
+      "View premises of all statuses within main database.",
+      "Snap an image of the daily winner to share socially.",
+      "Send out mass emails to all subscribed users."
     ],
-    bgImage: "img/",
+    bgImage: "img/admin_uses.jpg",
     images: [
 
     ]
