@@ -1861,12 +1861,12 @@ span.white {
 }
 
 .infoStatement:nth-child(odd):hover {
-  background: #fd9401;
+  background: #fdc400;
   transition: 0.1s ease-in-out;
 }
 
 .infoStatement:nth-child(even):hover {
-  background: #3b92fd;
+  background: #fdc400;
   transition: 0.1s ease-in-out;
 }
 

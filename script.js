@@ -227,6 +227,18 @@ checkLocationForMenu = () => {
 let portfolioItems = [
   {
     img: {
+        name: "Fiveable",
+        src: "img/fiveable.png"
+    },
+    tech: ["React", "React-Native", "Redux", "Router-Flux", "React-Router-DOM", "Firebase", "Braintree"],
+    desc: "CTO and sole engineer for new React and React-Native platform. Backend built on Firebase using Braintree for payment processing.",
+    btn: {
+        text: "More Info",
+        name: "fiveable"
+    }
+  },
+  {
+    img: {
         name: "Witwars",
         src: "img/witwars.png"
     },
@@ -261,18 +273,18 @@ let portfolioItems = [
         name: "admin"
     }
   },
-  {
-    img: {
-        name: "Ottawa Recreation",
-        src: "img/ottawa_rec.png"
-    },
-    tech: ["Wordpress", "HTML", "CSS"],
-    desc: "As a member of the Ottawa, IL Playgrounds & Recreation Board, I voluntarily built them a new website, but do not maintain it regularly.",
-    btn: {
-        text: "Visit Site",
-        link: "http://www.ottawarecreation.org"
-    }
-  }
+  // {
+  //   img: {
+  //       name: "Ottawa Recreation",
+  //       src: "img/ottawa_rec.png"
+  //   },
+  //   tech: ["Wordpress", "HTML", "CSS"],
+  //   desc: "As a member of the Ottawa, IL Playgrounds & Recreation Board, I voluntarily built them a new website, but do not maintain it regularly.",
+  //   btn: {
+  //       text: "Visit Site",
+  //       link: "http://www.ottawarecreation.org"
+  //   }
+  // }
 ]
 
 openInNewTab = (url) => {
@@ -316,6 +328,8 @@ createPortfolioBoxes = () => {
                   populateMoreInfo(witwarsInfo);
               } else if (portfolioItems[index].btn.name === "admin") {
                   populateMoreInfo(adminConsoleInfo);
+              } else if (portfolioItems[index].btn.name === "fiveable") {
+                  populateMoreInfo(fiveableInfo);
               }
           }
       })
@@ -325,6 +339,84 @@ createPortfolioBoxes = () => {
 }
 
 let badgeHeight = window.innerWidth < 580 ? 28 : 40;
+
+const fiveableInfo = [
+  {
+    name: "Web App",
+    desc: "Mobile-friendly React app.",
+    id: "5web",
+    statements: [
+      "Web app built on React.",
+      "Global state managed with Redux.",
+      "Persistance managed with Redux-Persist.",
+      "Navigation structure uses React-Router-DOM.",
+      "Maintained with error boundaries.",
+      "Built to accommodate all screen sizes.",
+      "Integrated with Firebase, Braintree, and Google Analytics.",
+      "Embedded Vimeo and Crowdcast for live and recorded events.",
+      "Built using custom and Material UI."
+    ],
+    bgImage: "./img/fiveableWebBg.jpg",
+    images: [
+      "img/5web1.jpg",
+      "img/5web2.jpg",
+      "img/5web3.jpg",
+    ],
+    // TODO: Add linked app store badges
+    extraHTML: `
+      <p>Check it out at <a target="_blank" href="https://app.fiveable.me/">app.fiveable.me</a>!</p>
+    `
+  },
+  {
+    name: "Mobile App",
+    desc: "Available on iOS & Android",
+    id: "5mobile",
+    statements: [
+      "Built for iOS & Android with React-Native.",
+      "Global state managed with Redux.",
+      "Persistance managed with Redux-Persist.",
+      "Navigation structure uses React-Native-Router-Flux.",
+      "Scaling functions used to accommodate all screen sizes.",
+      "Integrated with Firebase, Cloud Messaging, and Firebase Analytics."
+    ],
+    bgImage: "img/fiveableMobileBg.jpg",
+    images: [
+      "img/5mobile1.jpg",
+      "img/5mobile2.jpg",
+      "img/5mobile3.jpg",
+    ],
+    extraHTML: `
+    <p>Download Fiveable today!</p>
+    <div class="appStoreBadges">
+      <a target="_blank" href="https://itunes.apple.com/us/app/fiveable/id1451826219?ls=1&mt=8">
+        <img src="img/apple_app_store_badge.png" height="`+ badgeHeight +`">
+      </a>
+      <a target="_blank" href="https://play.google.com/store/apps/details?id=com.fiveableapp">
+        <img src="img/google_play_badge.png" height="`+ badgeHeight +`">
+      </a>
+    </div>
+    `
+  },
+  {
+    name: "Firebase",
+    desc: "A secure and scalable backend.",
+    id: "5firebase",
+    statements: [
+      "Architecture uses Firestore and Real-Time DB.",
+      "Singular and hooked updates to both databases.",
+      "Secure, scalable, and balanced.",
+      "Google, Facebook, and email authentication.",
+      "Scalable custom algorithms using Functions.",
+      "Crashlytics used for mobile maintenance.",
+
+    ],
+    bgImage: "./img/firebaseBg.jpeg",
+    images: [
+      "img/firebase1.jpg",
+      "img/firebase2.jpg",
+    ]
+  }
+];
 
 const witwarsInfo = [
   {
@@ -1420,7 +1512,7 @@ const deskContent = {
         <div id="informalEducation">
           <code>&lt;<span class="htmlTag">self-taught</span>&gt;<br/></code>
           <div style="padding-left: 50px; position: relative">
-            <code>I've received no formal education in my development journey. Special thanks to Codecademy, Derrick Bannas, YouTube, GitHub, StackOverflow, the React-Native community, and &lt;em&gt;my patient wife&lt;/em&gt;.<br/></code>
+            <code>I've received no formal education in my development journey. Special thanks to Codecademy, Derrick Bannas, YouTube, GitHub, StackOverflow, the React-Native community, and &lt;<span class="htmlTag">em</span>&gt;my patient wife&lt;/<span class="htmlTag">em</span>&gt;.<br/></code>
           </div>
           <code>&lt;/<span class="htmlTag">self-taught</span>&gt;</code>
         </div>
@@ -1431,12 +1523,13 @@ const deskContent = {
           <div style="padding-left: 50px; position: relative">
             <code>
               react-native: <span class="cssPerc">90%</span>;<br/>
-              wordpress: <span class="cssPerc">90%</span>;<br/>
+              react: <span class="cssPerc">90%</span>;<br/>
+              firebase: <span class="cssPerc">90%</span>;<br/>
               javascript: <span class="cssPerc">90%</span>;<br/>
+              css: <span class="cssPerc">90%</span>;<br/>
               redux: <span class="cssPerc">85%</span>;<br/>
               html: <span class="cssPerc">80%</span>;<br/>
-              css: <span class="cssPerc">80%</span>;<br/>
-              react: <span class="cssPerc">75%</span>;<br/>
+              wordpress: <span class="cssPerc">75%</span>;<br/>
               express: <span class="cssPerc">70%</span>;<br/>
               sequelize: <span class="cssPerc">60%</span>;<br/>
             </code>
@@ -1582,9 +1675,8 @@ let heartContent = [
         `,
         text: [
             "Video games are a complex art form.",
-            "Reprioritization has interferd with time played, but I revere the complicated work put into these games.",
+            "Reprioritization has interfered with time played, but I revere the complicated work put into these games.",
             "I occasionally squeeze in time for competitive online gaming. Such a rush!",
-
         ]
     },
     {
