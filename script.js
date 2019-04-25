@@ -499,9 +499,9 @@ const witwarsInfo = [
 
     ],
     bgImage: "./img/eElseBg.jpg",
-    images: [
-
-    ]
+    video: `
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/j8ePo-VeOSo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    `
   }
 ];
 
@@ -643,34 +643,43 @@ populateMoreInfo = (data) => {
 
                     detailedInfoGallery = document.createElement('div');
                     detailedInfoGallery.className = 'detailedInfoGallery';
-                    let iLeft = document.createElement('i');
-                      iLeft.className = "icon ion-md-arrow-dropleft hidden";
-                      detailedInfoGallery.appendChild(iLeft);
-                    let galleryImg = document.createElement('img');
-                      galleryImg.src = data[i].images[galleryIndex];
-                      galleryImg.style = "height:" + pC.offsetHeight * 0.5 + "px; max-width:" + pC.offsetWidth * 0.9 + "px";
-                      detailedInfoGallery.appendChild(galleryImg);
-                    let iRight = document.createElement('i');
-                      iRight.className = "icon ion-md-arrow-dropright"
-                      detailedInfoGallery.appendChild(iRight);
 
-                    iLeft.addEventListener("click", () => {
-                        galleryIndex--;
-                        iRight.classList.remove("hidden");
-                        if (galleryIndex === 0) {
-                            iLeft.classList.add("hidden");
-                        }
+                    if (!data.images && data.video) {
+                      detailedInfoGallery.innerHTML = `
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/j8ePo-VeOSo"
+                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; 
+                        picture-in-picture" allowfullscreen></iframe>`
+                    } else {
+                      let iLeft = document.createElement('i');
+                        iLeft.className = "icon ion-md-arrow-dropleft hidden";
+                        detailedInfoGallery.appendChild(iLeft);
+                      let galleryImg = document.createElement('img');
                         galleryImg.src = data[i].images[galleryIndex];
-                    });
+                        galleryImg.style = "height:" + pC.offsetHeight * 0.5 + "px; max-width:" + pC.offsetWidth * 0.9 + "px";
+                        detailedInfoGallery.appendChild(galleryImg);
+                      let iRight = document.createElement('i');
+                        iRight.className = "icon ion-md-arrow-dropright"
+                        detailedInfoGallery.appendChild(iRight);
 
-                    iRight.addEventListener("click", () => {
-                        galleryIndex++;
-                        iLeft.classList.remove("hidden");
-                        if (galleryIndex === data[i].images.length - 1) {
-                            iRight.classList.add("hidden");
-                        }
-                        galleryImg.src = data[i].images[galleryIndex];
-                    });
+                      iLeft.addEventListener("click", () => {
+                          galleryIndex--;
+                          iRight.classList.remove("hidden");
+                          if (galleryIndex === 0) {
+                              iLeft.classList.add("hidden");
+                          }
+                          galleryImg.src = data[i].images[galleryIndex];
+                      });
+
+                      iRight.addEventListener("click", () => {
+                          galleryIndex++;
+                          iLeft.classList.remove("hidden");
+                          if (galleryIndex === data[i].images.length - 1) {
+                              iRight.classList.add("hidden");
+                          }
+                          galleryImg.src = data[i].images[galleryIndex];
+                      });
+                    }
+
 
                     detailedInfoStatements = document.createElement('div');
                     detailedInfoStatements.className = 'detailedInfoStatements';

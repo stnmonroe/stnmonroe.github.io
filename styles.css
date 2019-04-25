@@ -1291,6 +1291,11 @@ textarea {
   background: darkorange;
 }
 
+#sHSubmit:hover {
+  background-color: rgba(253, 196, 0, 0.5);
+  cursor: pointer;
+}
+
 .sHImg, .sHHeaderText {
 
 }
