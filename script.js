@@ -642,14 +642,18 @@ populateMoreInfo = (data) => {
                     detailedInfo.className = 'detailedInfo';
 
                     detailedInfoGallery = document.createElement('div');
-                    detailedInfoGallery.className = 'detailedInfoGallery';
-
-                    if (!data.images && data.video) {
+                    
+                    if (!data[i].images && data[i].video) {
+                      detailedInfoGallery.className = 'videoGallery'
                       detailedInfoGallery.innerHTML = `
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/j8ePo-VeOSo"
-                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; 
-                        picture-in-picture" allowfullscreen></iframe>`
+                        <div class='videoContainer'>
+                          <iframe width="560" height="315" src="https://www.youtube.com/embed/j8ePo-VeOSo"
+                          frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope;
+                          picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                      `
                     } else {
+                      detailedInfoGallery.className = 'detailedInfoGallery';
                       let iLeft = document.createElement('i');
                         iLeft.className = "icon ion-md-arrow-dropleft hidden";
                         detailedInfoGallery.appendChild(iLeft);
