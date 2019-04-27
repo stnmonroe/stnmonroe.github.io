@@ -486,7 +486,8 @@ const witwarsInfo = [
     ],
     bgImage: "./img/designBg.jpg",
     images: [
-
+      "img/witwars_design_1.jpg",
+      "img/witwars_design_2.jpg"
     ]
   },
   {
@@ -494,9 +495,9 @@ const witwarsInfo = [
     desc: "An array of other necessary work.",
     id: "wwInfoEE",
     statements: [
-      "I write all of the public premises... Please don't judge too harshly.",
+      "Write or approve all public premises.",
       "Wrote, animated, voiced, and edited the explainer video.",
-
+      "Implement and maintain all marketing strategy."
     ],
     bgImage: "./img/eElseBg.jpg",
     video: `
@@ -521,9 +522,9 @@ const adminConsoleInfo = [
     ],
     bgImage: "img/admin_frontend.jpg",
     images: [
-      "img/",
-      "img/",
-      "img/",
+      "img/witwars_admin_1.jpg",
+      "img/witwars_admin_2.jpg",
+      "img/witwars_admin_3.jpg",
     ],
     extraHTML: `
 
@@ -543,9 +544,8 @@ const adminConsoleInfo = [
     ],
     bgImage: "img/admin_backend.jpg",
     images: [
-      "img/",
-      "img/",
-      "img/",
+      "img/witwars_admin_backend_1.jpg",
+      "img/witwars_admin_backend_2.jpg"
     ],
     extraHTML: `
 
@@ -565,7 +565,8 @@ const adminConsoleInfo = [
     ],
     bgImage: "img/admin_uses.jpg",
     images: [
-
+      "img/witwars_admin_uses_1.jpg",
+      "img/witwars_admin_uses_2.jpg"
     ]
   }
 ];
@@ -642,7 +643,7 @@ populateMoreInfo = (data) => {
                     detailedInfo.className = 'detailedInfo';
 
                     detailedInfoGallery = document.createElement('div');
-                    
+
                     if (!data[i].images && data[i].video) {
                       detailedInfoGallery.className = 'videoGallery'
                       detailedInfoGallery.innerHTML = `
