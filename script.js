@@ -117,14 +117,14 @@ hoverProfile = () => {
     profContain.addEventListener("mouseleave", () => {
         profile.src = origSrc;
     })
-  }
+}
 
-  let createElem = (num, elem) => {
-      let elems = "";
-      for(i=0; i < num; i++) {
-          elems += "<" + elem + "></" + elem + ">"
-      }
-      return elems;
+let createElem = (num, elem) => {
+    let elems = "";
+    for(i=0; i < num; i++) {
+        elems += "<" + elem + "></" + elem + ">"
+    }
+    return elems;
 }
 
 // Create the spans for the menuBall
@@ -660,29 +660,85 @@ populateMoreInfo = (data) => {
                         detailedInfoGallery.appendChild(iLeft);
                       let galleryImg = document.createElement('img');
                         galleryImg.src = data[i].images[galleryIndex];
-                        galleryImg.style = "height:" + pC.offsetHeight * 0.5 + "px; max-width:" + pC.offsetWidth * 0.9 + "px";
+                        galleryImg.style = "max-height:" + pC.offsetHeight * 0.5 + "px; max-width:" + pC.offsetWidth * 0.9 + "px";
                         detailedInfoGallery.appendChild(galleryImg);
                       let iRight = document.createElement('i');
                         iRight.className = "icon ion-md-arrow-dropright"
                         detailedInfoGallery.appendChild(iRight);
 
-                      iLeft.addEventListener("click", () => {
-                          galleryIndex--;
-                          iRight.classList.remove("hidden");
-                          if (galleryIndex === 0) {
-                              iLeft.classList.add("hidden");
-                          }
-                          galleryImg.src = data[i].images[galleryIndex];
-                      });
+                      iLeft.addEventListener("click", () => moveLeft());
 
-                      iRight.addEventListener("click", () => {
-                          galleryIndex++;
-                          iLeft.classList.remove("hidden");
-                          if (galleryIndex === data[i].images.length - 1) {
-                              iRight.classList.add("hidden");
-                          }
-                          galleryImg.src = data[i].images[galleryIndex];
-                      });
+                      iRight.addEventListener("click", () => moveRight());
+
+                      let touchStart = 0;
+                      let touchEnd = 0;
+
+                      galleryImg.addEventListener("touchstart", (e) => {
+                        touchStart = e.changedTouches[0].screenX;
+                      })
+                      galleryImg.addEventListener("touchmove", (e) => {
+                        console.log(e.changedTouches[0].screenX - touchStart)
+                        let change = e.changedTouches[0].screenX - touchStart;
+                        let halfWidth = window.innerWidth / 2;
+                        galleryImg.style.transform = 'translateX(' + change + 'px) rotate(' + (change/halfWidth) * 20 + 'deg)'
+                      })
+                      galleryImg.addEventListener("touchend", (e) => {
+                        touchEnd = e.changedTouches[0].screenX;
+                        handleSwipe();
+                      })
+
+                      handleSwipe = () => {
+                        console.log(touchStart, touchEnd)
+                        if (touchEnd - 65 > touchStart && galleryIndex !== 0) {
+                          moveLeft();
+                        } else if (touchEnd + 65 < touchStart && galleryIndex !== data[i].images.length - 1) {
+                          moveRight();
+                        } else {
+                          touchStart = 0;
+                          touchEnd = 0;
+                          galleryImg.style.transform = 'translateX(0px) rotate(0deg)';
+                        }
+                      }
+
+                      let moveRight = () => {
+                        galleryIndex++;
+                        iLeft.classList.remove("hidden");
+                        if (galleryIndex === data[i].images.length - 1) {
+                            iRight.classList.add("hidden");
+                        }
+                        galleryImg.style.transform = 'translateX(' + window.innerWidth * -1 + 'px) rotate(-25deg)';
+                        galleryImg.style.opacity = 0;
+                        setTimeout(() => {
+                          galleryImg.style.transform = 'translateX(' + window.innerWidth + 'px) rotate(25deg)';
+                          setTimeout(() => {
+                            galleryImg.style.opacity = 1;
+                            galleryImg.src = data[i].images[galleryIndex];
+                            galleryImg.style.transform = 'translateX(0px) rotate(0deg)';
+                            touchStart = 0;
+                            touchEnd = 0;
+                          }, 150)
+                        }, 150)
+                      }
+
+                      let moveLeft = () => {
+                        galleryIndex--;
+                        iRight.classList.remove("hidden");
+                        if (galleryIndex === 0) {
+                            iLeft.classList.add("hidden");
+                        }
+                        galleryImg.style.transform = 'translateX(' + window.innerWidth + 'px) rotate(25deg)';
+                        galleryImg.style.opacity = 0;
+                        setTimeout(() => {
+                          galleryImg.style.transform = 'translateX(' + window.innerWidth * -1 + 'px) rotate(-25deg)';
+                          setTimeout(() => {
+                            galleryImg.style.opacity = 1;
+                            galleryImg.src = data[i].images[galleryIndex];
+                            galleryImg.style.transform = 'translateX(0px) rotate(0deg)';
+                            touchStart = 0;
+                            touchEnd = 0;
+                          }, 300)
+                        }, 300)
+                      }
                     }
 
 
@@ -700,11 +756,6 @@ populateMoreInfo = (data) => {
                         detailedInfoStatements.appendChild(statementsArray[a]);
                         setTimeout(() => statementsArray[a].classList.add("in"), (a + 1) * 50);
                     }
-
-
-
-
-
 
                     detailedInfo.appendChild(detailedInfoGallery);
                     detailedInfo.appendChild(detailedInfoStatements);
@@ -1620,7 +1671,7 @@ turnOnLightBulb = () => {
 
 createFormEventsListeners = () => {
     let formKids = document.getElementById("sHForm").children
-    for(let i = 0; i < formKids.length; i++) {
+    for(let i = 0; i < formKids.length - 1; i++) {
         formKids[i].children[1].addEventListener("focusin", () => {
             formKids[i].children[0].classList.add("selected")
         })
