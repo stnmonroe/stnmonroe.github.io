@@ -863,6 +863,9 @@ createPortfolioBoxEventListeners = () => {
 
 let pBIndex = 0;
 let eventListenersAttached = false;
+let pBTouchStart = 0;
+let pBTouchEnd = 0;
+let pBTXArray = [];
 
 arrangePortfolioForMobile = () => {
     pBIndex = 0;
@@ -888,10 +891,43 @@ arrangePortfolioForMobile = () => {
     if (!eventListenersAttached) {
         for(let i = 0; i < portfolioBoxes.length; i++) {
             portfolioBoxes[i].addEventListener("touchstart", (e) => {
+                for(let j = 0; j < portfolioBoxes.length; j++) {
+                  let tX = portfolioBoxes[j].style.getPropertyValue("transform").split('translateX(')[1].split('px')[0];
+                  pBTXArray[j] = tX;
+                }
                 pBIndex = i;
-                portfolioBoxCarousel();
+                // portfolioBoxCarousel();
+                pBTouchStart = e.changedTouches[0].screenX;
                 closePortfolioBox(e);
                 //TODO make sure this is working
+            })
+
+            portfolioBoxes[i].addEventListener("touchmove", (e) => {
+                closePortfolioBox(e);
+                let change = e.changedTouches[0].screenX - pBTouchStart;
+                for(let j = 0; j < portfolioBoxes.length; j++) {
+                  let tX = parseFloat(pBTXArray[j]) + parseFloat(change);
+                  portfolioBoxes[j].style.transform = 'translateX(' + tX + 'px)'
+                }
+            })
+
+            portfolioBoxes[i].addEventListener("touchend", (e) => {
+                pBTouchEnd = e.changedTouches[0].screenX;
+                if (pBTouchEnd - 65 > pBTouchStart) {
+                    if (pBIndex !== 0) {
+                        pBIndex--;
+                        portfolioBoxCarousel();
+                    }
+                } else if (pBTouchEnd + 65 < pBTouchStart) {
+                    if (pBIndex !== portfolioBoxes.length - 1) {
+                        pBIndex++;
+                        portfolioBoxCarousel();
+                    }
+                }
+                portfolioBoxCarousel();
+                pBTXArray = [];
+                pBTouchStart = 0;
+                pBTouchEnd = 0;
             })
         }
 
