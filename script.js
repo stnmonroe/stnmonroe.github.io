@@ -434,7 +434,7 @@ const witwarsInfo = [
       "Integrated AdMob banner and insterstitial ads.",
       "Runs background tasks for local push notifications."
     ],
-    bgImage: "./img/mobileAppBg.jpg",
+    bgImage: "./img/mobileAppBg1.jpg",
     images: [
       "img/mobileApp1.png",
       "img/mobileApp2.png",
