@@ -654,6 +654,12 @@ populateMoreInfo = (data) => {
                         </div>
                       `
                     } else {
+                      data[i].images.forEach((img, index) => {
+                        let div = document.createElement('div');
+                        div.id = "preload-" + i + index;
+                        div.style = 'background: url(' + img + ') no-repeat -9999px -9999px';
+                        console.log(div);
+                      })
                       detailedInfoGallery.className = 'detailedInfoGallery';
                       let iLeft = document.createElement('i');
                         iLeft.className = "icon ion-md-arrow-dropleft hidden";
