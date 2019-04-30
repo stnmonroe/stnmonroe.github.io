@@ -179,7 +179,7 @@ menuBall.addEventListener("click", () => {
   checkLocationForMenu();
 
   //Scroll to location when menuItem is clicked
-  let behave = { behavior: "smooth", block: "start"};
+  let behave = { behavior: "smooth", block: "start" };
 
   logo.addEventListener("click", () => {
     initial.scrollIntoView(behave);
@@ -197,6 +197,28 @@ menuBall.addEventListener("click", () => {
           createInitialStars();
           animate();
           pC.scrollIntoView(behave);
+          let div = document.getElementsByClassName('portfolioMoreInfo')[0];
+          if (div) {
+            galleryIndex = 0;
+            for(let i = 0; i < div.children.length; i++) {
+                div.children[i].classList.remove("minimize");
+                div.children[i].classList.remove("blur");
+                if (div.children[i].querySelector(".infoSection")) {
+                    div.children[i].querySelector(".infoSection").classList.remove("hide");
+                }
+            }
+            if (document.querySelector(".detailedInfo")) {
+              document.querySelector(".detailedInfo").remove();
+            }
+            for(let i = div.children.length - 1; i >= 0; i--) {
+                setTimeout(() => {
+                    div.children[i].classList.remove("in");
+                }, i * 100)
+            }
+            setTimeout(() => {
+                div.remove();
+            }, (div.children.length + 1) * 100)
+          }
       } else if (e.textContent === "about me") {
           animate();
           let kids = aboutMeMenu.children;
