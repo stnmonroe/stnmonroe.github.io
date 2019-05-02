@@ -1767,9 +1767,10 @@ let heartContent = [
             </svg>
         `,
         text: [
-            "Exercise sustains my health, confidence, energy, focus, and wild animal instincts.",
+            "Exercise sustains my physical and emotional health, and increases my confidence, energy, focus, and wild animal instincts.",
             "I prefer playing basketball or tennis, but a lack of time and friends sometimes forces me to run.",
-            "Lunch time workouts increase my daily productivity."
+            "Sometimes a short exercise, like 30 pushups, is better than a cup of coffee. Unless you have donuts, then go with the coffee.",
+            "My health foods are cheeseburgers and pizza, obviously."
         ]
     },
     {
@@ -1788,8 +1789,9 @@ let heartContent = [
         `,
         text: [
             "My daily stress relief. Mangia mangia!",
-            "I'm confident in Italian, Mexican, and American dishes. Also, I'm partially-married to olive oil.",
-            "In cooking, I get to learn, experiment, and enjoy...except when I cook fish."
+            "I'm most confident in my Italian dishes and I'm partially-married to olive oil.",
+            "I love to experiment and enjoy, except when my wife asks for fish, then it's just an experiment.",
+
         ]
     },
     {
@@ -1824,7 +1826,8 @@ let heartContent = [
         text: [
             "I love traveling with my wife. She's the other half of a wonderful puzzle.",
             "We often commute on foot through exploritory or gastronomical adventures.",
-            "My most deared trip thus far is Italy, where everyone overloads on carbs and wears tight pants... Life is about choices, people!"
+            "My most deared trip thus far is Italy, where everyone overloads on carbs and wears tight pants... Life is about choices, people!",
+            "Ever since having two young kids, my favorite trips are into pillows."
         ]
     },
     {
@@ -1862,7 +1865,8 @@ let heartContent = [
         `,
         text: [
             "I never thought fatherhood would be this fun or exhausting.",
-            "Chasing my 1-year-old son around the house is the highlight of my day.",
+            "Chasing my 2-year-old son around the house is the highlight of my day.",
+            "Then giving my 6-month-old raspberries comes in second (don't tell him)."
             "My family is everything to me. Without them, I'm nothing."
         ]
     },
