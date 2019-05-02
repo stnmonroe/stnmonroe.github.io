@@ -666,6 +666,7 @@ p {
 .outerDiv.in {
   transform: translateX(0);
   opacity: 1;
+  transition: 0.1s;
 }
 
 .outerDiv {
