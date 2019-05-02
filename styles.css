@@ -626,14 +626,12 @@ p {
   transition: 1s ease-in-out;
   opacity: 0;
   font-weight: 200;
-  visibility: hidden;
   /* text-shadow: 3px 3px 6px #484a46; */
 }
 
 #initial h2.in {
   opacity: 1;
   margin: 10px 0 5px;
-  visibility: visible;
 }
 
 #line {
