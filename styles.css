@@ -602,7 +602,7 @@ p {
 
 #profile {
   border-radius: 50%;
-  transition: 0.1s;
+  transition: 1s ease-in-out;
   opacity: 0;
   user-select: none;
   height: 200px;
@@ -615,7 +615,6 @@ p {
 #profile.in {
   opacity: 1;
   transform: translateY(0);
-  transition: 1s ease-in-out 5s;
   user-select: none;
 }
 
@@ -624,9 +623,9 @@ p {
   font-weight: normal;
   font-size: 3em;
   margin: 0;
+  transition: 1s ease-in-out;
   opacity: 0;
   font-weight: 200;
-  transition: 0.1s;
   visibility: hidden;
   /* text-shadow: 3px 3px 6px #484a46; */
 }
@@ -634,7 +633,6 @@ p {
 #initial h2.in {
   opacity: 1;
   margin: 10px 0 5px;
-  transition: 1s ease-in-out;
   visibility: visible;
 }
 
@@ -642,13 +640,12 @@ p {
   width: 490px;
   height: 1px;
   background-color: white;
-  transition: 0.1s;
+  transition: 0.5s ease-in-out;
   transform: scale(0);
   /* box-shadow: 2px 2px 4px #484a46; */
 }
 
 #line.in {
-  transition: 0.5s ease-in-out;
   transform: scale(1);
 }
 
@@ -657,16 +654,15 @@ p {
   color: white;
   margin-top: 5px;
   font-size: 1.5em;
+  transition: 0.5s ease-in-out;
   transform: translateY(-50px);
   /* text-shadow: 2px 2px 4px #484a46; */
-  transition: 0.1s;
   opacity: 0;
 }
 
 .outerDiv.in {
   transform: translateX(0);
   opacity: 1;
-  transition: 0.5s ease-in-out;
 }
 
 .outerDiv {

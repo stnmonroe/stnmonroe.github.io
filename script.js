@@ -101,25 +101,28 @@ const init = () => {
         let ms = 0;
         switch(i) {
           case 0:
+            elem = kids[i].children[0];
             ms = 5000;
             break;
           case 1:
+            elem = kids[i];
             ms = 4000;
             break;
           case 2:
+            elem = kids[i];
             ms = 6500;
             break;
           case 3:
+            elem = kids[i];
             ms = 6000;
             break;
           default:
             ms = 1000;
         }
         setTimeout(() => {
-          kids[i].classList.add("in");
+          elem.classList.add("in");
         }, ms)
     }
-    document.getElementById("profile").classList.add("in");
     setTimeout(() => {
         document.getElementById("sigA").classList.add("fade");
         document.getElementById("sigM").classList.add("fade");
