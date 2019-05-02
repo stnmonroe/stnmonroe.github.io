@@ -623,22 +623,24 @@ p {
   font-weight: normal;
   font-size: 3em;
   margin: 0;
-  transition: 1s ease-in-out 4s;
+  transition: 1s ease-in-out;
   opacity: 0;
   font-weight: 200;
+  visibility: hidden;
   /* text-shadow: 3px 3px 6px #484a46; */
 }
 
 #initial h2.in {
   opacity: 1;
   margin: 10px 0 5px;
+  visibility: visible;
 }
 
 #line {
   width: 490px;
   height: 1px;
   background-color: white;
-  transition: 0.5s ease-in-out 6.5s;
+  transition: 0.5s ease-in-out;
   transform: scale(0);
   /* box-shadow: 2px 2px 4px #484a46; */
 }
@@ -652,7 +654,7 @@ p {
   color: white;
   margin-top: 5px;
   font-size: 1.5em;
-  transition: 0.5s ease-in-out 6s;
+  transition: 0.5s ease-in-out;
   transform: translateY(-50px);
   /* text-shadow: 2px 2px 4px #484a46; */
   opacity: 0;

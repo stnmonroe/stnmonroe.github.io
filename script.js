@@ -96,8 +96,28 @@ const init = () => {
 
   initialAnimation = () => {
     const kids = initial.children;
+    console.log(kids);
     for(let i = 0; i < kids.length; i++) {
-        kids[i].classList.add("in");
+        let ms = 0;
+        switch(i) {
+          case 0:
+            ms = 5000;
+            break;
+          case 1:
+            ms = 4000;
+            break;
+          case 2:
+            ms = 6500;
+            break;
+          case 3:
+            ms = 6000;
+            break;
+          default:
+            ms = 1000;
+        }
+        setTimeout(() => {
+          kids[i].classList.add("in");
+        }, ms)
     }
     document.getElementById("profile").classList.add("in");
     setTimeout(() => {
@@ -1937,6 +1957,7 @@ const init = () => {
                 <p>Click/tap for more detail.</p>
               `
               for(let i = 0; i < svgDiv.children.length; i++) {
+                  console.log(svgDiv.children[i])
                   setTimeout(() => svgDiv.children[i].classList.add("in"), 125);
               }
           })
