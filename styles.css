@@ -616,6 +616,7 @@ p {
   opacity: 1;
   transform: translateY(0);
   user-select: none;
+  transition: 0.1s;
 }
 
 #initial h2 {
@@ -633,6 +634,7 @@ p {
 #initial h2.in {
   opacity: 1;
   margin: 10px 0 5px;
+  transition: 0.1s;
   visibility: visible;
 }
 
@@ -646,6 +648,7 @@ p {
 }
 
 #line.in {
+  transition: 0.1s;
   transform: scale(1);
 }
 
