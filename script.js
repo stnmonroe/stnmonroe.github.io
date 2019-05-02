@@ -253,7 +253,7 @@ let portfolioItems = [
         src: "img/fiveable.png"
     },
     tech: ["React", "React-Native", "Redux", "Router-Flux", "React-Router-DOM", "Firebase", "Braintree"],
-    desc: "CTO and sole engineer for new React and React-Native platform. Backend built on Firebase using Braintree for payment processing.",
+    desc: "Sole front-end developer for React and React-Native platform. Built backend on Firebase using Braintree for payment processing.",
     btn: {
         text: "More Info",
         name: "fiveable"
@@ -265,7 +265,7 @@ let portfolioItems = [
         src: "img/witwars.png"
     },
     tech: ["React-Native", "Redux", "Router-Flux", "Node.js", "Express", "Pug", "CSS", "jQuery", "AdMob"],
-    desc: "Co-founder, sole UI Engineer for React-Native app, sole designer, sole content creator, and co-developer of web app.",
+    desc: "Co-founder, front-end developer, designer, content creator, and marketing strategist.",
     btn: {
         text: "More Info",
         name: "witwars"
@@ -277,7 +277,7 @@ let portfolioItems = [
         src: "img/voyager.png"
     },
     tech: ["Wordpress", "HTML", "CSS", "SEO", "Google Ads", "Facebook Ads", "GIMP", "Sketch 3", "Final Cut Pro"],
-    desc: "Designed website and online marketing strategy, plus created most video, written, and graphic content for manufacturing company.",
+    desc: "Designed and built website and online marketing strategy, plus created most video, written, and graphic content.",
     btn: {
         text: "Visit Site",
         link: "http://www.mtcvoyager.com"
