@@ -657,16 +657,16 @@ p {
   color: white;
   margin-top: 5px;
   font-size: 1.5em;
-  transition: 0.5s ease-in-out;
   transform: translateY(-50px);
   /* text-shadow: 2px 2px 4px #484a46; */
+  transition: 0.1s;
   opacity: 0;
 }
 
 .outerDiv.in {
   transform: translateX(0);
   opacity: 1;
-  transition: 0.1s;
+  transition: 0.5s ease-in-out;
 }
 
 .outerDiv {
