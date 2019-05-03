@@ -704,7 +704,6 @@ const init = () => {
                           let div = document.createElement('div');
                           div.id = "preload-" + i + index;
                           div.style = 'background: url(' + img + ') no-repeat -9999px -9999px';
-                          console.log(div);
                         })
                         detailedInfoGallery.className = 'detailedInfoGallery';
                         let iLeft = document.createElement('i');
@@ -729,7 +728,6 @@ const init = () => {
                           touchStart = e.changedTouches[0].screenX;
                         })
                         galleryImg.addEventListener("touchmove", (e) => {
-                          console.log(e.changedTouches[0].screenX - touchStart)
                           let change = e.changedTouches[0].screenX - touchStart;
                           let halfWidth = window.innerWidth / 2;
                           galleryImg.style.transform = 'translateX(' + change + 'px) rotate(' + (change/halfWidth) * 20 + 'deg)'
@@ -740,7 +738,6 @@ const init = () => {
                         })
 
                         handleSwipe = () => {
-                          console.log(touchStart, touchEnd)
                           if (touchEnd - 65 > touchStart && galleryIndex !== 0) {
                             moveLeft();
                           } else if (touchEnd + 65 < touchStart && galleryIndex !== data[i].images.length - 1) {
@@ -763,13 +760,15 @@ const init = () => {
                           setTimeout(() => {
                             galleryImg.style.transform = 'translateX(' + window.innerWidth + 'px) rotate(25deg)';
                             setTimeout(() => {
-                              galleryImg.style.opacity = 1;
                               galleryImg.src = data[i].images[galleryIndex];
-                              galleryImg.style.transform = 'translateX(0px) rotate(0deg)';
-                              touchStart = 0;
-                              touchEnd = 0;
-                            }, 150)
-                          }, 150)
+                              setTimeout(() => {
+                                galleryImg.style.opacity = 1;
+                                galleryImg.style.transform = 'translateX(0px) rotate(0deg)';
+                                touchStart = 0;
+                                touchEnd = 0;
+                              }, 200)
+                            }, 50)
+                          }, 200)
                         }
 
                         let moveLeft = () => {
@@ -783,13 +782,15 @@ const init = () => {
                           setTimeout(() => {
                             galleryImg.style.transform = 'translateX(' + window.innerWidth * -1 + 'px) rotate(-25deg)';
                             setTimeout(() => {
-                              galleryImg.style.opacity = 1;
                               galleryImg.src = data[i].images[galleryIndex];
-                              galleryImg.style.transform = 'translateX(0px) rotate(0deg)';
-                              touchStart = 0;
-                              touchEnd = 0;
-                            }, 300)
-                          }, 300)
+                              setTimeout(() => {
+                                galleryImg.style.opacity = 1;
+                                galleryImg.style.transform = 'translateX(0px) rotate(0deg)';
+                                touchStart = 0;
+                                touchEnd = 0;
+                              }, 200)
+                            }, 50)
+                          }, 200)
                         }
                       }
 
@@ -1764,7 +1765,6 @@ const init = () => {
               formKids[i].children[0].classList.add("selected")
           })
           formKids[i].children[1].addEventListener("focusout", () => {
-              console.log(formKids[i].children[1].value)
               if (formKids[i].children[1].value.length < 1) {
                   formKids[i].children[0].classList.remove("selected")
               }
@@ -1815,7 +1815,7 @@ const init = () => {
               "My daily stress relief. Mangia mangia!",
               "I'm most confident in my Italian dishes and I'm partially-married to olive oil.",
               "I love to experiment and enjoy, except when my wife asks for fish, then it's just an experiment.",
-
+              "Also, I find it difficult to go grocery shopping without buying chocolate."
           ]
       },
       {
@@ -1829,9 +1829,10 @@ const init = () => {
               </svg>
           `,
           text: [
-              "Video games are a complex art form.",
-              "Reprioritization has interfered with time played, but I revere the complicated work put into these games.",
-              "I occasionally squeeze in time for competitive online gaming. Such a rush!",
+              "Video games are an art form that bewilder me with their complexity.",
+              "Reprioritization has interfered with time played, but I revere the work put into these games.",
+              "I missed my chance at a professional Rocket League career, so now I code.",
+              "I occasionally squeeze in time for competitive online gaming. Such a rush to lose to 12 year olds!",
           ]
       },
       {
@@ -1960,7 +1961,6 @@ const init = () => {
                 <p>Click/tap for more detail.</p>
               `
               for(let i = 0; i < svgDiv.children.length; i++) {
-                  console.log(svgDiv.children[i])
                   setTimeout(() => svgDiv.children[i].classList.add("in"), 125);
               }
           })
