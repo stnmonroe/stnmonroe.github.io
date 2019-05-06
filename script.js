@@ -505,7 +505,7 @@ const init = () => {
       id: "wwInfoWeb",
       statements: [
         "An entry version of the game, used mostly as a landing page.",
-        "Also, used to handle forgetten passwords and war sharing.",
+        "Also, used to handle forgotten passwords and war sharing.",
         "Works with a RESTful API.",
         "Uses Express and renders via Pug (formerly Jade).",
         "Co-developed web app with former business partner.",
